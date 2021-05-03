@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+mix.disableNotifications();
 
 /*
  |--------------------------------------------------------------------------
@@ -16,6 +17,10 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
     ]);
+
+mix.sass('resources/sass/fontawesome.scss', 'public/css');
+
+mix.styles(['resources/css/cdsolec.css'], 'public/css/cdsolec.css');
 
 if (mix.inProduction()) {
     mix.version();
