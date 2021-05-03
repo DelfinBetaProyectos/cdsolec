@@ -6,6 +6,8 @@ Web App de Ventas de CD-SOLEC
 
 * _Instalar Laravel 8.0._
 * _Instalar MySQL 8.0._
+* _Instalar Laravel Jetstream 2.3._
+* _Instalar Livewire 2.0._
 
 * _Storage_
 
