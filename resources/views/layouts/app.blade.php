@@ -10,8 +10,11 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}" />
+
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/cdsolec.css') }}">
 
         @livewireStyles
 
@@ -40,6 +43,8 @@
         </div>
 
         @stack('modals')
+        
+        @stack('scripts')
 
         @livewireScripts
     </body>
