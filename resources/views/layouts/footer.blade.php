@@ -1,9 +1,9 @@
 <footer class="relative mt-0 text-white">
 	<div class="bg-blue-700 pt-8">
-		<div class="container ml-10">
+		<div class="container ml-4 md:ml-10">
 			<div class="grid gap-2 grid-cols-1 md:grid-cols-2">
 				<div class="relative">
-					<div class="absolute bg-blue-800 top-0 bottom-0 -right-20 md:right-0 -left-10 block" style="transform: skew( 20deg); transform-origin: 100% 145%; pointer-events: none;">
+					<div class="absolute bg-blue-800 top-0 bottom-0 right-0 -left-10 block" style="transform: skew( 20deg); transform-origin: 100% 145%; pointer-events: none;">
 						
 					</div>
 					<div class="relative py-9 px-0 flex flex-wrap">

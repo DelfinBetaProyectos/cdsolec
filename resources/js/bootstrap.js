@@ -30,4 +30,24 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /* Splide 
 
 */
+import Splide from '@splidejs/splide';
+
+new Splide( '.splide', {	
+	rewind: true,
+	type   : 'loop',
+	perPage: 3,	
+	perMove: 1,
+	pagination: true,
+	autoplay: true,
+	cover: true,
+	height : '8rem',
+	fixedWidth: '12rem',
+	fixedHeight: '8rem',	
+	breakpoints: {
+		640: {
+			perPage: 2,
+		},
+	}
+}).mount();
+
 
