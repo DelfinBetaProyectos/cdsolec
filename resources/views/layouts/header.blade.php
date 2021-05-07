@@ -1,6 +1,6 @@
 <header class="header z-10">
 	<div class="border-t border-b border-gray-300 text-xs md:text-sm">
-		<nav class="bg-green-300 flex-wrap">
+		<nav class="flex-wrap">
 			<div class="container mx-auto">
 				<div class="flex ">
 					<div class="">
@@ -78,7 +78,7 @@
 								</ul>
 							</div>
 							<div class="hidden md:block col-span-2" id="form">
-								<ul class="flex flex-col md:flex-row justify-end items-center">
+								<ul class="flex flex-row justify-end items-center">
 									<li>
 										<form action="" method="get" class="w-full mr-3">
 											<input type="text" name="search" class="border border-gray-300 pt-2 pb-2.5 px-3 md:w-80 w-40 rounded-md shadow-sm  my-1 text-gray-600" placeholder="Buscar">
@@ -100,27 +100,4 @@
 			</div>
 		</nav>
 	</div>
-	<script type="text/javascript">/*
-		window.onscroll = function() {
-		  var y = window.scrollY;
-		  console.log(y);
-		};
-		document.querySelector('#prueba #id3.clase')*/
-
-            /* Function for dropdowns nav */
-            function openNavItem(event, dropdownID) {
-                event.preventDefault();
-                let element = event.target;
-
-                let elementActive = document.querySelector('.isActive');
-                if (elementActive) {
-	                elementActive.classList.toggle("isActive");
-	                elementActive.classList.toggle("hidden");              	
-                }
-
-                document.getElementById(dropdownID).classList.toggle("hidden");
-                document.getElementById(dropdownID).classList.toggle("block");
-                document.getElementById(dropdownID).classList.toggle("isActive");
-            }
-	</script>
 </header><!-- /header -->

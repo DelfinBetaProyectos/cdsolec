@@ -16,11 +16,14 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss')
-    ]);
+    ])
+    .webpackConfig(require('./webpack.config'));
 
 mix.sass('resources/sass/fontawesome.scss', 'public/css');
 
 mix.styles(['resources/css/cdsolec.css'], 'public/css/cdsolec.css');
+
+mix.js('resources/js/splide.js', 'public/js');
 
 if (mix.inProduction()) {
     mix.version();
