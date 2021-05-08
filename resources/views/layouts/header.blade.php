@@ -67,13 +67,13 @@
 							<div class="hidden md:block col-span-2 mt-auto" id="us">
 								<ul class="flex flex-col md:flex-row list-none items-center md:justify-between justify-center mb-auto">
 									<li class="p-4 uppercase">
-										<a href="" class="border-b border-green-300 hover:border-b hover:border-gray-600 transition-all ease-out duration-700 hover:text-yellow-200">Nosotros</a>
+										<a href="" class="border-b border-green-400 hover:border-b hover:border-gray-600 transition-all ease-out duration-700 hover:text-yellow-200">Nosotros</a>
 									</li>
 									<li class="p-4 uppercase">
-										<a href="" class="border-b border-green-300 hover:border-b hover:border-gray-600 transition-all ease-out duration-700 hover:text-yellow-200">Contactos</a>
+										<a href="" class="border-b border-green-400 hover:border-b hover:border-gray-600 transition-all ease-out duration-700 hover:text-yellow-200">Contactos</a>
 									</li>
 									<li class="p-4 uppercase">
-										<a href="" class="border-b border-green-300 hover:border-b hover:border-gray-600 transition-all ease-out duration-700 hover:text-yellow-200">item 3</a>
+										<a href="" class="border-b border-green-400 hover:border-b hover:border-gray-600 transition-all ease-out duration-700 hover:text-yellow-200">item 3</a>
 									</li>
 								</ul>
 							</div>
