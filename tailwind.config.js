@@ -8,6 +8,9 @@ const colors = {
   'gray-lightest': '#f8fafc',
   'gray-mid-light': '#f3f3f4',
   'white-lightest': '#f4f4f4',
+
+  'cdsolec-green01': '#44a261',
+  'cdsolec-green02': '#5fb387',
   
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
@@ -250,6 +253,7 @@ module.exports = {
         borderColor: ['responsive', 'hover', 'focus'],
         borderStyle: ['responsive', 'hover', 'focus'],
         borderWidth: ['responsive', 'hover', 'focus'],
+        overflow: ['hover', 'focus'],
     },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
