@@ -11,7 +11,7 @@
 			<div class="lg:w-3/4 xl:w-2/4 relative z-1 h-100 lg:mt-16">
 				<div>
 					<h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">Lorem ipsum consectetur adipisicing elit.</h1>
-					<p class="text-blue-100 text-xl md:text-2xl leading-snug mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit verde rgb(135, 182, 65)</p>
+					<p class="text-blue-100 text-xl md:text-2xl leading-snug mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit verde</p>
 					<a href="#" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">ass</a>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 		</div>
 	</div>
 
-	<div class="splide bg-gray-100" data-splide='{"type":"loop", "perPage": 1, "height": "100vh", "autoplay": true}'>		
+	<!--<div class="splide bg-gray-100" data-splide='{"type":"loop", "perPage": 1, "height": "100vh", "autoplay": true}'>		
 		<div class="splide__arrows">
 			<button class="splide__arrow splide__arrow--prev">
 				<i class="fas fa-caret-square-left fa-5x ml-6"></i>
@@ -77,14 +77,14 @@
 				</li>
 			</ul>
 		</div>				
-	</div>
+	</div>-->
 
 	<div class="container mx-auto my-2">
 		<div class="bg-white border-2 border-gray-300">
 			<div class="w-full bg-gray-400 block px-4 py-3">
 				Nuestra Marcas
 			</div>
-			<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "height": "12rem", "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
+			<!--<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "height": "12rem", "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
 				<div class="splide__track">
 					<ul class="splide__list">
 						<li class="splide__slide" style="">
@@ -109,7 +109,7 @@
 					<div class="splide__progress__bar">
 					</div>
 				</div>--}}
-			</div>
+			</div>-->
 		</div>
 	</div>
 

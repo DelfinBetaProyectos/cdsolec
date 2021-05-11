@@ -87,9 +87,12 @@
 										
 									</li>
 									<li x-data="{ isCart : false }">
-										<button class="p-3 mb-1 bg-gray-400 hover:text-blue-400 hover:bg-gray-300" @click="isCart = !isCart" @keydown.escape="isCart = false" title="Cart">
+										<button class="relative p-3 mb-1 bg-gray-400 hover:text-blue-400 hover:bg-gray-300" @click="isCart = !isCart" @keydown.escape="isCart = false" title="Cart">
 											<i class="fas fa-shopping-cart fa-lg">
 											</i>
+											<div class="animate-bounce absolute bg-cdsolec-green02 top-2 right-1 rounded-lg" style="border: 1px solid #EE1C24;">
+												<span class="px-1 text-white  text-sm">1</span>
+											</div>
 										</button>
 
 										<x-sumary-cart data=""></x-sumary-cart>
