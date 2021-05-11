@@ -55,7 +55,7 @@
 		</div>
 	</div>
 
-	<!--<div class="splide bg-gray-100" data-splide='{"type":"loop", "perPage": 1, "height": "100vh", "autoplay": true}'>		
+	<div class="splide bg-gray-100" data-splide='{"type":"loop", "perPage": 1, "height": "100vh", "autoplay": true}'>		
 		<div class="splide__arrows">
 			<button class="splide__arrow splide__arrow--prev">
 				<i class="fas fa-caret-square-left fa-5x ml-6"></i>
@@ -77,14 +77,14 @@
 				</li>
 			</ul>
 		</div>				
-	</div>-->
+	</div>
 
 	<div class="container mx-auto my-2">
 		<div class="bg-white border-2 border-gray-300">
 			<div class="w-full bg-gray-400 block px-4 py-3">
 				Nuestra Marcas
 			</div>
-			<!--<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "height": "12rem", "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
+			<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "height": "12rem", "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
 				<div class="splide__track">
 					<ul class="splide__list">
 						<li class="splide__slide" style="">
@@ -109,7 +109,7 @@
 					<div class="splide__progress__bar">
 					</div>
 				</div>--}}
-			</div>-->
+			</div>
 		</div>
 	</div>
 
