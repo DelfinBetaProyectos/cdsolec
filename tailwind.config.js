@@ -8,6 +8,9 @@ const colors = {
   'gray-lightest': '#f8fafc',
   'gray-mid-light': '#f3f3f4',
   'white-lightest': '#f4f4f4',
+
+  'cdsolec-green-dark': '#2E9B00',
+  'cdsolec-green-light': '#8DFC00',
   
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
