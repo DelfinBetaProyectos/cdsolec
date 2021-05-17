@@ -253,6 +253,8 @@ module.exports = {
         borderColor: ['responsive', 'hover', 'focus'],
         borderStyle: ['responsive', 'hover', 'focus'],
         borderWidth: ['responsive', 'hover', 'focus'],
+        overflow: ['hover', 'focus'],
+        animation: ['responsive', 'motion-safe', 'motion-reduce'],
     },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],

@@ -6,12 +6,12 @@
 		<div class="bg-gray-200 relative bg-green-600 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-32 flex
       items-center" style="border-bottom-right-radius: 256px;">
 			<div class="h-full absolute top-0 left-0 z-0">
-				<img src="{{ asset('img/banner.jpg') }}" alt="" class="w-full h-full object-cover opacity-20">
+				<img src="{{ asset('img/Logos/Logo-CD-SOLEC-2.jpg') }}" alt="" class="w-full h-full object-cover opacity-20">
 			</div>
 			<div class="lg:w-3/4 xl:w-2/4 relative z-1 h-100 lg:mt-16">
 				<div>
 					<h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">Lorem ipsum consectetur adipisicing elit.</h1>
-					<p class="text-blue-100 text-xl md:text-2xl leading-snug mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+					<p class="text-blue-100 text-xl md:text-2xl leading-snug mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit verde</p>
 					<a href="#" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">ass</a>
 				</div>
 			</div>
@@ -128,10 +128,10 @@
 		//console.log(y);
 		let navbar = document.querySelector('nav');
 		if (y > 120) {
-			navbar.classList.add("bg-green-400");
+			navbar.classList.add("bg-green-600");
 		}
 		if (y < 100) {			
-			navbar.classList.remove("bg-green-400");
+			navbar.classList.remove("bg-green-600");
 		}
 	};
 
