@@ -19,14 +19,14 @@
 				<div>
 					<div class="flex flex-wrap">
 						<h3 class="text-4xl">Subcribete</h3>
-						<p class="mt-auto ml-2 mb-1">Obten más de nuestras ofertas.</p>
+						<p class="mt-auto ml-2 mb-2">Obten más de nuestras ofertas.</p>
 					</div>
 					<form class="grid grid-cols-2" action="">
 						<div class="relative">
 							<x-jet-input id="email" class="block mt-1 w-full text-gray-600" type="email" name="email" :value="old('email')" required placeholder="Email."/>					
 						</div>
 						<div class="relative">
-							<x-jet-button class="ml-3 py-3 px-4 ml-1 mt-1">
+							<x-jet-button class="ml-3 py-2 px-4 mt-1">
 								{{ __('Subcribete') }}
 							</x-jet-button>
 						</div>

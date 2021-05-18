@@ -12,6 +12,9 @@ const colors = {
   'cdsolec-green-dark': '#2E9B00',
   'cdsolec-green-light': '#8DFC00',
   
+  'cdsolec-green01': '#44a261',
+  'cdsolec-green02': '#5fb387',
+  
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
   'red-dark': '#cc1f1a',
