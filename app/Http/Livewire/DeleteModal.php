@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\{User, Company, Route, Vehicle, Category, Setting, Type, Carry, Expense};
 use Livewire\Component;
+use App\Models\{User, Company, Route, Vehicle, Category, Setting, Type, Carry, Expense};
 
 class DeleteModal extends Component
 {
