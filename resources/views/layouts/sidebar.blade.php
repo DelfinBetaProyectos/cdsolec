@@ -32,8 +32,7 @@
           </a>
         </li>
         <li class="items-center">
-          {{-- {{ route('categories.index') }} --}}
-          <a href="#" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
+          <a href="{{ route('categories.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
             <i class="fas fa-list-alt mr-2 text-sm"></i> Categorias
           </a>
         </li>

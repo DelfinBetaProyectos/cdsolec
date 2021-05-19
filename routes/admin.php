@@ -4,6 +4,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,13 @@ Route::get('/settings/trash', [SettingController::class, 'trash'])->name('settin
 Route::get('/settings/{id}/restore', [SettingController::class, 'restore'])->name('settings.restore')->where('id', '[0-9]+');
 Route::patch('/settings/{id}/delete', [SettingController::class, 'delete'])->name('settings.delete')->where('id', '[0-9]+');
 Route::resource('settings', SettingController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes of Categories
+|--------------------------------------------------------------------------
+*/
+Route::get('/categories/trash', [CategoryController::class, 'trash'])->name('categories.trash');
+Route::get('/categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore')->where('id', '[0-9]+');
+Route::patch('/categories/{id}/delete', [CategoryController::class, 'delete'])->name('categories.delete')->where('id', '[0-9]+');
+Route::resource('categories', CategoryController::class);
