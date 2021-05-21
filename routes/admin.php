@@ -5,6 +5,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,13 @@ Route::get('/categories/trash', [CategoryController::class, 'trash'])->name('cat
 Route::get('/categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore')->where('id', '[0-9]+');
 Route::patch('/categories/{id}/delete', [CategoryController::class, 'delete'])->name('categories.delete')->where('id', '[0-9]+');
 Route::resource('categories', CategoryController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes of Brands
+|--------------------------------------------------------------------------
+*/
+Route::get('/brands/trash', [BrandController::class, 'trash'])->name('brands.trash');
+Route::get('/brands/{id}/restore', [BrandController::class, 'restore'])->name('brands.restore')->where('id', '[0-9]+');
+Route::patch('/brands/{id}/delete', [BrandController::class, 'delete'])->name('brands.delete')->where('id', '[0-9]+');
+Route::resource('brands', BrandController::class);
