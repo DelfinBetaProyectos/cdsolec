@@ -31,7 +31,7 @@ class Brand extends Model implements Auditable
 		if($this->image) {
 			$image = 'storage/brands/'.$this->image;
 		} else {
-			$image = 'img/42.jpg';
+			$image = 'img/CD-SOLEC.png';
 		}
 
 		return $image;

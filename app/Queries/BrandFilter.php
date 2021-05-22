@@ -25,7 +25,8 @@ class BrandFilter extends QueryFilter
     }
 
     return $query->where(function ($query) use ($search) {
-      $query->where('name', 'like', "%{$search}%");
+      $query->where('name', 'like', "%{$search}%")
+            ->orWhere('image', 'like', "%{$search}%");
     });
 	}
 

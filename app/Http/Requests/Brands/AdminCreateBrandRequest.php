@@ -41,7 +41,6 @@ class AdminCreateBrandRequest extends FormRequest
   {
     return [
       'name.required' => 'El Nombre es requerido',
-      'image.required' => 'La Imagen es requerida',
       'image.image' => 'La Imagen es inválida',
     ];
   }
@@ -62,6 +61,8 @@ class AdminCreateBrandRequest extends FormRequest
         $imageName = $filename.'_'.$i.'.'.$extension;
         $i++;
       }
+
+      if (!file_exists('storage/brands/')) { mkdir('storage/brands', 0777, true); }
 
       $thumbnail = Image::make($fileImage);
       $thumbnail->fit(600);

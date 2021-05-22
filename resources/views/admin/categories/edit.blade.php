@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-			<i class="fas fa-list-alt"></i> Categorias
+			<i class="fas fa-list-alt"></i> Categorías
 		</h2>
 	</x-slot>
 
@@ -9,8 +9,8 @@
 		<nav class="mb-3 px-3 py-2 rounded bg-gray-200 text-gray-600">
 			<ol class="flex flex-wrap">
 				<li><a href="{{ route('dashboard') }}" class="text-cdsolec-green-dark"><i class="fas fa-home"></i></a></li>
-				<li><span class="mx-2">/</span><a href="{{ route('categories.index') }}" class="text-cdsolec-green-dark">Categorias</a></li>
-				<li><span class="mx-2">/</span>Editar Categorias</li>
+				<li><span class="mx-2">/</span><a href="{{ route('categories.index') }}" class="text-cdsolec-green-dark">Categorías</a></li>
+				<li><span class="mx-2">/</span>Editar Categorías</li>
 			</ol>
 		</nav>
 

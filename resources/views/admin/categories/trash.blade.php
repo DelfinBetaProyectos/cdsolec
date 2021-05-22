@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-			<i class="fas fa-list-alt"></i> Categorias
+			<i class="fas fa-list-alt"></i> Categorías
 		</h2>
 	</x-slot>
 
@@ -9,8 +9,8 @@
 		<nav class="mb-3 px-3 py-2 rounded bg-gray-200 text-gray-600">
 			<ol class="flex flex-wrap">
 				<li><a href="{{ route('dashboard') }}" class="text-cdsolec-green-dark"><i class="fas fa-home"></i></a></li>
-				<li><span class="mx-2">/</span><a href="{{ route('categories.index') }}" class="text-cdsolec-green-dark">Categorias</a></li>
-				<li><span class="mx-2">/</span>Papelera de Categorias</li>
+				<li><span class="mx-2">/</span><a href="{{ route('categories.index') }}" class="text-cdsolec-green-dark">Categorías</a></li>
+				<li><span class="mx-2">/</span>Papelera de Categorías</li>
 			</ol>
 		</nav>
 
@@ -22,12 +22,12 @@
 	    	<thead>
 	    		<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
 	    			<th class="px-3 py-3 font-medium text-left">
-	    				Categorias
+	    				Categorías
 	    			</th>
 	    			<th style="width: 110px" class="px-2 py-3 font-medium text-center">
 	    				Fecha
 	    			</th>
-	    			<th style="width: 170px" class="px-3 py-3 font-medium text-center">
+	    			<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 	    				Opciones
 	    			</th>
 	    		</tr>
@@ -38,7 +38,7 @@
 	            <tr class="flex flex-col lg:table-row even:bg-gray-200">
 	            	<td class="flex flex-row lg:table-cell">
 	            		<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-	            			Categorias
+	            			Categorías
 	            		</div>
 	            		<div class="p-2 flex items-center">
 	            			<div>

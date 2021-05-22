@@ -73,7 +73,7 @@
           <th style="width: 110px" class="px-2 py-3 font-medium text-center">
             Fecha
           </th>
-          <th style="width: 170px" class="px-3 py-3 font-medium text-center">
+          <th style="width: 120px" class="px-3 py-3 font-medium text-center">
             Opciones
           </th>
         </tr>

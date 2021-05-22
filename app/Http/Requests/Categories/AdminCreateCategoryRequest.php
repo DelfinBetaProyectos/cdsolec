@@ -40,7 +40,6 @@ class AdminCreateCategoryRequest extends FormRequest
     return [
       'name.required' => 'El Nombre es requerido',
       'name.unique' => 'El Nombre debe de ser único',
-      'image.image' => 'La Imagen es inválida'
     ];
   }
 

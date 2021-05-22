@@ -17,11 +17,6 @@
             <i class="fas fa-users mr-2 text-sm"></i> Usuarios
           </a>
         </li>
-        <li class="items-center">
-          <a href="{{ route('brands.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
-            <i class="fas fa-copyright mr-2 text-sm"></i> Marcas
-          </a>
-        </li>
       </ul>
       <hr class="my-4 md:min-w-full" />
     @endif
@@ -37,8 +32,13 @@
           </a>
         </li>
         <li class="items-center">
+          <a href="{{ route('brands.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
+            <i class="fas fa-copyright mr-2 text-sm"></i> Marcas
+          </a>
+        </li>
+        <li class="items-center">
           <a href="{{ route('categories.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
-            <i class="fas fa-list-alt mr-2 text-sm"></i> Categorias
+            <i class="fas fa-list-alt mr-2 text-sm"></i> Categorías
           </a>
         </li>
       </ul>

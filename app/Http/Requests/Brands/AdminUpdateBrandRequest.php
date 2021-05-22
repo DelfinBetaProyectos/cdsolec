@@ -61,9 +61,11 @@ class AdminUpdateBrandRequest extends FormRequest
       $i = 1;
       //ADD A NUMBER IF FILE EXISTS
       while(Storage::disk('public')->exists('brands/'.$imageName)) {
-          $imageName = $filename.'_'.$i.'.'.$extension;
-          $i++;
+        $imageName = $filename.'_'.$i.'.'.$extension;
+        $i++;
       }
+
+      if (!file_exists('storage/brands/')) { mkdir('storage/brands', 0777, true); }
 
       $thumbnail = Image::make($fileImage);
       $thumbnail->fit(600);
