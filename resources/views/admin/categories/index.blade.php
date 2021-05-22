@@ -107,7 +107,12 @@
 	            			<a href="{{ route('categories.edit', $category) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
 	            				<i class="fas fa-sm fa-edit"></i>
 	            			</a>
-	            			@livewire('model-eliminar', ['detalle' => 'la Categoria', 'model_id' => $category->id, 'route' => 'categories.destroy', 'method' => 'delete'])
+	            			@livewire('delete-modal', [
+                      'msg' => 'a la Categoría',
+                      'model_id' => $category->id,
+                      'route' => 'categories.destroy',
+                      'method' => 'delete'
+                    ])
 	            		</div>
 	            	</td>
 	            </tr>

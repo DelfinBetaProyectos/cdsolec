@@ -146,7 +146,12 @@
                     <i class="fas fa-fw fa-sm fa-lock"></i>
                   </a>
                   @if(($user->id != Auth::id()) && ($user->id != 1))
-                    @livewire('delete-modal', ['model' => 'Usuario', 'model_id' => $user->id])
+                    @livewire('delete-modal', [
+                      'msg' => 'al Usuario',
+                      'model_id' => $user->id,
+                      'route' => 'users.destroy',
+                      'method' => 'delete'
+                    ])
                   @endif
                 </div>
               </td>

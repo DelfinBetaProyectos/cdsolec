@@ -31,7 +31,7 @@ class SettingController extends Controller
   {
     $settings = Setting::query()
                         ->filterBy($filters, $request->only(['search', 'from', 'to']))
-                        ->orderBy('id', 'DESC')
+                        ->orderBy('name', 'ASC')
                         ->paginate();
 
     $settings->appends($filters->valid());
@@ -67,7 +67,7 @@ class SettingController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Setting  $setting
+   * @param  \App\Models\Setting  $setting
    * @return \Illuminate\Http\Response
    */
   public function show(Setting $setting)
@@ -78,7 +78,7 @@ class SettingController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Setting  $setting
+   * @param  \App\Models\Setting  $setting
    * @return \Illuminate\Http\Response
    */
   public function edit(Setting $setting)
@@ -90,7 +90,7 @@ class SettingController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \App\Http\Requests\Settings\AdminUpdateSettingRequest  $request
-   * @param  \App\Setting  $setting
+   * @param  \App\Models\Setting  $setting
    * @return \Illuminate\Http\Response
    */
   public function update(AdminUpdateSettingRequest $request, Setting $setting)
@@ -103,7 +103,7 @@ class SettingController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Setting  $setting
+   * @param  \App\Models\Setting  $setting
    * @return \Illuminate\Http\Response
    */
   public function destroy(Setting $setting)

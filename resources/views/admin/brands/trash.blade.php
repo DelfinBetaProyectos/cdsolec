@@ -67,7 +67,12 @@
 	            			<a href="{{ route('brands.restore', $brand) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
 	            				<i class="fas fa-sm fa-undo"></i>
 	            			</a>
-	            			@livewire('model-eliminar', ['detalle' => 'permanentemente la Marca', 'model_id' => $brand->id, 'route' => 'brands.delete', 'method' => 'patch'])
+	            			@livewire('delete-modal', [
+                      'msg' => 'permanentemente a la Categoría',
+                      'model_id' => $category->id,
+                      'route' => 'categories.delete',
+                      'method' => 'patch'
+                    ])
 	            		</div>
 	            	</td>
 	            </tr>

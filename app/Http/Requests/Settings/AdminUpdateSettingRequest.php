@@ -40,10 +40,10 @@ class AdminUpdateSettingRequest extends FormRequest
   {
     return [
       'name.required' => 'El Nombre es obligatorio',
-      'name.string' => 'El Nombre inválido',
+      'name.string' => 'El Nombre es inválido',
       'name.unique' => 'El Nombre debe ser único',
       'value.required' => 'El Valor es obligatorio',
-      'value.numeric' => 'El Valor inválido'
+      'value.numeric' => 'El Valor es inválido'
     ];
   }
 

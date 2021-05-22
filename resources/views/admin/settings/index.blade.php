@@ -61,98 +61,103 @@
 			</a>
 		</div>
 
-	    <table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
-	    	<thead>
-	    		<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
-	    			<th class="px-3 py-3 font-medium text-left">
-	    				Configuración
-	    			</th>
-	    			<th class="px-2 py-3 font-medium text-left">
-	    				Valor
-	    			</th>
-	    			<th style="width: 110px" class="px-2 py-3 font-medium text-center">
-	    				Fecha
-	    			</th>
-	    			<th style="width: 170px" class="px-3 py-3 font-medium text-center">
-	    				Opciones
-	    			</th>
-	    		</tr>
-	    	</thead>
-	        @if ($settings->isNotEmpty())
-	        <tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-	          	@foreach($settings as $setting)
-	            <tr class="flex flex-col lg:table-row even:bg-gray-200">
-	            	<td class="flex flex-row lg:table-cell">
-	            		<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-	            			Configuración
-	            		</div>
-	            		<div class="p-2 flex items-center">
-	            			<div>
-	            				<div class="text-sm leading-5 font-semibold">
-	            					{{ $setting->name }}
-	            				</div>
-	            			</div>
-	            		</div>
-	            	</td>
-	            	<td class="flex flex-row lg:table-cell">
-	            		<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-	            			Valor
-	            		</div>
-	            		<div class="p-2">
-	            			{{ number_format($setting->value, 2, ",", ".") }}
-	            		</div>
-	            	</td>
-	            	<td class="flex flex-row lg:table-cell">
-	            		<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-	            			Fecha
-	            		</div>
-	            		<div class="p-2 text-center">
-	            			{{ $setting->created_at->format('d/m/Y') }}
-	            		</div>
-	            	</td>
-	            	<td class="flex flex-row lg:table-cell">
-	            		<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-	            			Opciones
-	            		</div>
-	            		<div class="p-2 text-center">
-	            			<a href="{{ route('settings.edit', $setting) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
-	            				<i class="fas fa-sm fa-edit"></i>
-	            			</a>
-	            			@livewire('model-eliminar', ['detalle' => 'la Configuración', 'model_id' => $setting->id, 'route' => 'settings.destroy', 'method' => 'delete'])
-	            		</div>
-	            	</td>
-	            </tr>
-	            @endforeach
-	    	</tbody>
-	    	@endif
-	    </table>
+    <table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
+      <thead>
+        <tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
+          <th class="px-3 py-3 font-medium text-left">
+            Configuración
+          </th>
+          <th class="px-2 py-3 font-medium text-left">
+            Valor
+          </th>
+          <th style="width: 110px" class="px-2 py-3 font-medium text-center">
+            Fecha
+          </th>
+          <th style="width: 170px" class="px-3 py-3 font-medium text-center">
+            Opciones
+          </th>
+        </tr>
+      </thead>
+      @if ($settings->isNotEmpty())
+        <tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
+          @foreach($settings as $setting)
+            <tr class="flex flex-col lg:table-row even:bg-gray-200">
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Configuración
+                </div>
+                <div class="p-2 flex items-center">
+                  <div>
+                    <div class="text-sm leading-5 font-semibold">
+                      {{ $setting->name }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Valor
+                </div>
+                <div class="p-2">
+                  {{ number_format($setting->value, 2, ",", ".") }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Fecha
+                </div>
+                <div class="p-2 text-center">
+                  {{ $setting->created_at->format('d/m/Y') }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Opciones
+                </div>
+                <div class="p-2 text-center">
+                  <a href="{{ route('settings.edit', $setting) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
+                    <i class="fas fa-sm fa-edit"></i>
+                  </a>
+                  @livewire('delete-modal', [
+                    'msg' => 'la Configuración',
+                    'model_id' => $setting->id,
+                    'route' => 'settings.destroy',
+                    'method' => 'delete'
+                  ])
+                </div>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      @endif
+    </table>
 
 		{{ $settings->links() }}
 	</div>
 
-@push('scripts')
-<script>
-	(function () {
-		'use strict';
+  @push('scripts')
+    <script>
+      (function () {
+        'use strict';
 
-		let fromPicker = flatpickr(".flatpickrFrom", {
-			dateFormat: "d/m/Y",
-			wrap: true,
-			disableMobile: true,
-			onChange: function(selectedDates, dateStr, instance) {
-        		toPicker.set('minDate', selectedDates[0]);
-    		}
-    	});
+        let fromPicker = flatpickr(".flatpickrFrom", {
+          dateFormat: "d/m/Y",
+          wrap: true,
+          disableMobile: true,
+          onChange: function(selectedDates, dateStr, instance) {
+            toPicker.set('minDate', selectedDates[0]);
+          }
+        });
 
-    	let toPicker = flatpickr(".flatpickrTo", {
-    		dateFormat: "d/m/Y",
-    		wrap: true,
-    		disableMobile: true,
-      		onChange: function(selectedDates, dateStr, instance) {
-      			fromPicker.set('maxDate', selectedDates[0]);
-      		}
-      	});
-    })();
-</script>
-@endpush
+        let toPicker = flatpickr(".flatpickrTo", {
+          dateFormat: "d/m/Y",
+          wrap: true,
+          disableMobile: true,
+          onChange: function(selectedDates, dateStr, instance) {
+            fromPicker.set('maxDate', selectedDates[0]);
+          }
+        });
+      })();
+    </script>
+  @endpush
 </x-dashboard-layout>
