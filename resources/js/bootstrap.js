@@ -27,7 +27,5 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-// import Swiper JS
-//import Swiper from 'swiper';
 
-//const Swipe = require('swipejs');
+const flatpickr = require("flatpickr");

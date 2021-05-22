@@ -26,6 +26,6 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
         "@splidejs/splide": "^2.4.21",
-        "swiper": "^6.5.9"
+        "flatpickr": "^4.6.9"
     }
 }

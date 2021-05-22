@@ -25,7 +25,7 @@
     </head>
     <body class="bg-gray-200 antialiased">
         @if (empty($header))
-            @include("layouts.header")
+            @include("web.header")
         @else
             {{ $header }}
         @endif
@@ -35,7 +35,7 @@
             {{ $slot }}
         </main>
 
-        @include("layouts.footer")
+        @include("web.footer")
 
         @stack('modals')
         
