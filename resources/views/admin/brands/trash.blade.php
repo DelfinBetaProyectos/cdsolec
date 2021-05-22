@@ -68,9 +68,9 @@
 	            				<i class="fas fa-sm fa-undo"></i>
 	            			</a>
 	            			@livewire('delete-modal', [
-                      'msg' => 'permanentemente a la Categoría',
-                      'model_id' => $category->id,
-                      'route' => 'categories.delete',
+                      'msg' => 'permanentemente a la Marca',
+                      'model_id' => $brand->id,
+                      'route' => 'brands.delete',
                       'method' => 'patch'
                     ])
 	            		</div>
