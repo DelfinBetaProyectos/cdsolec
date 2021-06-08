@@ -52,5 +52,31 @@ class UserSeeder extends Seeder
     ]);
 
     $admin->assign('admin');
+
+    $admin = User::factory()->create([
+      'first_name' => 'Alejandro',
+      'last_name' => 'Diomede',
+      'email' => 'diomede3009@gmail.com',
+      'email_verified_at' => now(),
+      'password' => bcrypt('123456'),
+      'identification' => 'V14123456',
+      'gender' => 'M',
+      'phone' => '(424)-322-9743'
+    ]);
+
+    $admin->assign('admin');
+
+    $admin = User::factory()->create([
+      'first_name' => 'Leonardo',
+      'last_name' => 'Caseres',
+      'email' => 'ingenergy@hotmail.com',
+      'email_verified_at' => now(),
+      'password' => bcrypt('123456'),
+      'identification' => 'V9123456',
+      'gender' => 'M',
+      'phone' => '(424)-305-0599'
+    ]);
+
+    $admin->assign('admin');
   }
 }
