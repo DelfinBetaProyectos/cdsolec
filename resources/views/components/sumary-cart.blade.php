@@ -35,48 +35,6 @@
 						2 x 30$</p>
 					</div>
 				</li>
-				<li class="border-b border-gray-300 block float-left relative mb-2 pb-2 w-full">
-					<div class="w-24 h-24 float-left mr-1">
-						<img src="{{ asset('img/42.jpg')}}" alt="CD SOLEC" title="CD SOLEC"/>
-					</div>
-					<div class="">
-						<h4 class="mb-4 text-sm tracking-wider">
-							<a href="">
-								Producto 1
-							</a>
-						</h4>
-						<p class="text-base text-black">
-						2 x 30$</p>
-					</div>
-				</li>
-				<li class="border-b border-gray-300 block float-left relative mb-2 pb-2 w-full">
-					<div class="w-24 h-24 float-left mr-1">
-						<img src="{{ asset('img/42.jpg')}}" alt="CD SOLEC" title="CD SOLEC"/>
-					</div>
-					<div class="">
-						<h4 class="mb-4 text-sm tracking-wider">
-							<a href="">
-								Producto 1
-							</a>
-						</h4>
-						<p class="text-base text-black">
-						2 x 30$</p>
-					</div>
-				</li>
-				<li class="border-b border-gray-300 block float-left relative mb-2 pb-2 w-full">
-					<div class="w-24 h-24 float-left mr-1">
-						<img src="{{ asset('img/42.jpg')}}" alt="CD SOLEC" title="CD SOLEC"/>
-					</div>
-					<div class="">
-						<h4 class="mb-4 text-sm tracking-wider">
-							<a href="">
-								Producto 1
-							</a>
-						</h4>
-						<p class="text-base text-black">
-						2 x 30$</p>
-					</div>
-				</li>
 				<li>
 					<span class="float-left font-bold text-lg tracking-wider">
 						Total
