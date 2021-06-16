@@ -1,4 +1,4 @@
-<header class="header w-full z-40 bg-green-600 md:bg-cdsolec-green-dark">
+<header class="header w-full z-40 bg-cdsolec-green-dark">
 	<div class="border-t border-b border-cdsolec-green01 text-xs md:text-sm">
 		<nav class="flex-wrap">
 			<div class="container mx-auto">
@@ -6,11 +6,11 @@
 					<div class="mx-2">
 						<a href="/">
 							<img src="{{ asset('img/Logos/Logo-CD-SOLEC-Blanco.png') }}" alt="logo" class="h-30 w-32 mt-2">
-						</a> 
+						</a>  
 					</div>
 					<div class="w-full ml-2">
 						<div class="border-b border-cdsolec-green01">
-							<div class="block md:hidden grid grid-cols-2">
+							 <div class="block md:hidden grid grid-cols-2">
 								 <div class="justify-self-start">
 									<button class="py-3 px-3 bg-gray-200 text-black rounded-md hover:text-blue-400" onclick="openNavItem(event,'us')">
 										<i class="fas fa-bars"></i>
@@ -24,7 +24,7 @@
 										<i class="fas fa-user-circle fa-lg"></i>
 									</button>
 								</div>		  
-							</div>
+							</div> 
 							<div class="grid gap-4 grid-cols-2 md:grid-cols-4">
 								<div class="hidden md:block col-span-3">
 									<ul class="flex flex-col md:flex-row list-none my-2">
@@ -89,8 +89,6 @@
 									<li class="p-3 uppercase">
 										<a href="" class="transition-all ease-out duration-700 hover:text-blue-800 text-white text-lg" title="Contactos">Contacto</a>
 									</li>
-
-									
 								</ul>
 							</div>
 							<div class="hidden md:block col-span-2" id="form">
@@ -119,5 +117,5 @@
 				</div>
 			</div>
 		</nav>
-	</div>
+	</div> 
 </header> 

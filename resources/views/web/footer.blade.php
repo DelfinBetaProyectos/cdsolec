@@ -18,8 +18,8 @@
 				</div>
 				<div>
 					<div class="flex flex-wrap">
-						<h3 class="text-4xl">Subcribete</h3>
-						<p class="mt-auto ml-2 mb-2">Obten más de nuestras ofertas.</p>
+						<h3 class="text-4xl">Contáctanos</h3>
+						<p class="mt-auto ml-2 mb-2">Con gusto responderemos.</p>
 					</div>
 					<form class="grid grid-cols-2" action="">
 						<div class="relative">
@@ -27,117 +27,76 @@
 						</div>
 						<div class="relative">
 							<x-jet-button class="ml-3 py-2 px-4 mt-1">
-								{{ __('Subcribete') }}
+								{{ __('Enviar') }}
 							</x-jet-button>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="grid gap-3 grid-cols-1 md:grid-cols-3 mt-6">
+			<div class="grid gap-3 grid-cols-1 md:grid-cols-2 mt-6">
 				<div class="relative mr-24 pb-10">
-					<div class="uppercase text-2xl border-l-8 border-yellow-400">
-						<h2 class="ml-2">ABOUT US</h2>
+					<div class="uppercase text-2xl border-l-8 border-cdsolec-green-dark">
+						<h2 class="ml-2">Siguenos</h2>
 					</div>
-					<hr class="my-4">
-					<p class="text-sm mt-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-					<ul class="mt-8 flex flex-row list-none items-center">
+					<hr class="my-2">
+					<ul class="mt-2 flex flex-row list-none items-center">
 						<li>
-							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-xs uppercase font-bold">
-							<i class="fab fa-facebook text-lg leading-lg"></i></a>
+							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+							<i class="fab fa-facebook  leading-lg"></i></a>
 						</li>
 						<li>
-							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-xs uppercase font-bold">
-							<i class="fab fa-twitter text-lg leading-lg"></i></a>
+							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+							<i class="fab fa-twitter  leading-lg"></i></a>
 						</li>
 						<li>
-							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-xs uppercase font-bold">
-							<i class="fab fa-google-plus text-lg leading-lg"></i></a>
+							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+							<i class="fab fa-google-plus leading-lg"></i></a>
 						</li>
 						<li>
-							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-xs uppercase font-bold">
-							<i class="fab fa-instagram text-lg leading-lg"></i></a>
+							<a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+							<i class="fab fa-instagram leading-lg"></i></a>
 						</li>
 					</ul>
-				</div>				
+				</div>					
 				<div class="relative mr-24 pb-10">
-					<div class="uppercase text-2xl border-l-8 border-yellow-400">
-						<h2 class="ml-2">Nuevo</h2>
-					</div>
-					<hr class="my-4">
-					<article class="flex mb-4">
-						<div class="mr-2">
-							<a href="#" class="hover:text-yellow-400">
-								<img src="" alt="80 x 68" width="80" height="68">
-							</a>
-						</div>
-						<div>
-							<p class="pb-2">
-								<a href="#" class="hover:text-yellow-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-							</p>
-							<time datetime="2011-01-12">January 12th, 2011</time>
-						</div>
-					</article>
-					<article class="flex mb-4">
-						<div class="mr-2">
-							<a href="#" class="hover:text-yellow-400">
-								<img src="" alt="80 x 68" width="80" height="68">
-							</a>
-						</div>
-						<div>
-							<p class="pb-2">
-								<a href="#" class="hover:text-yellow-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-							</p>
-							<time datetime="2011-01-12">January 12th, 2011</time>
-						</div>
-					</article>
-				</div>				
-				<div class="relative mr-24 pb-10">
-					<div class="uppercase text-2xl border-l-8 border-yellow-400">
+					<div class="uppercase text-2xl border-l-8 border-cdsolec-green-dark">
 						<h2 class="ml-2">Acceso</h2>
 					</div>
-					<hr class="my-4">
+					<hr class="my-2">
 					<div class="flex flex-wrap text-sm mt-6">
 						<div class="w-1/2">
 							<ul class="text-base">
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">uno</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Inicio</a>
 								</li>
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">dos</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Nosotros</a>
 								</li>
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">tres</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Productos</a>
 								</li>
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">cua</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Contacto</a>
 								</li>
 							</ul>
 						</div>
 						<div class="w-1/2">
 							<ul class="text-base">
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">Acceso uno</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Registro</a>
 								</li>
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">Acceso dos</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Login</a>
 								</li>
 								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">Acceso tres</a>
-								</li>
-								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">Acceso cua</a>
-								</li>
-								<li>
-									<i class="fas fa-angle-right text-yellow-400 mr-1"></i>
-									<a href="#" class="hover:text-yellow-400">Acceso cinco</a>
+									<i class="fas fa-angle-right text-cdsolec-green-dark mr-1"></i>
+									<a href="#" class="hover:text-cdsolec-green-dark">Carrito</a>
 								</li>
 							</ul>
 						</div>
@@ -146,11 +105,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="bg-blue-600 flex flex-wrap items-center md:justify-between justify-center py-3">
+	<div class="bg-blue-800 flex flex-wrap items-center md:justify-between justify-center py-3">
 		<div class="w-full md:w-4/12 px-4 mx-auto text-center">
 			<div class="text-sm font-semibold py-1">
 				Copyright © <span id="get-current-year">{{ config('app.name', 'Laravel') }} {{ date('Y') }}</span> 
-				<a href="/" class="text-blueGray-200 hover:text-blueGray-800">Creado.</a>.
+				 Desarrollado por <a href="http://www.tecnod20.com/" target="_blank" class="text-blueGray-200 hover:text-blueGray-800"><strong>Tecno D 2.0</strong></a>
 			</div>
 		</div>
 	</div>
