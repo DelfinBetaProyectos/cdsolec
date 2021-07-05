@@ -95,13 +95,13 @@
 								<ul class="flex flex-row justify-end items-center">
 									<li>
 										<form action="" method="get" class="w-full mr-3">
-											<input type="text" name="search" class="border border-gray-300 pt-2 pb-2.5 w-24 md:w-auto rounded-md  my-1 text-gray-600 rounded-br-none rounded-tr-none" placeholder="Buscar"><button class="py-3 px-4 bg-blue-800 text-white rounded-r-md"><i class="fas fa-search"></i></button>
+											<input type="text" name="search" class="border border-t-2 border-cdsolec-green-light pt-2 pb-2.5 w-24 md:w-auto rounded-md  my-1 text-gray-600 rounded-br-none rounded-tr-none" placeholder="Buscar"><button class="py-3 px-4 bg-cdsolec-green-light text-white rounded-r-md"><i class="fas fa-search "></i></button>
 										</form>
 										
 									</li>
 									<li x-data="{ isCart : false }">
-										<button class="relative p-3 mb-1 bg-teal-500 hover:text-blue-400 hover:bg-blue-800 rounded-md" @click="isCart = !isCart" @keydown.escape="isCart = false" title="Cart">
-											<i class="fas fa-shopping-cart fa-lg text-white"></i>
+										<button class="relative p-3 my-1 bg-cdsolec-green-light rounded-md" @click="isCart = !isCart" @keydown.escape="isCart = false" title="Cart">
+											<i class="fas fa-shopping-cart fa-lg text-white text-xl"></i>
 											<div class="animate-bounce absolute bg-cdsolec-green-dark top-2 right-1 rounded-lg">
 												<span class="px-1 text-white  text-sm">1</span>
 											</div>

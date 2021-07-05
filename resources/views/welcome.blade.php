@@ -12,7 +12,7 @@
 				<div>
 					<h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold leading-tight">Soluciones en Electricidad y Comunicación</h1>
 					 <p class="text-blue-100 text-xl md:text-2xl leading-snug mt-4">Conoce nuestros productos</p> 
-					<a href="#" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">Ver Mas <i class="fas fa-long-arrow-alt-right"></i> </a>
+					<a href="#" class="px-8 py-4 bg-cdsolec-green-light text-white rounded inline-block mt-8 font-semibold text-lg">Ver Mas <i class="fas fa-long-arrow-alt-right"></i> </a>
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 		            </div>
 		        </div>
 		        <div class="text-right">
-		        	 <a href="#" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">Ver Mas <i class="fas fa-long-arrow-alt-right"></i> </a>
+		        	 <a href="#" class="px-8 py-4 bg-cdsolec-green-light text-white rounded inline-block mt-8 font-semibold text-lg">Ver Mas <i class="fas fa-long-arrow-alt-right"></i> </a>
 		        </div>
 			</div>
 		</div>
@@ -107,7 +107,7 @@
 						<div class="text-center">
 							<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
 							<div class="text-base text-cdsolec-green-dark">$10,00</div>
-							<span class="bg-blue-800 text-blue-200 rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
+							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 
 							<div class="py-2 my-1 border-t border-gray-400"><a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a></div>
 						</div>
@@ -120,7 +120,7 @@
 						<div class="text-center">
 							<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
 							<div class="text-base text-cdsolec-green-dark">$10,00</div>
-							<span class="bg-blue-800 text-blue-200 rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
+							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 
 							<div class="py-2 my-1 border-t border-gray-400"><a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a></div>
 						</div>
