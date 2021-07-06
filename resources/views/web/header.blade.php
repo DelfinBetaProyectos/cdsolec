@@ -67,11 +67,11 @@
 							<div class="hidden md:block col-span-2 mt-auto" id="us">
 								<ul class="flex flex-col md:flex-row list-none md:items-center items-star md:justify-between justify-center mb-auto">
 									<li class="p-3 uppercase">
-										<a href="" class=" transition-all ease-out duration-700 hover:text-blue-800 text-white text-lg" title="Nosotros">Nosotros</a>
+										<a href="{{route('about') }}" class=" transition-all ease-out duration-700 text-white text-lg" title="Nosotros">Nosotros</a>
 									</li>
 									<li class="p-3 uppercase">
 										<div class="relative">
-								    		<a class="transition-all ease-out duration-700 hover:text-blue-800 text-white text-lg" href="#" onclick="openNavItem(event,'cat')">
+								    		<a class="transition-all ease-out duration-700 text-white text-lg" href="#" onclick="openNavItem(event,'cat')">
 								            Productos</a>
 							          		<div class="hidden bg-white text-base z-50 float-left py-2 list-none lg:absolute text-left rounded shadow-lg min-w-48 px-4" id="cat">
 								            <a href="/" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
@@ -87,7 +87,7 @@
 							          </div>
 							        </li>
 									<li class="p-3 uppercase">
-										<a href="" class="transition-all ease-out duration-700 hover:text-blue-800 text-white text-lg" title="Contactos">Contacto</a>
+										<a href="" class="transition-all ease-out duration-700 text-white text-lg" title="Contactos">Contacto</a>
 									</li>
 								</ul>
 							</div>

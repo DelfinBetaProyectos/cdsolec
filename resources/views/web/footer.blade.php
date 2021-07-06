@@ -12,7 +12,7 @@
 						</div>
 						<div class="pl-1">
 							<a href="#" class="text-2xl">0243 000.00.00</a>
-							<p class="mt-1">Atención de Lunes - Viernes 7:00am hasta 5:00pm</p>
+							<p class="mt-1">Lunes - Viernes 7:00am hasta 5:00pm</p>
 						</div>
 					</div>
 				</div>

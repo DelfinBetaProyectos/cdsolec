@@ -106,7 +106,7 @@
 						</div>
 						<div class="text-center">
 							<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
-							<div class="text-base text-cdsolec-green-dark">$10,00</div>
+							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 
 							<div class="py-2 my-1 border-t border-gray-400"><a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a></div>
@@ -119,7 +119,7 @@
 						</div>
 						<div class="text-center">
 							<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
-							<div class="text-base text-cdsolec-green-dark">$10,00</div>
+							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 
 							<div class="py-2 my-1 border-t border-gray-400"><a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a></div>
