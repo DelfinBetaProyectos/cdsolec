@@ -74,14 +74,14 @@
 								    		<a class="transition-all ease-out duration-700 text-white text-lg" href="#" onclick="openNavItem(event,'cat')">
 								            Productos</a>
 							          		<div class="hidden bg-white text-base z-50 float-left py-2 list-none lg:absolute text-left rounded shadow-lg min-w-48 px-4" id="cat">
-								            <a href="/" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-								              Frontend
+								            <a href="{{route('products') }}" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+								              Categoría 01
 								            </a>
 								            <a href="/" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-								             Backend
+								             Categoría 02
 								            </a>
 								            <a href="/" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-								              Base de Datos
+								              Categoría 03
 								            </a>
 							          	</div>
 							          </div>
@@ -113,7 +113,7 @@
 								</ul>								
 							</div>
 						</div>
-					</div>
+					</div> 
 				</div>
 			</div>
 		</nav>

@@ -31,3 +31,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/about', function () {
     return view('web.about');
 })->name('about');
+
+Route::get('/products', function () {
+    return view('web.products');
+})->name('products');
