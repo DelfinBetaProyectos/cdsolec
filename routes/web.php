@@ -35,3 +35,7 @@ Route::get('/about', function () {
 Route::get('/products', function () {
     return view('web.products');
 })->name('products');
+
+Route::get('/product', function () {
+    return view('web.product');
+})->name('product');

@@ -47,6 +47,7 @@
 		                <span class="ml-1 text-sm font-medium">Siemens</span>
 	              	</label>
               	</div>
+              	<a href="#" class="text-xs text-cdsolec-green-dark font-semibold">Más Marcas <i class="fas fa-long-arrow-alt-right"></i></a>
 	            <h4 class="font-bold pt-2 text-lg">Categorias</h4>
             	<div class="pt-0.5">
 					<label for="siemens">
@@ -78,7 +79,7 @@
 							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 							<div class="py-2 my-1 border-t border-gray-400">
-								<a href="" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+								<a href="{{ route('product') }}" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
 							</div>
 						</div>
 					</div>
