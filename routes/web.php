@@ -20,3 +20,22 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes PROVICIONALES
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/about', function () {
+    return view('web.about');
+})->name('about');
+
+Route::get('/products', function () {
+    return view('web.products');
+})->name('products');
+
+Route::get('/product', function () {
+    return view('web.product');
+})->name('product');
