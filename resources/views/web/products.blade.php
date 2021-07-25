@@ -2,7 +2,7 @@
 	@push('styles')
 
 	@endpush
-	<div class="bg-gray-200">	
+	<div class="">	
 		<div class="relative bg-cdsolec-green-dark px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-44 flex
       items-center" style="border-bottom-right-radius: 156px;">
 			<div class="h-full absolute top-0 left-0 z-0">
@@ -26,7 +26,7 @@
           		</select>
         	</div>
 		</div>
-		<div class="grid md:grid-flow-col md:auto-cols-auto gap-4">
+		<div class="grid md:grid-flow-col md:auto-cols-auto gap-4 text-gray-800">
 			<div class="md:w-52 sm:w-full px-2 py-2  border-r border-gray-400 mt-1">
 				<h4 class="font-bold text-lg">Marcas</h4>
             	<div class="pt-0.5">
@@ -79,7 +79,7 @@
 							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 							<div class="py-2 my-1 border-t border-gray-400">
-								<a href="{{ route('product') }}" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+								<a href="{{ route('product') }}" class="px-4 py-2 bg-blue-500 text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 							<div class="py-2 my-1 border-t border-gray-400">
-								<a href="" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+								<a href="" class="px-4 py-2 bg-blue-500 text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 							<div class="py-2 my-1 border-t border-gray-400">
-								<a href="" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+								<a href="" class="px-4 py-2 bg-blue-500 text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -118,7 +118,7 @@
 							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
 							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
 							<div class="py-2 my-1 border-t border-gray-400">
-								<a href="" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+								<a href="" class="px-4 py-2 bg-blue-500 text-white rounded inline-block font-semibold text-lg">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
 							</div>
 						</div>
 					</div>

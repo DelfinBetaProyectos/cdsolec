@@ -1,4 +1,4 @@
-<header class="header w-full z-40 bg-cdsolec-green-dark">
+<header class="header z-40 bg-cdsolec-green-dark">
 	<div class="border-t border-b border-cdsolec-green01 text-xs md:text-sm">
 		<nav class="flex-wrap">
 			<div class="container mx-auto">
@@ -8,7 +8,7 @@
 							<img src="{{ asset('img/Logos/Logo-CD-SOLEC-Blanco.png') }}" alt="logo" class="h-30 w-32 mt-2">
 						</a>  
 					</div>
-					<div class="w-full ml-2">
+					<div class="w-full mx-2">
 						<div class="border-b border-cdsolec-green01">
 							 <div class="block md:hidden grid grid-cols-2">
 								 <div class="justify-self-start">
@@ -24,7 +24,7 @@
 										<i class="fas fa-user-circle fa-lg"></i>
 									</button>
 								</div>		  
-							</div> 
+							</div>  
 							<div class="grid gap-4 grid-cols-2 md:grid-cols-4">
 								<div class="hidden md:block col-span-3">
 									<ul class="flex flex-col md:flex-row list-none my-2">
@@ -63,29 +63,80 @@
 							</div>
 						</div>
 						
-						<div class="grid gap-4 grid-cols-2 md:grid-cols-4">	
+						<div class="grid gap-4 grid-cols-1 md:grid-cols-5">	
+							<div class="cd-dropdown-wrapper">
+						      <a class="cd-dropdown-trigger" href="#0">PRODUCTOS</a>
+						      <nav class="cd-dropdown">
+						         <h2>Productos</h2>
+						         <a href="#0" class="cd-close">Close</a>
+						         <ul class="cd-dropdown-content">
+						            <li class="has-children">
+						               <a href="#0">Categoría 01</a>
+						               <ul class="cd-secondary-dropdown is-hidden">
+						                  <li class="go-back"><a href="#0">Menu</a></li>
+						                  <!-- <li class="see-all"><a href="#0">Ver Más</a></li> -->
+
+						                  <div class="grid gap-2 grid-cols-4">
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  </div>
+						               </ul> <!-- .cd-secondary-dropdown -->
+						            </li> <!-- .has-children -->
+
+						            <li class="has-children">
+						               <a href="#0">Categoría 02</a>
+						               <ul class="cd-secondary-dropdown is-hidden">
+						                  <li class="go-back"><a href="#0">Menu</a></li>
+						                  <!-- <li class="see-all"><a href="#0">Ver Más</a></li> -->
+
+						                  <div class="grid gap-2 grid-cols-4">
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  	<div class="text-center m-4">
+						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
+						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
+						                  	</div>
+						                  </div>
+						              
+						                 
+						               </ul> <!-- .cd-secondary-dropdown -->
+						            </li> <!-- .has-children -->
+
+						            <li><a href="#0">Categoría 03</a></li>
+						            <!-- other list items here -->
+
+						         </ul> <!-- .cd-dropdown-content -->
+						      </nav> <!-- .cd-dropdown -->
+						   	</div> <!-- .cd-dropdown-wrapper -->
 							<div class="hidden md:block col-span-2 mt-auto" id="us">
-								<ul class="flex flex-col md:flex-row list-none md:items-center items-star md:justify-between justify-center mb-auto">
+								<ul class="flex flex-col md:flex-row list-none md:items-center items-star md:justify-around justify-center mb-auto">
 									<li class="p-3 uppercase">
 										<a href="{{route('about') }}" class=" transition-all ease-out duration-700 text-white text-lg" title="Nosotros">Nosotros</a>
 									</li>
-									<li class="p-3 uppercase">
-										<div class="relative">
-								    		<a class="transition-all ease-out duration-700 text-white text-lg" href="#" onclick="openNavItem(event,'cat')">
-								            Productos</a>
-							          		<div class="hidden bg-white text-base z-50 float-left py-2 list-none lg:absolute text-left rounded shadow-lg min-w-48 px-4" id="cat">
-								            <a href="{{route('products') }}" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-								              Categoría 01
-								            </a>
-								            <a href="/" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-								             Categoría 02
-								            </a>
-								            <a href="/" class="text-md py-2 px-4 semibold block w-full whitespace-nowrap bg-transparent text-blueGray-700">
-								              Categoría 03
-								            </a>
-							          	</div>
-							          </div>
-							        </li>
 									<li class="p-3 uppercase">
 										<a href="" class="transition-all ease-out duration-700 text-white text-lg" title="Contactos">Contacto</a>
 									</li>

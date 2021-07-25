@@ -39,3 +39,11 @@ Route::get('/products', function () {
 Route::get('/product', function () {
     return view('web.product');
 })->name('product');
+
+Route::get('/cart', function () {
+    return view('web.cart');
+})->name('cart');
+
+Route::get('/contact', function () {
+    return view('web.contact');
+})->name('contact');
