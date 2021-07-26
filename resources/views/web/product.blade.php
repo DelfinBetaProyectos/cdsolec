@@ -23,7 +23,7 @@
 						<img src="{{ asset('img/p1.jpg') }}" alt="name" title="name" class="w-full" />
 					</div>
 					<div class="md:col-span-3">
-						<div class="flex justify-start gap-3 items-center ">
+						<div class="flex justify-start gap-3 items-center">
 							<div><h6 class="text-cdsolec-green-dark text-2xl">Marca</h6></div>
 							<div>
 								<span class="bg-gray-500 text-white rounded-full py-0.5 px-8 text-sm w-min">Categoría</span>
@@ -33,10 +33,7 @@
 						<p class="leading-relaxed text-justify py-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit </p>
 						<div class="text-xl font-bold text-cdsolec-green-dark">$10,00</div>
-						<a href="" class="px-4 py-2 bg-cdsolec-green-light text-white rounded inline-block font-semibold text-lg">Agregar <i class="fas fa-long-arrow-alt-right"></i></a>
-
-						
-
+						<a href="{{ route('cart') }}" class="px-4 py-2 bg-blue-500 text-white rounded inline-block font-semibold text-lg">Agregar <i class="fas fa-long-arrow-alt-right"></i></a>
 					</div>
 				</div>
 			</div>

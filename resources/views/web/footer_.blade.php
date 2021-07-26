@@ -1,23 +1,26 @@
 <footer class="relative mt-0">
 	 <div class="bg-gray-400 pt-8">
-		<div class="container">
-			<div class="grid gap-2 grid-cols-1 md:grid-cols-2 ml-4">
+		<div class="container ml-4 md:ml-10">
+			<div class="grid gap-2 grid-cols-1 md:grid-cols-2">
+				
 				<div class="relative">
-					<div class="absolute bg-gray-500 top-0 bottom-0 right-0 -left-10 block" style="transform: skew( 20deg); transform-origin: 100% 145%; pointer-events: none;">
-					</div> 
- 
-					  <div class="relative py-9 px-0 flex flex-wrap">
-						<div class="pl1">
+
+
+					<!-- <div class="absolute bg-gray-500 top-0 bottom-0 right-0 -left-10 block" style="transform: skew( 20deg); transform-origin: 100% 145%; pointer-events: none;">
+					</div> -->
+<!-- 
+					  <div class=" py-9 px-0 flex flex-wrap">
+						<div class="pl-1">
 							<i class="fas fa-phone fa-lg p-4"></i>
 						</div>
 						<div class="pl-1">
 							<a href="#" class="text-2xl">0243 000.00.00</a>
 							<p class="mt-1">Lunes - Viernes 7:00am hasta 5:00pm</p>
 						</div>  
-					</div>  
+					</div>  -->
 				</div> 
 				
-				<div>
+				<!--<div>
 					<div class="flex flex-wrap">
 						<h3 class="text-4xl">Contáctanos</h3>
 						<p class="mt-auto ml-2 mb-2">Con gusto responderemos.</p>
@@ -32,9 +35,9 @@
 							</x-jet-button>
 						</div>
 					</form>
-				</div>  
+				</div>  -->
 			</div>
-			<div class="grid gap-3 grid-cols-1 md:grid-cols-2 mt-6 ml-4">
+			<!-- <div class="grid gap-3 grid-cols-1 md:grid-cols-2 mt-6">
 				<div class="relative mr-24 pb-10">
 					<div class="uppercase text-2xl border-l-8 border-cdsolec-green-dark">
 						<h2 class="ml-2">Siguenos</h2>
@@ -103,7 +106,7 @@
 						</div>
 					</div>
 				</div>
-			</div> 
+			</div> -->
 		</div>
 	</div>
 	<div class="bg-gray-500 flex flex-wrap items-center md:justify-between justify-center py-3">

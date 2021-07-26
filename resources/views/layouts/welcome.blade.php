@@ -23,7 +23,7 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
-    <body class="bg-gray-200 antialiased">
+    <body class="antialiased">
         @if (empty($header))
             @include("web.header")
         @else
@@ -43,4 +43,9 @@
 
         @livewireScripts
     </body>
+    <script type="text/javascript" src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.menu-aim.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+
 </html>
