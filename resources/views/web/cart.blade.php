@@ -5,7 +5,7 @@
 	 <div class="bg-gray-200">	
 		<div class="relative bg-cdsolec-green-dark px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-44 flex
       items-center" style="border-bottom-right-radius: 156px;">
-			<div class="h-full absolute top-0 left-0 z-0">
+			<div class="h-full w-full absolute top-0 left-0 z-0">
 				<img src="{{ asset('img/Logos/Logo_CDSOLECFachada_.jpg') }}" alt="" class="w-full h-full object-cover opacity-20">
 			</div>
 		</div>

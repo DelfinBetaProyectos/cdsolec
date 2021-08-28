@@ -11,12 +11,12 @@
 					<div class="w-full mx-2">
 						<div class="border-b border-cdsolec-green01">
 							 <div class="block md:hidden grid grid-cols-2">
-								 <div class="justify-self-start">
+								 {{-- <div class="justify-self-start">
 									<button class="py-3 px-3 bg-gray-200 text-black rounded-md hover:text-blue-400" onclick="openNavItem(event,'us')">
 										<i class="fas fa-bars"></i>
 									</button>
-								</div>		
-								<div class="justify-self-end">
+								</div>		 --}}
+								<div class="justify-self-start">
 									<button class="py-3 px-3 bg-gray-200 text-black rounded-md hover:text-blue-400" onclick="openNavItem(event,'form')">
 										<i class="fas fa-ellipsis-v fa-lg"></i>
 									</button>
@@ -62,106 +62,98 @@
 								</div>
 							</div>
 						</div>
-						
-						<div class="grid gap-4 grid-cols-1 md:grid-cols-5">	
-							<div class="cd-dropdown-wrapper">
-						      <a class="cd-dropdown-trigger" href="#0">PRODUCTOS</a>
-						      <nav class="cd-dropdown">
-						         <h2>Productos</h2>
-						         <a href="#0" class="cd-close">Close</a>
-						         <ul class="cd-dropdown-content">
-						            <li class="has-children">
-						               <a href="#0">Categoría 01</a>
-						               <ul class="cd-secondary-dropdown is-hidden">
-						                  <li class="go-back"><a href="#0">Menu</a></li>
-						                  <!-- <li class="see-all"><a href="#0">Ver Más</a></li> -->
-
-						                  <div class="grid gap-2 grid-cols-4">
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  </div>
-						               </ul> <!-- .cd-secondary-dropdown -->
-						            </li> <!-- .has-children -->
-
-						            <li class="has-children">
-						               <a href="#0">Categoría 02</a>
-						               <ul class="cd-secondary-dropdown is-hidden">
-						                  <li class="go-back"><a href="#0">Menu</a></li>
-						                  <!-- <li class="see-all"><a href="#0">Ver Más</a></li> -->
-
-						                  <div class="grid gap-2 grid-cols-4">
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  	<div class="text-center m-4">
-						                  		<a href="{{ route('products') }}">Subcat xxxxxxxx</a>
-						                  		<img src="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						                  	</div>
-						                  </div>
-						              
-						                 
-						               </ul> <!-- .cd-secondary-dropdown -->
-						            </li> <!-- .has-children -->
-
-						            <li><a href="#0">Categoría 03</a></li>
-						            <!-- other list items here -->
-
-						         </ul> <!-- .cd-dropdown-content -->
-						      </nav> <!-- .cd-dropdown -->
-						   	</div> <!-- .cd-dropdown-wrapper -->
-							<div class="hidden md:block col-span-2 mt-auto" id="us">
-								<ul class="flex flex-col md:flex-row list-none md:items-center items-star md:justify-around justify-center mb-auto">
-									<li class="p-3 uppercase">
-										<a href="{{route('about') }}" class=" transition-all ease-out duration-700 text-white text-lg" title="Nosotros">Nosotros</a>
+						<div class="relative text-white">
+							<div class="mx-auto flex flex-wrap justify-between">
+								<ul class="flex order-2 md:order-1">
+									
+									<!--Hoverable Link-->
+									<li class="hoverable hover:bg-white hover:text-cdsolec-green-dark">
+										<a href="#" class="relative block py-3 px-4 lg:p-6 text-sm lg:text-xl uppercase">Productos</a>
+										<div class="p-6 mega-menu mb-16 sm:mb-0 shadow-xl bg-white overflow-auto h-96">
+										<div class="container mx-auto w-full flex flex-wrap mx-2">
+											<ul class="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-400 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
+												<h3 class="text-xl text-cdsolec-green-dark text-bold mb-2">BY CATEGORY | INTEREST</h3>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												</ul>
+												<ul class="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-400 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
+												<h3 class="text-xl text-cdsolec-green-dark text-bold mb-2 uppercase">Categorías</h3>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												</ul>
+												<ul class="px-4 w-full sm:w-1/2 lg:w-1/4 border-gray-400 border-b sm:border-b-0 pb-6 pt-6 lg:pt-3">
+												<h3 class="text-xl text-cdsolec-green-dark text-bold uppercase">Marcas</h3>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												<li>
+													<a href="#" class="block p-3 text-gray-600 hover:text-cdsolec-green-dark text-base">Category One Sublink</a>
+												</li>
+												</ul>
+										</div>
+										</div>
 									</li>
-									<li class="p-3 uppercase">
-										<a href="" class="transition-all ease-out duration-700 text-white text-lg" title="Contactos">Contacto</a>
+									<!--Regular Link-->
+									<li class="uppercase">
+										<a href="{{ route('about') }}" class="relative block py-3 px-2 lg:p-6 text-sm lg:text-xl">Nosotros</a>
+									</li>
+									<li class="uppercase">
+										<a href="#" class="relative block py-3 px-2 lg:p-6 text-sm lg:text-xl">Contacto</a>
 									</li>
 								</ul>
-							</div>
-							<div class="hidden md:block col-span-2" id="form">
-								<ul class="flex flex-row justify-end items-center">
-									<li>
-										<form action="" method="get" class="w-full mr-3">
-											<input type="text" name="search" class="border border-t-2 border-cdsolec-green-light pt-2 pb-2.5 w-24 md:w-auto rounded-md  my-1 text-gray-600 rounded-br-none rounded-tr-none" placeholder="Buscar"><button class="py-3 px-4 bg-cdsolec-green-light text-white rounded-r-md"><i class="fas fa-search "></i></button>
-										</form>
-										
-									</li>
-									<li x-data="{ isCart : false }">
-										<button class="relative p-3 my-1 bg-cdsolec-green-light rounded-md" @click="isCart = !isCart" @keydown.escape="isCart = false" title="Cart">
-											<i class="fas fa-shopping-cart fa-lg text-white text-xl"></i>
-											<div class="animate-bounce absolute bg-cdsolec-green-dark top-2 right-1 rounded-lg">
-												<span class="px-1 text-white  text-sm">1</span>
-											</div>
-										</button>
-
-										<x-sumary-cart data=""></x-sumary-cart>
-									
-									</li>
-								</ul>								
+								<div class="hidden md:block order-1 md:order-2" id="form">
+									<ul class="flex flex-row justify-end items-center">
+										<li>
+											<form action="" method="get" class="w-full mr-3">
+												<input type="text" name="search" class="border border-t-2 border-cdsolec-green-light pt-2 pb-2.5 w-24 md:w-auto rounded-md  my-1 text-gray-600 rounded-br-none rounded-tr-none" placeholder="Buscar"><button class="py-3 px-4 bg-cdsolec-green-light text-white rounded-r-md"><i class="fas fa-search "></i></button>
+											</form>
+										</li>
+										<li x-data="{ isCart : false }">
+											<button class="relative p-3 my-1 bg-cdsolec-green-light rounded-md" @click="isCart = !isCart" @keydown.escape="isCart = false" title="Cart">
+												<i class="fas fa-shopping-cart fa-lg text-white text-xl"></i>
+												<div class="animate-bounce absolute bg-cdsolec-green-dark top-2 right-1 rounded-lg">
+													<span class="px-1 text-white  text-sm">1</span>
+												</div>
+											</button>
+											<x-sumary-cart data=""></x-sumary-cart>
+										</li>
+									</ul>								
+								</div>
 							</div>
 						</div>
 					</div> 

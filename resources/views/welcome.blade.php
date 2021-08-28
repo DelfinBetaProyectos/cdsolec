@@ -3,17 +3,29 @@
 
 	@endpush
 	 <div class="bg-gray-200">	
-		<div class="relative bg-cdsolec-green-dark px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-32 flex
+		<div class="relative bg-cdsolec-green-dark overflow-hidden py-11 flex
       items-center" style="border-bottom-right-radius: 256px;">
-			<div class="h-full absolute top-0 left-0 z-0">
-				<img src="{{ asset('img/Logos/Logo-CD-SOLEC-2.jpg') }}" alt="" class="w-full h-full object-cover opacity-20">
-			</div>
-			<div class="lg:w-3/4 xl:w-2/4 relative z-1 h-100 lg:mt-16">
-				<div>
-					<h1 class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold leading-tight">Soluciones en Electricidad y Comunicación</h1>
-					 <p class="text-blue-100 text-xl md:text-2xl leading-snug mt-4">Conoce nuestros productos</p> 
-					<a href="#" class="px-8 py-4 bg-cdsolec-green-light text-white rounded inline-block mt-8 font-semibold text-lg">Ver Mas <i class="fas fa-long-arrow-alt-right"></i> </a>
+			<div class="w-full relative z-1">
+				<div class="mySlider hidden fade  overflow-hidden">
+					<div class="slider relative shadow-2xl" style="background-image: url({{ asset('img/b1.jpg')}});"></div>
 				</div>
+				<div class="mySlider hidden fade  overflow-hidden">
+					<div class="slider relative shadow-2xl" style="background-image: url({{ asset('img/b2.jpg')}});"></div>
+				</div>
+				<div class="mySlider hidden fade  overflow-hidden">
+					<div class="slider relative shadow-2xl " style="background-image: url({{ asset('img/b3.jpg')}});"></div>
+				</div>
+					<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-40 cursor-pointer text-white hover:text-auto-blue-light" data-nav="previous">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+					</svg>
+					</a>
+			
+					<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-40 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+					</svg>
+				</a>
 			</div>
 		</div>
 	</div>		
@@ -33,10 +45,10 @@
 		<div class="flex flex-col md:flex-row lg:-mx-6">
 			<div class="w-full">
 				<div class="text-center">
-					<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">Contamos con las mejores</h6>
-					<h2 class="text-3xl leading-tight font-bold my-4">Marcas</h2>
+					<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">Soluciones a tu alcance</h6>
+					<h2 class="text-3xl leading-tight font-bold my-4">Categorías</h2>
 				</div>
-				<div class="container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4">
+				<div class="container mx-auto grid grid-cols-2 lg:grid-cols-5 gap-4">
 		            <div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
 		            	<div class="flex m-1">
 						  <div class="mr-3">
@@ -71,6 +83,17 @@
 						</div>
 		            </div>
 		            <div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
+		            	<div class="flex m-1">
+						  <div class="mr-3">
+						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
+						  </div>
+						  <div class="">
+						  	<h6 class="text-2xl font-bold">Siemens</h6>
+						  	<p class="text-cdsolec-green-dark font-semibold text-lg">(56)</p>
+						  </div>
+						</div>
+		            </div>
+					<div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
 		            	<div class="flex m-1">
 						  <div class="mr-3">
 						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
@@ -179,6 +202,53 @@
 		document.getElementById(dropdownID).classList.toggle("block");
 	}
 
+	const mySlider = document.querySelectorAll(".mySlider");
+	let counter = 1;
+	var timer = setInterval(autoslide, 10000);
+
+	slideFun(counter);
+
+	function autoslide() {
+	counter += 1;
+	slideFun(counter);
+	}
+	function resetTimer() {
+	if (typeof timer !== "undefined") {
+		clearInterval(timer);
+	}
+	timer = setInterval(autoslide, 10000);
+	}
+
+	function plusSlides(n) {
+	counter += n;
+	slideFun(counter);
+	resetTimer();
+	}
+	function currentSlide(n) {
+	counter = n;
+	slideFun(counter);
+	resetTimer();
+	}
+	function slideFun(n) {
+	let i;
+	for (i = 0; i < mySlider.length; i++) {
+		mySlider[i].style.display = "none";
+		mySlider[i].classList.add("hidden");
+	}
+	
+	if (n > mySlider.length) {
+		counter = 1;
+	}
+	if (n < 1) {
+		counter = mySlider.length;
+	}
+	if (mySlider[counter - 1].style.removeProperty) {
+		mySlider[counter - 1].style.removeProperty("display");
+	} else {
+		mySlider[counter - 1].style.removeAttribute("display");
+	}
+	mySlider[counter - 1].classList.remove("hidden");
+	}
 </script>
 @endpush
 
