@@ -4,9 +4,10 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class WelcomeLayout extends Component
+class WebLayout extends Component
 {
     public $title = "";
+
     /**
      * Create a new component instance.
      *
@@ -24,6 +25,6 @@ class WelcomeLayout extends Component
      */
     public function render()
     {
-        return view('layouts.welcome');
+        return view('layouts.layout');
     }
 }
