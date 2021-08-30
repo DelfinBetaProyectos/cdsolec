@@ -1,7 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/splide.js": "/js/splide.js",
+    "/js/welcome.js": "/js/welcome.js",
     "/css/app.css": "/css/app.css",
     "/css/fontawesome.css": "/css/fontawesome.css",
-    "/css/cdsolec.css": "/css/cdsolec.css"
+    "/css/cdsolec.css": "/css/cdsolec.css",
+    "/css/slider.css": "/css/slider.css",
+    "/css/megamenu.css": "/css/megamenu.css"
 }

@@ -5,7 +5,7 @@
 				<div class="flex">
 					<div class="mx-2">
 						<a href="/">
-							<img src="{{ asset('img/Logos/Logo-CD-SOLEC-Blanco.png') }}" alt="logo" class="h-30 w-32 mt-2">
+							<img src="{{ asset('img/logos/CD-SOLEC_Blanco_Vertical.png') }}" alt="logo" class="h-30 w-32 mt-2">
 						</a>  
 					</div>
 					<div class="w-full mx-2">

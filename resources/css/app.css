@@ -2,8 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Style Splide */
+@import 'flatpickr/dist/flatpickr.min.css';
+
 @import '@splidejs/splide/dist/css/splide.min.css';
 @import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
-
-@import 'flatpickr/dist/flatpickr.min.css';
