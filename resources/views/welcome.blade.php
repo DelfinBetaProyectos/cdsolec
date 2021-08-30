@@ -1,255 +1,254 @@
-<x-welcome-layout title="Welcome">
-	@push('styles')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
 
-	@endpush
-	 <div class="bg-gray-200">	
-		<div class="relative bg-cdsolec-green-dark overflow-hidden py-11 flex
-      items-center" style="border-bottom-right-radius: 256px;">
-			<div class="w-full relative z-1">
-				<div class="mySlider hidden fade  overflow-hidden">
-					<div class="slider relative shadow-2xl" style="background-image: url({{ asset('img/b1.jpg')}});"></div>
+	<title>{{ config('app.name', 'Laravel') }}</title>
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/favicon-32x32.png') }}" />
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" />
+	<link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}" />
+
+	<!-- Styles -->
+	<link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+	<link rel="stylesheet" href="{{ mix('css/cdsolec.css') }}" />
+	<link rel="stylesheet" href="{{ mix('css/slider.css') }}" />
+	<link rel="stylesheet" href="{{ mix('css/megamenu.css') }}" />
+
+	@livewireStyles
+
+	@stack('styles')
+</head>
+<body class="antialiased">
+	<!-- Menu -->
+	@include('layouts.menu')
+
+	<!-- Slider -->
+	<section id="hero">
+		<div class="-mb-5 md:-mb-12 lg:-mb-20">
+			<div class="mySlider hidden fade overflow-hidden">
+				<div class="slider relative shadow-2xl" style="background-image: url(img/b1.jpg);"></div>
+			</div>
+			<div class="mySlider hidden fade overflow-hidden">
+				<div class="slider relative shadow-2xl" style="background-image: url(img/b2.jpg);"></div>
+			</div>
+			<div class="mySlider hidden fade overflow-hidden">
+				<div class="slider relative shadow-2xl " style="background-image: url(img/b3.jpg);"></div>
+			</div>
+			<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light"data-nav="previous">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+				</svg>
+			</a>
+			<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+				</svg>
+			</a>
+		</div>
+		<div class="gradient">
+			<svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink">
+				<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					<g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+						<path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+						<path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z" opacity="0.100000001"></path>
+						<path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+					</g>
+					<g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+						<path d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z">
+						</path>
+					</g>
+				</g>
+			</svg>
+		</div>
+	</section>
+	
+	<main>
+		<section id="about">
+			<div class="container mx-auto px-4 py-14">
+				<div class="flex flex-col md:flex-row items-center">
+					<div class="w-full md:w-4/5">
+						<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">
+							Bienvenido a nuestro sitio web
+						</h6>
+						<h2 class="text-3xl leading-tight font-bold mt-4">Acerca de Nosotros</h2>
+						<p class="py-2">Somos un grupo de empresas 100% capital venezolano, conformadas por profesionales con clara visión tecnológica y gerencial, con más de 40 años de experiencia en soluciones de automatización, instrumentación, control de proceso y distribución eficiente y segura de la Energía, para sectores de mercado como Industria química, alimentos y bebidas, Oil&Gas, metal mecánico, minería, residencial y construcción. En todas nuestras soluciones integrales incorporamos productos con las últimas tecnologías en digitalización e interconectividad a los fines de asegurar el manejo inteligente y eficiente de los recursos.</p>
+						<p class="py-2">En <strong>CD-SOLEC</strong> distribuimos equipos y componentes de las mejores marcas disponibles, tales como Siemens, Schneider Electric, Rockwell Automación, Mitsubishi Electric y ABB, a los fines de facilitarles a nuestros clientes el desarrollo de soluciones de ingeniería a los mejores precios con máxima calidad y sin intermediarios.</p>
+					</div>
+					<div class="md:w-1/5 text-center mx-4 pt-1">
+						<img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" />
+					</div>
 				</div>
-				<div class="mySlider hidden fade  overflow-hidden">
-					<div class="slider relative shadow-2xl" style="background-image: url({{ asset('img/b2.jpg')}});"></div>
+			</div>
+		</section>
+
+		<section id="brands" class="bg-gray-400">
+			<div class="container mx-auto px-4 py-14">
+				<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800 text-center">
+					Distribuimos equipos y componentes de las mejores marcas
+				</h6>
+				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Marcas</h2>
+				<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
+						<img src="img/marcas/ABB.jpg" alt="ABB" title="ABB" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-75">
+						<img src="img/marcas/Emerson.jpg" alt="Emerson" title="Emerson" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-100">
+						<img src="img/marcas/Fuji_Electric.jpg" alt="Fuji Electric" title="Fuji Electric" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-150">
+						<img src="img/marcas/Mitsubishi_Electric.jpg" alt="Mitsubishi Electric" title="Mitsubishi Electric" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-200">
+						<img src="img/marcas/Philips.jpg" alt="Philips" title="Philips" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay">
+						<img src="img/marcas/Phoenix_Contact.jpg" alt="Phoenix Contact" title="Phoenix Contact" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-75">
+						<img src="img/marcas/Rockwell_Automation.jpg" alt="Rockwell Automation" title="Rockwell Automation" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-100">
+						<img src="img/marcas/Schneider.jpg" alt="Schneider" title="Schneider" />
+					</div>
+					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-150">
+						<img src="img/marcas/Siemens.jpg" alt="Siemens" title="Siemens" />
+					</div>
 				</div>
-				<div class="mySlider hidden fade  overflow-hidden">
-					<div class="slider relative shadow-2xl " style="background-image: url({{ asset('img/b3.jpg')}});"></div>
-				</div>
-					<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-40 cursor-pointer text-white hover:text-auto-blue-light" data-nav="previous">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-					</svg>
+				<div class="text-right">
+					<a href="{{ route('products') }}" class="px-8 py-4 bg-cdsolec-green-light text-white rounded-md font-semibold text-lg hover:bg-cdsolec-green-dark">
+						Ver Mas <i class="fas fa-long-arrow-alt-right"></i>
 					</a>
-			
-					<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-40 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-					</svg>
-				</a>
+			 </div>
 			</div>
-		</div>
-	</div>		
-	
-	<div class="relative bg-gray-200 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 py-14">
-		<div class="flex flex-col md:flex-row lg:-mx-6 items-center">
-			<div class="w-full lg:w-4/5">
-				<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">Bienvenido a nuestro sitio web</h6>
-				<h2 class="text-3xl leading-tight font-bold mt-4">Acerca de Nosotros</h2>
-				<p class="mt-2 leading-relaxed text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elitcillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur.</p>
-			</div>
-			<div class="lg:w-1/5 text-center mx-4 pt-1"><img src="{{ asset('img/Logos/Logo-CD-SOLEC- Verde.png') }}" alt="" class=""></div>
-		</div>
-	</div> 
+		</section>
 
-	<div class="relative bg-gray-400 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 py-14">
-		<div class="flex flex-col md:flex-row lg:-mx-6">
-			<div class="w-full">
-				<div class="text-center">
-					<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">Soluciones a tu alcance</h6>
-					<h2 class="text-3xl leading-tight font-bold my-4">Categorías</h2>
+		<section id="products">
+			<div class="container mx-auto px-4 py-14">
+				<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800 text-center">
+					Soluciones a tu alcance
+				</h6>
+				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Productos</h2>
+				<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
+					<div class="splide__track">
+						<ul class="splide__list">
+							<li class="splide__slide border border-gray-400 rounded-xl">
+								<div class="m-2">
+									<img data-splide-lazy="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
+								</div>
+								<div class="text-center">
+									<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
+									<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
+									<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
+									<div class="py-2 my-1 border-t border-gray-400">
+										<a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+									</div>
+								</div>
+							</li>
+							<li class="splide__slide border border-gray-400 rounded-xl">
+								<div class="m-2">
+									<img data-splide-lazy="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
+								</div>
+								<div class="text-center">
+									<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
+									<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
+									<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
+									<div class="py-2 my-1 border-t border-gray-400">
+										<a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div class="container mx-auto grid grid-cols-2 lg:grid-cols-5 gap-4">
-		            <div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-		            	<div class="flex m-1">
-						  <div class="mr-3">
-						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
-						  </div>
-						  <div class="">
-						  	<h6 class="text-2xl font-bold">Siemens</h6>
-						  	<p class="text-cdsolec-green-dark font-semibold text-lg">(56)</p>
-						  </div>
-						</div>
-		            </div>
-		            <div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-		            	<div class="flex m-1">
-						  <div class="mr-3">
-						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
-						  </div>
-						  <div class="">
-						  	<h6 class="text-2xl font-bold">Siemens</h6>
-						  	<p class="text-cdsolec-green-dark font-semibold text-lg">(56)</p>
-						  </div>
-						</div>
-		            </div>
-		            <div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-		            	<div class="flex m-1">
-						  <div class="mr-3">
-						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
-						  </div>
-						  <div class="">
-						  	<h6 class="text-2xl font-bold">Siemens</h6>
-						  	<p class="text-cdsolec-green-dark font-semibold text-lg">(56)</p>
-						  </div>
-						</div>
-		            </div>
-		            <div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-		            	<div class="flex m-1">
-						  <div class="mr-3">
-						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
-						  </div>
-						  <div class="">
-						  	<h6 class="text-2xl font-bold">Siemens</h6>
-						  	<p class="text-cdsolec-green-dark font-semibold text-lg">(56)</p>
-						  </div>
-						</div>
-		            </div>
-					<div class="border border-gray-200 shadow overflow-hidden sm:rounded-lg">
-		            	<div class="flex m-1">
-						  <div class="mr-3">
-						    <img alt="..." src="{{asset('img/m1.png')}}" class="shadow-lg rounded-full w-20" />
-						  </div>
-						  <div class="">
-						  	<h6 class="text-2xl font-bold">Siemens</h6>
-						  	<p class="text-cdsolec-green-dark font-semibold text-lg">(56)</p>
-						  </div>
-						</div>
-		            </div>
-		        </div>
-		        <div class="text-right">
-		        	 <a href="#" class="px-8 py-4 bg-cdsolec-green-light text-white rounded inline-block mt-8 font-semibold text-lg">Ver Mas <i class="fas fa-long-arrow-alt-right"></i> </a>
-		        </div>
 			</div>
-		</div>
-	</div> 
+		</section>
+	</main>
 
+	<!-- Footer -->
+	@include('layouts.footer')
 
-	<div class="container mx-auto my-2 py-14">
-		<div class="text-center">
-			<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">Soluciones a tu alcance</h6>
-			<h2 class="text-3xl leading-tight font-bold my-4">Productos Destacados</h2>
-		</div>
-		
+	<!-- Scripts -->
+	<script src="{{ mix('js/app.js') }}"></script>
+	<script src="{{ mix('js/welcome.js') }}"></script>
+	<script>
+		// Tabs
+		function tabsMegaMenu() {
+			return {
+				activeTab: 0,
+				tabs: [
+						"Categorías",
+						"Mercados",
+						"Marcas",
+				]
+			};
+		};
+
+		// Slider
+    const mySlider = document.querySelectorAll(".mySlider");
+    let counter = 1;
+    var timer = setInterval(autoslide, 10000);
+
+    slideFun(counter);
+
+    function autoslide() {
+      counter += 1;
+      slideFun(counter);
+    }
+
+    function resetTimer() {
+      if (typeof timer !== "undefined") {
+        clearInterval(timer);
+      }
+      timer = setInterval(autoslide, 10000);
+    }
+
+    function plusSlides(n) {
+      counter += n;
+      slideFun(counter);
+      resetTimer();
+    }
+
+    function currentSlide(n) {
+      counter = n;
+      slideFun(counter);
+      resetTimer();
+    }
+
+    function slideFun(n) {
+      let i;
+      for (i = 0; i < mySlider.length; i++) {
+        mySlider[i].style.display = "none";
+        mySlider[i].classList.add("hidden");
+      }
+
+      if (n > mySlider.length) {
+        counter = 1;
+      }
+
+      if (n < 1) {
+        counter = mySlider.length;
+      }
+
+      if (mySlider[counter - 1].style.removeProperty) {
+        mySlider[counter - 1].style.removeProperty("display");
+      } else {
+        mySlider[counter - 1].style.removeAttribute("display");
+      }
 			
-		<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
-			<div class="splide__track">
-				<ul class="splide__list">
-					<li class="splide__slide border border-gray-400 rounded-xl">
-						<div class="m-2">
-							<img data-splide-lazy="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						</div>
-						<div class="text-center">
-							<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
-							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
-							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
+      mySlider[counter - 1].classList.remove("hidden");
+    }
+  </script>
 
-							<div class="py-2 my-1 border-t border-gray-400"><a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a></div>
-						</div>
-					</li>
-					<li class="splide__slide border border-gray-400 rounded-xl">
-						
-						<div class="m-2">
-							<img data-splide-lazy="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-						</div>
-						<div class="text-center">
-							<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
-							<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
-							<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
+	@livewireScripts
 
-							<div class="py-2 my-1 border-t border-gray-400"><a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a></div>
-						</div>
-					</li>
-				</ul>
-			</div>
-			{{--<div class="splide__arrows">
-				<button class="splide__arrow splide__arrow--prev">
-				</button>
-				<button class="splide__arrow splide__arrow--next">
-				</button>
-			</div>--}}
-
-			{{--<div class="splide__progress">
-				<div class="splide__progress__bar">
-				</div>
-			</div>--}}
-		</div>
-		
-	</div>  
-
-@push('scripts')
-<script type="text/javascript" src="{{ asset('js/splide.js') }}"></script>
-
-<script type="text/javascript">
-	var elms = document.getElementsByClassName( 'splide' );
-	for ( var i = 0, len = elms.length; i < len; i++ ) {
-		new Splide.default( elms[ i ] ).mount();
-	}
-	//console.log(elms);
-
-	/*window.onscroll = function() {
-		var y = window.scrollY;
-		//console.log(y);
-		let navbar = document.querySelector('nav');
-		if (y > 120) {
-			navbar.classList.add("bg-green-600");
-		}
-		if (y < 100) {			
-			navbar.classList.remove("bg-green-600");
-		}
-	};*/
-
-	/* Function for dropdowns nav */
-	function openNavItem(event, dropdownID) {
-		event.preventDefault();
-		let element = event.target;
-
-		let elementActive = document.querySelector('.isActive');
-		if (elementActive) {
-			elementActive.classList.toggle("isActive");
-			elementActive.classList.toggle("hidden");              	
-		} 
-
-		document.getElementById(dropdownID).classList.toggle("hidden");
-		document.getElementById(dropdownID).classList.toggle("block");
-	}
-
-	const mySlider = document.querySelectorAll(".mySlider");
-	let counter = 1;
-	var timer = setInterval(autoslide, 10000);
-
-	slideFun(counter);
-
-	function autoslide() {
-	counter += 1;
-	slideFun(counter);
-	}
-	function resetTimer() {
-	if (typeof timer !== "undefined") {
-		clearInterval(timer);
-	}
-	timer = setInterval(autoslide, 10000);
-	}
-
-	function plusSlides(n) {
-	counter += n;
-	slideFun(counter);
-	resetTimer();
-	}
-	function currentSlide(n) {
-	counter = n;
-	slideFun(counter);
-	resetTimer();
-	}
-	function slideFun(n) {
-	let i;
-	for (i = 0; i < mySlider.length; i++) {
-		mySlider[i].style.display = "none";
-		mySlider[i].classList.add("hidden");
-	}
-	
-	if (n > mySlider.length) {
-		counter = 1;
-	}
-	if (n < 1) {
-		counter = mySlider.length;
-	}
-	if (mySlider[counter - 1].style.removeProperty) {
-		mySlider[counter - 1].style.removeProperty("display");
-	} else {
-		mySlider[counter - 1].style.removeAttribute("display");
-	}
-	mySlider[counter - 1].classList.remove("hidden");
-	}
-</script>
-@endpush
-
-</x-welcome-layout>
+	@stack('scripts')
+</body>
+</html>

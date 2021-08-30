@@ -31,3 +31,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 const flatpickr = require("flatpickr");
 
 window.$ = require('jquery');
+
+/**
+ * DOCS Splide 
+ * https://splidejs.com/
+ */
+window.Splide = require("@splidejs/splide");

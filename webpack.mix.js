@@ -23,7 +23,11 @@ mix.sass('resources/sass/fontawesome.scss', 'public/css');
 
 mix.styles(['resources/css/cdsolec.css'], 'public/css/cdsolec.css');
 
-mix.js('resources/js/splide.js', 'public/js');
+mix.styles(['resources/css/slider.css'], 'public/css/slider.css');
+
+mix.styles(['resources/css/megamenu.css'], 'public/css/megamenu.css');
+
+mix.js('resources/js/welcome.js', 'public/js');
 
 if (mix.inProduction()) {
     mix.version();
