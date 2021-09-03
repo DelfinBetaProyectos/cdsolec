@@ -16,7 +16,7 @@
             <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
               Productos
             </x-jet-nav-link>
-            <div class="p-6 mega-menu shadow-xl bg-white overflow-auto h-96">
+            <div class="p-6 mega-menu shadow-xl bg-white overflow-x-auto h-96">
               <div class="container mx-auto w-full">
                 <div x-data="tabsMegaMenu()">
                   <ul class="flex justify-start items-center">
@@ -24,97 +24,62 @@
                       <li class="cursor-pointer py-2 px-4 text-cdsolec-green-dark border-b-4 border-gray-400" :class="activeTab===index ? 'text-cdsolec-green-dark border-cdsolec-green-dark' : ''" @click="activeTab = index" x-text="tab"></li>
                     </template>
                   </ul>
-                  
-                  <!-- obtener datos desde la API-->
-                  @php
-
-                  $ch = curl_init();
-
-                  curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Content-Type:application/json', 'DOLAPIKEY: bJD33zn72gC9O6duXc59vOZh2N8OFiFk' ) );
-                  curl_setopt($ch, CURLOPT_URL, 'http://www.cd-solec.com/erp/htdocs/api/index.php/categories?sortfield=t.rowid&sortorder=ASC&limit=100&sqlfilters=fk_parent%3D0');
-                  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                  curl_setopt($ch, CURLOPT_HEADER, 0);
-                  $data = json_decode(curl_exec($ch),true);
-
-                  curl_close($ch);
-
-                  @endphp
-
                   <div class="pt-4 border-t border-gray-400">
                     <div x-show="activeTab===0">
-                      <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        @foreach($data as $item)
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          {{ $item['label']}}
-                        </a>
+                      <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
+                        @foreach($categories as $item)
+                          <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                            <span class="fas fa-angle-right mr-1"></span>
+                            {{ $item->label }}
+                          </a>
                         @endforeach
                       </div>
                     </div>
-
                     <div x-show="activeTab===1">
-                      <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mercado 1
-                        </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mercado 2
-                        </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mercado 3
-                        </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mercado 4
-                        </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mercado 5
-                        </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mercado 6
-                        </a>
+                      <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
+                        @foreach($sectors as $item)
+                          <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                            <span class="fas fa-angle-right mr-1"></span>
+                            {{ $item->label }}
+                          </a>
+                        @endforeach
                       </div>
                     </div>
                     <div x-show="activeTab===2">
-                      <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                      <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           ABB
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Emerson
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Fuji Electric
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Mitsubishi Electric
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Philips
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Phoenix Contact
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Rockwell Automation
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Schneider
                         </a>
-                        <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
                           Siemens
                         </a>
@@ -180,159 +145,59 @@
               <div class="pt-4 border-t border-gray-400">
                 <div x-show="activeTab===0">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Distribución de la energía
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Controles industriales
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Automatización industrial
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Envolventes
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Redes de datos y comunicación
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Gestión y organización de cableado
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Canalizaciones eléctricas, data y comunicaciones
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Conductores eléctricos de baja tensión
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Calidad de energía
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Fuentes de energía
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Distribución de energía M.T.
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Iluminación tecnología LED
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Tomacorrientes e interruptores terminales
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Instrumentación electrónica
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Sistemas de control y actuación neumáticos
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Sistemas de inmotica y domotica. Soluciones de Building Automation
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Seguridad y control de acceso
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Detección y extinsion de incendio
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Seguridad industrial
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Soluciones integrales
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Soluciones para medios de fijación
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Herramientas
-                    </a>
+                    @foreach($categories as $item)
+                      <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                        <span class="fas fa-angle-right mr-1"></span>
+                        {{ $item->label }}
+                      </a>
+                    @endforeach
                   </div>
                 </div>
                 <div x-show="activeTab===1">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mercado 1
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mercado 2
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mercado 3
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mercado 4
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mercado 5
-                    </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mercado 6
-                    </a>
+                    @foreach($sectors as $item)
+                      <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                        <span class="fas fa-angle-right mr-1"></span>
+                        {{ $item->label }}
+                      </a>
+                    @endforeach
                   </div>
                 </div>
                 <div x-show="activeTab===2">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       ABB
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Emerson
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Fuji Electric
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Mitsubishi Electric
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Philips
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Phoenix Contact
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Rockwell Automation
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Schneider
                     </a>
-                    <a href="#" class="block mr-4 px-2 hover:bg-cdsolec-green-light">
+                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
                       <span class="fas fa-angle-right mr-1"></span>
                       Siemens
                     </a>
