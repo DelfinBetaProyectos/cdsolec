@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Bouncer;
+use App\View\Composers\CategoriesComposer;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\{App, Schema, URL};
+use Illuminate\Support\Facades\{App, Schema, URL, View};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,6 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    //
+    View::composer('*', CategoriesComposer::class);
   }
 }

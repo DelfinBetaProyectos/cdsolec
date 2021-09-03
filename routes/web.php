@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\WelcomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -28,22 +28,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/about', function () {
-    return view('web.about');
-})->name('about');
-
-Route::get('/products', function () {
-    return view('web.products');
-})->name('products');
-
-Route::get('/product', function () {
-    return view('web.product');
-})->name('product');
-
-Route::get('/cart', function () {
-    return view('web.cart');
-})->name('cart');
-
-Route::get('/contact', function () {
-    return view('web.contact');
-})->name('contact');
+Route::get('/about', [WelcomeController::class, 'about'])->name('about');
+Route::get('/products', [WelcomeController::class, 'products'])->name('products');
+Route::get('/product', [WelcomeController::class, 'product'])->name('product');
+Route::get('/cart', [WelcomeController::class, 'cart'])->name('cart');
+Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
