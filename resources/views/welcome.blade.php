@@ -28,16 +28,16 @@
 	@include('layouts.menu')
 
 	<!-- Slider -->
-	<section id="hero">
+	<section id="hero" class="relative">
 		<div class="-mb-5 md:-mb-12 lg:-mb-20">
 			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl" style="background-image: url(img/b1.jpg);"></div>
+				<div class="slider relative shadow-2xl" style="background-image: url(img/slide1.jpg);"></div>
 			</div>
 			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl" style="background-image: url(img/b2.jpg);"></div>
+				<div class="slider relative shadow-2xl" style="background-image: url(img/slide2.jpg);"></div>
 			</div>
 			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl " style="background-image: url(img/b3.jpg);"></div>
+				<div class="slider relative shadow-2xl " style="background-image: url(img/slide3.jpg);"></div>
 			</div>
 			<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light"data-nav="previous">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
@@ -92,7 +92,7 @@
 				<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800 text-center">
 					Distribuimos equipos y componentes de las mejores marcas
 				</h6>
-				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Marcas</h2>
+				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Fabricantes</h2>
 				<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
 					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
 						<img src="img/marcas/ABB.jpg" alt="ABB" title="ABB" />
@@ -185,8 +185,7 @@
 				activeTab: 0,
 				tabs: [
 						"Categorías",
-						"Mercados",
-						"Marcas",
+						"Sectores de Interés",
 				]
 			};
 		};
@@ -194,7 +193,7 @@
 		// Slider
     const mySlider = document.querySelectorAll(".mySlider");
     let counter = 1;
-    var timer = setInterval(autoslide, 10000);
+    var timer = setInterval(autoslide, 4000);
 
     slideFun(counter);
 
@@ -207,7 +206,7 @@
       if (typeof timer !== "undefined") {
         clearInterval(timer);
       }
-      timer = setInterval(autoslide, 10000);
+      timer = setInterval(autoslide, 4000);
     }
 
     function plusSlides(n) {

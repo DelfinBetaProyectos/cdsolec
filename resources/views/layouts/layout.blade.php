@@ -45,8 +45,7 @@
 				activeTab: 0,
 				tabs: [
 						"Categorías",
-						"Mercados",
-						"Marcas",
+						"Sectores de Interés",
 				]
 			};
 		};
