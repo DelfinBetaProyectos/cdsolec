@@ -228,6 +228,7 @@ const size = {
   '6xl': '4rem',
   '7xl': '5rem',
 }
+
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -244,7 +245,7 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
             colors: colors,
-            fontSize: size
+            fontSize: size,
         },
     },
 

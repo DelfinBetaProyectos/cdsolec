@@ -73,6 +73,16 @@ class WelcomeController extends Controller
     }
 
     /**
+     * Display Brands.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function brands()
+    {
+        return view('web.brands');
+    }
+
+    /**
      * Display Cart.
      * 
      * @return \Illuminate\Http\Response

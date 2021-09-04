@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 */
 
 Route::get('/about', [WelcomeController::class, 'about'])->name('about');
+Route::get('/brands', [WelcomeController::class, 'brands'])->name('brands');
 Route::get('/products', [WelcomeController::class, 'products'])->name('products');
 Route::get('/product', [WelcomeController::class, 'product'])->name('product');
 Route::get('/cart', [WelcomeController::class, 'cart'])->name('cart');

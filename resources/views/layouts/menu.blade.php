@@ -1,17 +1,48 @@
-<nav x-data="{ open: false, openSide: true }" class="sticky top-0 z-20 bg-cdsolec-green-light">
+<nav x-data="{ open: false, openSide: true }" class="sticky top-0 z-20 bg-white border-b border-cdsolec-green-light shadow-md">
+  <div class="block bg-cdsolec-green-light h-3 md:h-6"></div>
   <!-- Primary Navigation Menu -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
+    <div class="flex justify-between h-16 md:h-32">
       <!-- Logo -->
-      <div class="flex flex-shrink-0 flex items-center mr-10">
+      <div class="flex flex-shrink-0 flex items-center justify-center mr-10">
         <a href="{{ route('welcome') }}">
-          <x-jet-application-mark class="block h-9 w-auto" />
+          <img src="{{ asset('img/logos/CD-SOLEC_Horizontal.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class=" block md:hidden h-14" />
+          <img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class="hidden md:block h-28" />
         </a>
       </div>
       <!-- Navigation -->
-      <div class="hidden w-full md:flex md:flex-col-reverse lg:flex-row justify-between">
-        <!-- Navigation Links Left -->
-        <div class="space-x-4 flex flex-shrink-0">
+      <div class="hidden w-full md:block">
+        <!-- Navigation Links Sessions -->
+        <div class="h-16 space-x-4 flex flex-shrink-0 justify-end">
+          <div class="flex-auto">
+            <form method="GET" action="{{ route('products') }}">
+              @csrf
+              <label for="search" class="sr-only">Buscar</label>
+              <div class="my-2 relative rounded-md shadow-sm">
+                <input type="text" name="search" id="search" class="block w-full pl-2 pr-12 text-sm rounded-md border border-cdsolec-green-dark focus:ring-gray-300 focus:border-gray-300" placeholder="Buscar Productos" />
+                <div class="absolute inset-y-0 right-0 flex items-center">
+                  <button type="submit" class="px-3 py-2 bg-cdsolec-green-dark rounded-r-md text-center text-white font-semibold uppercase tracking-wider hover:bg-cdsolec-green-light">
+                    <i class="fas fa-fw mr-1 fa-search"></i> Buscar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <x-jet-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')" class="relative">
+            <i class="fas fa-fw mr-1 fa-shopping-cart"></i> Compra
+            <div class="absolute animate-bounce bg-cdsolec-green-dark rounded -right-5 lg:top-2 lg:-right-2">
+              <span class="px-2 text-white text-xs">0</span>
+            </div>
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('register') }}">
+            <i class="fas fa-fw mr-1 fa-user"></i> Registro
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('login') }}">
+            <i class="fas fa-fw mr-1 fa-lock"></i> Login
+          </x-jet-nav-link>
+        </div>
+        <!-- Navigation Links Menú -->
+        <div class="h-16 space-x-4 flex flex-shrink-0">
           <div class="hoverable flex flex-shrink-0">
             <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
               Productos
@@ -45,71 +76,22 @@
                         @endforeach
                       </div>
                     </div>
-                    <div x-show="activeTab===2">
-                      <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          ABB
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Emerson
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Fuji Electric
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Mitsubishi Electric
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Philips
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Phoenix Contact
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Rockwell Automation
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Schneider
-                        </a>
-                        <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                          <span class="fas fa-angle-right mr-1"></span>
-                          Siemens
-                        </a>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <x-jet-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
+            Fabricantes
+          </x-jet-nav-link>
+          <x-jet-nav-link href="#">
+            Pedido Rápido
+          </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
             Nosotros
           </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
             Contacto
-          </x-jet-nav-link>
-        </div>
-        <!-- Navigation Links Right -->
-        <div class="space-x-4 flex flex-shrink-0 justify-end">
-          <x-jet-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')" class="relative">
-            <i class="fas fa-fw mr-1 fa-shopping-cart"></i> Compra
-            <div class="absolute animate-bounce bg-cdsolec-green-dark rounded -right-5 lg:top-2 lg:-right-2">
-              <span class="px-2 text-white text-xs">0</span>
-            </div>
-          </x-jet-nav-link>
-          <x-jet-nav-link href="{{ route('register') }}">
-            <i class="fas fa-fw mr-1 fa-user"></i> Registro
-          </x-jet-nav-link>
-          <x-jet-nav-link href="{{ route('login') }}">
-            <i class="fas fa-fw mr-1 fa-lock"></i> Login
           </x-jet-nav-link>
         </div>
       </div>
@@ -163,51 +145,17 @@
                     @endforeach
                   </div>
                 </div>
-                <div x-show="activeTab===2">
-                  <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      ABB
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Emerson
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Fuji Electric
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Mitsubishi Electric
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Philips
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Phoenix Contact
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Rockwell Automation
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Schneider
-                    </a>
-                    <a href="#" class="block px-2 hover:bg-cdsolec-green-light">
-                      <span class="fas fa-angle-right mr-1"></span>
-                      Siemens
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <x-jet-responsive-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
+        Fabricantes
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="#">
+        Pedido Rápido
+      </x-jet-responsive-nav-link>
       <x-jet-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
         Nosotros
       </x-jet-responsive-nav-link>
