@@ -3,12 +3,47 @@
 
 	@section('content')
     <div class="container mx-auto px-6">
-			<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">
-				Distribuimos equipos y componentes de las mejores marcas
-			</h6>
-			<h2 class="text-3xl leading-tight font-bold mt-4">Fabricantes</h2>
-      <p class="py-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum illo eius laudantium voluptas minus facere deserunt optio? A, nisi! Incidunt quia non ducimus beatae ab? Quibusdam, quidem suscipit? Qui, molestias! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum illo eius laudantium voluptas minus facere deserunt optio? A, nisi! Incidunt quia non ducimus beatae ab? Quibusdam, quidem suscipit? Qui, molestias!</p>
-			<p class="py-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum illo eius laudantium voluptas minus facere deserunt optio? A, nisi! Incidunt quia non ducimus beatae ab? Quibusdam, quidem suscipit? Qui, molestias! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum illo eius laudantium voluptas minus facere deserunt optio? A, nisi! Incidunt quia non ducimus beatae ab? Quibusdam, quidem suscipit? Qui, molestias!</p>
+		<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">
+			Distribuimos equipos y componentes de las mejores marcas
+		</h6>
+		<h2 class="text-3xl leading-tight font-bold mt-4">Fabricantes</h2>
+		<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
+			@foreach ($brands as $brand)
+				<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg {{ ($loop->index > 4) ? 'transition duration-1000 ease-out opacity-0 transform scale-50' : '' }}">
+					<a href="{{ route('products') }}">
+						<img src="http://img.cd-solec.com/societe/{{ $brand->ref }}/logos/{{ $brand->logo }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
+					</a>
+				</div>
+			@endforeach
+		</div>
     </div>
 	@endsection
+
+	@push('scripts')
+		<script>
+			(function() {
+				'use strict';
+			
+				//------------------------  Brands  --------------------------
+				const screen_position = window.innerHeight / 1.2;
+				let brands = document.querySelectorAll('.brand');
+			
+				window.addEventListener('scroll', function() {
+					//------------------------  Brands  ------------------------
+					let brands_positions = [];
+					for (let i = 0; i < brands.length; i++) {
+						brands_positions[i] = brands[i].getBoundingClientRect().top;
+			
+						if (brands_positions[i] < screen_position) {
+							brands[i].classList.remove('opacity-0');
+							brands[i].classList.add('opacity-100');
+							brands[i].classList.remove('scale-0');
+							brands[i].classList.add('scale-100');
+						}
+					}
+				});
+				//------------------------------------------------------------
+			})();
+		</script>
+	@endpush
 </x-web-layout>

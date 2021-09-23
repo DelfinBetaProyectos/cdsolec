@@ -94,36 +94,16 @@
 				</h6>
 				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Fabricantes</h2>
 				<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
-						<img src="img/marcas/ABB.jpg" alt="ABB" title="ABB" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-75">
-						<img src="img/marcas/Emerson.jpg" alt="Emerson" title="Emerson" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-100">
-						<img src="img/marcas/Fuji_Electric.jpg" alt="Fuji Electric" title="Fuji Electric" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-150">
-						<img src="img/marcas/Mitsubishi_Electric.jpg" alt="Mitsubishi Electric" title="Mitsubishi Electric" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-200">
-						<img src="img/marcas/Philips.jpg" alt="Philips" title="Philips" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay">
-						<img src="img/marcas/Phoenix_Contact.jpg" alt="Phoenix Contact" title="Phoenix Contact" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-75">
-						<img src="img/marcas/Rockwell_Automation.jpg" alt="Rockwell Automation" title="Rockwell Automation" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-100">
-						<img src="img/marcas/Schneider.jpg" alt="Schneider" title="Schneider" />
-					</div>
-					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50 delay-150">
-						<img src="img/marcas/Siemens.jpg" alt="Siemens" title="Siemens" />
-					</div>
+					@foreach ($brands as $brand)
+						<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
+							<a href="{{ route('products') }}">
+								<img src="http://img.cd-solec.com/societe/{{ $brand->ref }}/logos/{{ $brand->logo }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
+							</a>
+						</div>
+					@endforeach
 				</div>
 				<div class="text-right">
-					<a href="{{ route('products') }}" class="px-8 py-4 bg-cdsolec-green-light text-white rounded-md font-semibold text-lg hover:bg-cdsolec-green-dark">
+					<a href="{{ route('brands') }}" class="px-8 py-4 bg-cdsolec-green-light text-white rounded-md font-semibold text-lg hover:bg-cdsolec-green-dark">
 						Ver Mas <i class="fas fa-long-arrow-alt-right"></i>
 					</a>
 			 </div>
