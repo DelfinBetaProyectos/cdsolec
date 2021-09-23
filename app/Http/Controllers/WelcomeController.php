@@ -7,13 +7,52 @@ use Illuminate\Http\Request;
 class WelcomeController extends Controller
 {
     /**
+     * ERP API data.
+     */
+    protected $erpapi_key;
+    protected $erpapi_url;
+
+    /**
+     * Instantiate a new controller instance.
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->erpapi_key = config('erpapi.key');
+        $this->erpapi_url = config('erpapi.url');
+    }
+
+    /**
      * Display Welcome.
      * 
      * @return \Illuminate\Http\Response
      */
     public function welcome()
     {
-        return view('welcome');
+        $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
+
+        $url = $this->erpapi_url.'thirdparties?mode=4&category=717&limit=10';
+
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $response = curl_exec($ch);
+        $err = curl_error($ch);
+        curl_close($ch);
+        
+        if ($err) {
+            $brands = null;
+            dd("cURL Error #:" . $err);
+        } else {
+            $brands = json_decode($response);
+        }
+
+        return view('welcome')->with('brands', $brands);
     }
 
     /**
@@ -34,12 +73,12 @@ class WelcomeController extends Controller
      */
     public function products(Request $request)
     {
-        $headers = array('Content-Type:application/json', 'DOLAPIKEY: bJD33zn72gC9O6duXc59vOZh2N8OFiFk');
+        $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
 
         if(empty($request->category)) {
             $category = null;
         } else {
-            $url = 'http://www.cd-solec.com/erp/htdocs/api/index.php/categories/'.$request->category.'?include_childs=true';
+            $url = $this->erpapi_url.'categories/'.$request->category.'?include_childs=true';
 
             $ch = curl_init();
             
@@ -79,7 +118,29 @@ class WelcomeController extends Controller
      */
     public function brands()
     {
-        return view('web.brands');
+        $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
+
+        $url = $this->erpapi_url.'thirdparties?mode=4&category=717';
+
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $response = curl_exec($ch);
+        $err = curl_error($ch);
+        curl_close($ch);
+        
+        if ($err) {
+            $brands = null;
+            dd("cURL Error #:" . $err);
+        } else {
+            $brands = json_decode($response);
+        }
+
+        return view('web.brands')->with('brands', $brands);
     }
 
     /**

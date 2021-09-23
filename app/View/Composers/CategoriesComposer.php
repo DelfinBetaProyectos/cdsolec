@@ -8,10 +8,10 @@ class CategoriesComposer
 {
   public function compose(View $view)
   {
-    $headers = array('Content-Type:application/json', 'DOLAPIKEY: bJD33zn72gC9O6duXc59vOZh2N8OFiFk');
+    $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.config('erpapi.key'));
 
     //--------------------- API - CATEGORIAS ---------------------
-    $url = 'http://www.cd-solec.com/erp/htdocs/api/index.php/categories?sortfield=t.rowid&sortorder=ASC&type=product&sqlfilters=fk_parent%3D715';
+    $url = config('erpapi.url').'categories?sortfield=t.rowid&sortorder=ASC&type=product&sqlfilters=fk_parent%3D715';
 
     $ch = curl_init();
     
@@ -32,7 +32,7 @@ class CategoriesComposer
     // ----------------------------------------------------------
 
     //---------------- API - SECTORES DE INTERES ----------------
-    $url = 'http://www.cd-solec.com/erp/htdocs/api/index.php/categories?sortfield=t.rowid&sortorder=ASC&type=product&sqlfilters=fk_parent%3D693';
+    $url = config('erpapi.url').'categories?sortfield=t.rowid&sortorder=ASC&type=product&sqlfilters=fk_parent%3D693';
 
     $ch = curl_init();
 
