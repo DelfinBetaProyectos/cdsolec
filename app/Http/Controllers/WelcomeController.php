@@ -47,7 +47,7 @@ class WelcomeController extends Controller
         
         if ($err) {
             $brands = null;
-            dd("cURL Error #:" . $err);
+            // dd("cURL Error: " . $err);
         } else {
             $brands = json_decode($response);
         }
@@ -92,7 +92,8 @@ class WelcomeController extends Controller
             curl_close($ch);
             
             if ($err) {
-                dd("cURL Error #:" . $err);
+                $category = null;
+                // dd("cURL Error: " . $err);
             } else {
                 $category = json_decode($response);
             }
@@ -135,7 +136,7 @@ class WelcomeController extends Controller
         
         if ($err) {
             $brands = null;
-            dd("cURL Error #:" . $err);
+            // dd("cURL Error: " . $err);
         } else {
             $brands = json_decode($response);
         }

@@ -25,7 +25,8 @@ class CategoriesComposer
     curl_close($ch);
     
     if ($err) {
-      dd("cURL Error #:" . $err);
+      // dd("cURL Error: " . $err);
+      $view->categories = null;
     } else {
       $view->categories = json_decode($response);
     }
@@ -46,7 +47,8 @@ class CategoriesComposer
     curl_close($ch);
     
     if ($err) {
-      dd("cURL Error #:" . $err);
+      // dd("cURL Error: " . $err);
+      $view->sectors = null;
     } else {
       $view->sectors = json_decode($response);
     }
