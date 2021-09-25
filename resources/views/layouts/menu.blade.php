@@ -58,22 +58,26 @@
                   <div class="pt-4 border-t border-gray-400">
                     <div x-show="activeTab===0">
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
-                        @foreach($categories as $item)
+                        @if ($categories)
+                          @foreach($categories as $item)
                           <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
                             {{ $item->label }}
                           </a>
-                        @endforeach
+                          @endforeach
+                        @endif
                       </div>
                     </div>
                     <div x-show="activeTab===1">
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
-                        @foreach($sectors as $item)
+                        @if ($sectors)    
+                          @foreach($sectors as $item)
                           <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
                             {{ $item->label }}
                           </a>
-                        @endforeach
+                          @endforeach
+                        @endif
                       </div>
                     </div>
                   </div>
@@ -127,22 +131,26 @@
               <div class="pt-4 border-t border-gray-400">
                 <div x-show="activeTab===0">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    @foreach($categories as $item)
-                      <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
-                        <span class="fas fa-angle-right mr-1"></span>
-                        {{ $item->label }}
-                      </a>
-                    @endforeach
+                    @if ($categories)
+                      @foreach($categories as $item)
+                        <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <span class="fas fa-angle-right mr-1"></span>
+                          {{ $item->label }}
+                        </a>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
                 <div x-show="activeTab===1">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    @foreach($sectors as $item)
-                      <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
-                        <span class="fas fa-angle-right mr-1"></span>
-                        {{ $item->label }}
-                      </a>
-                    @endforeach
+                    @if ($sectors)
+                      @foreach($sectors as $item)
+                        <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <span class="fas fa-angle-right mr-1"></span>
+                          {{ $item->label }}
+                        </a>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
               </div>

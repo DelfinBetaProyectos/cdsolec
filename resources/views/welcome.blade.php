@@ -94,13 +94,15 @@
 				</h6>
 				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Fabricantes</h2>
 				<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
-					@foreach ($brands as $brand)
-						<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
-							<a href="{{ route('products') }}">
-								<img src="http://img.cd-solec.com/societe/{{ $brand->ref }}/logos/{{ $brand->logo }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
-							</a>
-						</div>
-					@endforeach
+					@if ($brands)
+						@foreach ($brands as $brand)
+							<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
+								<a href="{{ route('products') }}">
+									<img src="http://img.cd-solec.com/societe/{{ $brand->ref }}/logos/{{ $brand->logo }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
+								</a>
+							</div>
+						@endforeach
+					@endif
 				</div>
 				<div class="text-right">
 					<a href="{{ route('brands') }}" class="px-8 py-4 bg-cdsolec-green-light text-white rounded-md font-semibold text-lg hover:bg-cdsolec-green-dark">
