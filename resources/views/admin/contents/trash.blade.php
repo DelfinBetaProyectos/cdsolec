@@ -22,6 +22,9 @@
 			<thead>
 				<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
 					<th style="width: 110px" class="px-3 py-3 font-medium text-left">
+						ID
+					</th>
+					<th style="width: 110px" class="px-3 py-3 font-medium text-left">
 						Nombre
 					</th>
 					<th class="px-2 py-3 font-medium text-center">
@@ -39,6 +42,14 @@
 			<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
 				@foreach($contents as $content)
 				<tr class="flex flex-col lg:table-row even:bg-gray-200">
+					<td class="flex flex-row lg:table-cell">
+						<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+							ID
+						</div>
+						<div class="p-2 text-center text-sm">
+							{{ str_pad($content->id, 4, "0", STR_PAD_LEFT) }}
+						</div>
+					</td>
 					<td class="flex flex-row lg:table-cell">
 						<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
 							Nombre
