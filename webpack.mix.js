@@ -29,6 +29,15 @@ mix.styles(['resources/css/megamenu.css'], 'public/css/megamenu.css');
 
 mix.js('resources/js/welcome.js', 'public/js');
 
+mix.copyDirectory('node_modules/tinymce/icons', 'public/js/tinymce/icons');
+mix.copyDirectory('node_modules/tinymce/plugins', 'public/js/tinymce/plugins');
+mix.copyDirectory('node_modules/tinymce/skins', 'public/js/tinymce/skins');
+mix.copyDirectory('node_modules/tinymce/themes', 'public/js/tinymce/themes');
+mix.copy('node_modules/tinymce/jquery.tinymce.js', 'public/js/tinymce/jquery.tinymce.js');
+mix.copy('node_modules/tinymce/jquery.tinymce.min.js', 'public/js/tinymce/jquery.tinymce.min.js');
+mix.copy('node_modules/tinymce/tinymce.js', 'public/js/tinymce/tinymce.js');
+mix.copy('node_modules/tinymce/tinymce.min.js', 'public/js/tinymce/tinymce.min.js');
+
 if (mix.inProduction()) {
     mix.version();
 }

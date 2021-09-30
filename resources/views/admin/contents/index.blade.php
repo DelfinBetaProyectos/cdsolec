@@ -56,7 +56,7 @@
 			<a href="{{ route('contents.create') }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
 				<i class="fas fa-fw fa-plus-square"></i> Agregar Nuevo
 			</a>
-			<a href="" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition">
+			<a href="{{ route('contents.trash') }}" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition">
 				<i class="fas fa-fw fa-trash-restore"></i> Ver Papelera
 			</a>
 		</div>
@@ -95,7 +95,7 @@
 							Descripción
 						</div>
 						<div class="p-2 text-center">
-							{{ $content->description }}
+							{!! $content->description !!}
 						</div>
 					</td>
 					<td class="flex flex-row lg:table-cell">
@@ -111,7 +111,7 @@
 							Opciones
 						</div>
 						<div class="p-2 text-center">
-							<a href="{{ route('contents.edit', $content) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
+							<a href="{{ route('contents.edit', $content->id) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
 								<i class="fas fa-sm fa-edit"></i>
 							</a>
 							@livewire('delete-modal', [
@@ -128,4 +128,29 @@
 			@endif
 		</table>
 	</div>
+	@push('scripts')
+	<script>
+		(function() {
+			'use strict';
+
+			let fromPicker = flatpickr(".flatpickrFrom", {
+				dateFormat: "d/m/Y",
+				wrap: true,
+				disableMobile: true,
+				onChange: function(selectedDates, dateStr, instance) {
+					toPicker.set('minDate', selectedDates[0]);
+				}
+			});
+
+			let toPicker = flatpickr(".flatpickrTo", {
+				dateFormat: "d/m/Y",
+				wrap: true,
+				disableMobile: true,
+				onChange: function(selectedDates, dateStr, instance) {
+					fromPicker.set('maxDate', selectedDates[0]);
+				}
+			});
+		})();
+	</script>
+	@endpush
 </x-dashboard-layout>

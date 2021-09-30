@@ -21,7 +21,7 @@
 					<x-jet-validation-errors class="mb-4" />
 				</div>
 
-				<form id="form" name="form" method="POST" action="#" enctype="multipart/form-data">
+				<form id="form" name="form" method="POST" action="{{ route('contents.update', $content) }}" enctype="multipart/form-data">
 					@csrf
 					{{ method_field('PUT') }}
 
