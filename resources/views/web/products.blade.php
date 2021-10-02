@@ -99,7 +99,7 @@
                             </div>
             				<div class="flex p-2">
             					<input type="checkbox" class="form-checkbox"/>
-            					<img class="h-20 w-20 ml-2" src="{{ asset('img/p1.jpg') }}" alt="Producto" title="Porducto"/>
+            					<img class="h-20 w-20 ml-2 img-zoomable" src="{{ asset('img/p1.jpg') }}" alt="Producto" title="Porducto"/>
             				</div>
             			</td>
             			<td class="p-2 border border-gray-300 flex flex-row lg:table-cell">
@@ -109,7 +109,7 @@
                             <div class="p-2">
                             	<a href="#" class="text-cdsolec-blue-light font-bold">Siemens <br/>
 								Load Center, 400A, 6 Circuit, 120/240V, Single Phase, Enclosed</a>
-								Descripción
+								<p>Descripción</p>
 								<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
                             </div>
             			</td>
@@ -136,10 +136,10 @@
                             </div>
                             <div class="p-2 text-center">
                             	<div class="flex pb-2">
-            					<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-            					<input type="text" name="cantidad" id="cantidad" class="w-20" />
-            					<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
-            				</div>
+            						<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
+            						<input type="text" name="cantidad" id="cantidad" class="w-20" />
+            						<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+            					</div>
             					<button type="button" class="px-5 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">Agregar al <br/>Carrito <i class="fas fa-shopping-cart"></i></button>
                             </div>
             				

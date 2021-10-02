@@ -14,7 +14,7 @@
     max-height: 100vh;
 }
 .tab input:checked + label{
-    padding: 1.25rem; /*.p-5*/
+    padding: 1rem; /*.p-4*/
 }
  
 
