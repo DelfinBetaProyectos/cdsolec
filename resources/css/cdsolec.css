@@ -1,3 +1,20 @@
 .gradient {
   background: linear-gradient(90deg, #2E9B00 30%, #8DFC00 70%);
 }
+
+/********* Accordion********/
+
+.tab-content {
+	max-height: 0;
+    -webkit-transition: max-height .35s;
+    -o-transition: max-height .35s;
+    transition: max-height .35s;
+}
+.tab input:checked ~ .tab-content {
+    max-height: 100vh;
+}
+.tab input:checked + label{
+    padding: 1rem; /*.p-4*/
+}
+ 
+

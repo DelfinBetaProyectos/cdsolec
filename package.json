@@ -25,8 +25,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
-        "flatpickr": "^4.6.9",
         "@splidejs/splide": "^2.4.21",
-        "jquery": "^3.6.0"
+        "flatpickr": "^4.6.9",
+        "jquery": "^3.6.0",
+        "zooming": "^2.1.1"
     }
 }
