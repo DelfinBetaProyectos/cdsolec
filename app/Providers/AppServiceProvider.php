@@ -37,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
    */
   public function boot()
   {
-    View::composer('*', CategoriesComposer::class);
+    View::composer([
+      'welcome', 'layouts.menu', 'web.about', 'web.brands', 'web.products', 'web.product', 'web.cart', 'web.contact'
+    ], CategoriesComposer::class);
   }
 }

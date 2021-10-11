@@ -37,3 +37,7 @@ window.$ = require('jquery');
  * https://splidejs.com/
  */
 window.Splide = require("@splidejs/splide");
+
+
+
+window.Zooming = require('zooming');
