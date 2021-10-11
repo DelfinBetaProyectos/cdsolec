@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
         "owen-it/laravel-auditing": "^12.0",
-        "silber/bouncer": "v1.0.0-rc.10"
+        "silber/bouncer": "v1.0.0-rc.10",
+        "tinymce/tinymce": "^5.9"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
