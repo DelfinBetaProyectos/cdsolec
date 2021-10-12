@@ -94,7 +94,7 @@
           <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
             Nosotros
           </x-jet-nav-link>
-          <x-jet-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+          <x-jet-nav-link href="{{ route('comments.create') }}" :active="request()->routeIs('comments.create')">
             Contacto
           </x-jet-nav-link>
         </div>
@@ -167,7 +167,7 @@
       <x-jet-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
         Nosotros
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+      <x-jet-responsive-nav-link href="{{ route('comments.create') }}" :active="request()->routeIs('comments.create')">
         Contacto
       </x-jet-responsive-nav-link>
     </div>

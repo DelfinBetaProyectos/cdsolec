@@ -16,23 +16,43 @@ class ContentSeeder extends Seeder
     {
         $content = Content::factory()->create([
             'name' => 'Acerca de Nosotros',
-            'description' => '<p style="text-align: justify;">Somos un grupo de empresas 100% capital venezolano, conformadas por profesionales con clara visi&oacute;n tecnol&oacute;gica y gerencial, con m&aacute;s de 40 a&ntilde;os de experiencia en soluciones de automatizaci&oacute;n, instrumentaci&oacute;n, control de proceso y distribuci&oacute;n eficiente y segura de la Energ&iacute;a, para sectores de mercado como Industria qu&iacute;mica, alimentos y bebidas, Oil&amp;Gas, metal mec&aacute;nico, miner&iacute;a, residencial y construcci&oacute;n. En todas nuestras soluciones integrales incorporamos productos con las &uacute;ltimas tecnolog&iacute;as en digitalizaci&oacute;n e interconectividad a los fines de asegurar el manejo inteligente y eficiente de los recursos.</p>
-            <p style="text-align: justify;">En CD-SOLEC distribuimos equipos y componentes de las mejores marcas disponibles, tales como Siemens, Schneider Electric, Rockwell Automaci&oacute;n, Mitsubishi Electric y ABB, a los fines de facilitarles a nuestros clientes el desarrollo de soluciones de ingenier&iacute;a a los mejores precios con m&aacute;xima calidad y sin intermediarios.</p>'
+            'description' => '<p class="py-2">Somos un grupo de empresas 100% capital venezolano, conformadas por profesionales con clara visión tecnológica y gerencial, con más de 40 años de experiencia en soluciones de automatización, instrumentación, control de proceso y distribución eficiente y segura de la Energía, para sectores de mercado como Industria química, alimentos y bebidas, Oil&Gas, metal mecánico, minería, residencial y construcción. En todas nuestras soluciones integrales incorporamos productos con las últimas tecnologías en digitalización e interconectividad a los fines de asegurar el manejo inteligente y eficiente de los recursos.</p>
+            <p class="py-2">En <strong>CD-SOLEC</strong> distribuimos equipos y componentes de las mejores marcas disponibles, tales como Siemens, Schneider Electric, Rockwell Automation, Mitsubishi Electric y ABB, a los fines de facilitarles a nuestros clientes el desarrollo de soluciones de ingeniería a los mejores precios con máxima calidad y sin intermediarios.</p>'
+        ]);
+
+        $content = Content::factory()->create([
+            'name' => 'Nosotros',
+            'description' => '<p class="py-2">Somos un grupo de empresas 100% capital venezolano, conformadas por profesionales con clara visión tecnológica y gerencial, con más de 40 años de experiencia en soluciones de automatización, instrumentación, control de proceso y distribución eficiente y segura de la Energía, para sectores de mercado como Industria química, alimentos y bebidas, Oil&Gas, metal mecánico, minería, residencial y construcción. En todas nuestras soluciones integrales incorporamos productos con las últimas tecnologías en digitalización e interconectividad a los fines de asegurar el manejo inteligente y eficiente de los recursos.</p>
+			<p class="py-2">En <strong>CD-SOLEC</strong> distribuimos equipos y componentes de las mejores marcas disponibles, tales como Siemens, Schneider Electric, Rockwell Automation, Mitsubishi Electric y ABB, a los fines de facilitarles a nuestros clientes el desarrollo de soluciones de ingeniería a los mejores precios con máxima calidad y sin intermediarios.</p>
+            <p class="py-2">Nuestra seriedad, responsabilidad y compromiso con los clientes, garantiza la continua operatividad, interconectividad y calidad de todas las soluciones diseñadas e implementadas además de estar construidas y/o instaladas según las Normativas Vigentes (ANSI, IEC, NEMA, NEC, NFPA, UL, ISA).</p>
+			<h6 class="leading-tight font-bold mt-4">VISION</h6>
+			<p class="py-2">CONVERTIRNOS EN LA MEJOR OPCIÓN DE NUESTROS CLIENTES AL OFRECERLES EN NUESTRA PAGINA WEB UN AMPLIO PORTAFOLIO DE PRODUCTOS DEL SECTOR ENERGIA Y TELECOMUNICACIONES CON SOLUCIONES INNOVADORAS Y DONDE PODRAN DESCUBRIR LAS ULTIMAS TENDENCIAS EN UN MUNDO CADA DIA MAS DIGITAL.</p>
+			<h6 class="leading-tight font-bold mt-4">MISION</h6>
+			<p class="py-2">PONER EN LA MANO DE NUESTROS CLIENTES PRODUCTOS Y SOLUCIONES INNOVADORAS PARA LLEVAR A TERMINO LOS PROYECTOS Y SERVICIOS EN EL MENOR TIEMPO POSIBLE, GARANTIZANDO SOSTENIBILIDAD, EFICIENCIA, SEGURIDAD, DIGITALIZACION Y RENTABILIDAD.</p>'
         ]);
 
         $content = Content::factory()->create([
             'name' => 'Contáctanos',
-            'description' => '
-            <p style="text-align: left;">Visitanos o escribemos por:</p>
-                <p style="text-align: left;">Facebook: CDSOLEC</p>
-                <p style="text-align: left;">Instagram: @CDSOLEC</p>
-                <p style="text-align: left;">Correo: cdsolecmaracay@gmail.com</p>
-                <p style="text-align: left;">Tel&eacute;fonos:</p>
-                <ul style="text-align: left;">
-                <li style="text-align: left;">(0414)-590.43.46</li>
-                <li style="text-align: left;">(0424)-305.05.99</li>
-                <li style="text-align: left;">(0424)-322.97.43</li>
-                </ul>'
+            'description' => '<div class="w-full flex mb-5">
+                <i class="mr-3 fas fa-5x fa-fw fa-envelope-open-text"></i>
+                <div>
+                    <p class="py-7"><a href="mailto:ventas@cd-solec.com">ventas@cd-solec.com</a></p>
+                </div>
+            </div>
+            <div class="w-full flex mb-5">
+                <i class="mr-3 fas fa-5x fa-fw fa-mobile-alt"></i>
+                <div>
+                    <p><a href="tel:+584145904346">(0414)-590.43.46</a></p>
+                    <p><a href="tel:+584243050599">(0424)-305.05.99</a></p>
+                    <p><a href="tel:+584243229743">(0424)-322.97.43</a></p>
+                </div>
+            </div>
+            <div class="w-full flex mb-5">
+                <i class="mr-3 fas fa-5x fa-fw fa-map-marked-alt"></i>
+                <div>
+                    <p class="py-7">Edo. Aragua, Venezuela</p>
+                </div>
+            </div>'
         ]);
     }
 }

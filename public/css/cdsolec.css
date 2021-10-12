@@ -2,7 +2,7 @@
   background: linear-gradient(90deg, #2E9B00 30%, #8DFC00 70%);
 }
 
-/********* Accordion********/
+/********* Accordion ********/
 
 .tab-content {
 	max-height: 0;
@@ -17,4 +17,9 @@
     padding: 1rem; /*.p-4*/
 }
  
-
+/*********   Banners   ********/
+.banner {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -1,5 +1,5 @@
 <x-web-layout title="Producto">
-	@section('background', asset('img/slide2.jpg'))
+	@section('background', asset('img/slide1.jpg'))
 
 	@section('content')
     <div class="container mx-auto px-6">

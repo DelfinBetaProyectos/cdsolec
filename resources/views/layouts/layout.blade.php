@@ -27,7 +27,7 @@
 	@include('layouts.menu')
 
 	<!-- Banner -->
-	<div class="w-full h-52" style="background-image: url(@yield('background'));"></div>
+	<div class="w-full h-52 banner" style="background-image: url(@yield('background'));"></div>
 	
 	<main class="py-14">
     @yield('content')
