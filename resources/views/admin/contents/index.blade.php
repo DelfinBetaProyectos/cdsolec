@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-			<i class="fas fa-font mr-2 text-sm"></i> Contenido
+			<i class="fas fa-file mr-2 text-sm"></i> Contenidos
 		</h2>
 	</x-slot>
 
@@ -9,7 +9,7 @@
 		<nav class="mb-3 px-3 py-2 rounded bg-gray-200 text-gray-600">
 			<ol class="flex flex-wrap">
 				<li><a href="{{ route('dashboard') }}" class="text-cdsolec-green-dark"><i class="fas fa-home"></i></a></li>
-				<li><span class="mx-2">/</span>Contenido</li>
+				<li><span class="mx-2">/</span>Contenidos</li>
 			</ol>
 		</nav>
 
@@ -64,14 +64,11 @@
 		<table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
 			<thead>
 				<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
-					<th style="width: 110px" class="px-3 py-3 font-medium text-left">
+					<th style="width: 110px" class="px-3 py-3 font-medium text-center">
 						ID
 					</th>
-					<th style="width: 110px" class="px-3 py-3 font-medium text-left">
-						Nombre
-					</th>
-					<th class="px-2 py-3 font-medium text-center">
-						Descripción
+					<th class="px-3 py-3 font-medium text-left">
+						Contenido
 					</th>
 					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 						Fecha
@@ -95,18 +92,10 @@
 					</td>
 					<td class="flex flex-row lg:table-cell">
 						<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-							Nombre
+							Contenido
 						</div>
 						<div class="p-2 flex items-center">
 							{{ $content->name }}
-						</div>
-					</td>
-					<td class="flex flex-row lg:table-cell">
-						<div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-							Descripción
-						</div>
-						<div class="p-2 text-center">
-							{!! $content->description !!}
 						</div>
 					</td>
 					<td class="flex flex-row lg:table-cell">
@@ -126,10 +115,10 @@
 								<i class="fas fa-sm fa-edit"></i>
 							</a>
 							@livewire('delete-modal', [
-							'msg' => 'al Contenido',
-							'model_id' => $content->id,
-							'route' => 'contents.destroy',
-							'method' => 'delete'
+								'msg' => 'al Contenido',
+								'model_id' => $content->id,
+								'route' => 'contents.destroy',
+								'method' => 'delete'
 							])
 						</div>
 					</td>
@@ -139,29 +128,30 @@
 			@endif
 		</table>
 	</div>
+
 	@push('scripts')
-	<script>
-		(function() {
-			'use strict';
+		<script>
+			(function() {
+				'use strict';
 
-			let fromPicker = flatpickr(".flatpickrFrom", {
-				dateFormat: "d/m/Y",
-				wrap: true,
-				disableMobile: true,
-				onChange: function(selectedDates, dateStr, instance) {
-					toPicker.set('minDate', selectedDates[0]);
-				}
-			});
+				let fromPicker = flatpickr(".flatpickrFrom", {
+					dateFormat: "d/m/Y",
+					wrap: true,
+					disableMobile: true,
+					onChange: function(selectedDates, dateStr, instance) {
+						toPicker.set('minDate', selectedDates[0]);
+					}
+				});
 
-			let toPicker = flatpickr(".flatpickrTo", {
-				dateFormat: "d/m/Y",
-				wrap: true,
-				disableMobile: true,
-				onChange: function(selectedDates, dateStr, instance) {
-					fromPicker.set('maxDate', selectedDates[0]);
-				}
-			});
-		})();
-	</script>
+				let toPicker = flatpickr(".flatpickrTo", {
+					dateFormat: "d/m/Y",
+					wrap: true,
+					disableMobile: true,
+					onChange: function(selectedDates, dateStr, instance) {
+						fromPicker.set('maxDate', selectedDates[0]);
+					}
+				});
+			})();
+		</script>
 	@endpush
 </x-dashboard-layout>

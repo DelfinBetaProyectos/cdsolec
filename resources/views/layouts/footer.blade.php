@@ -49,7 +49,7 @@
               </li>
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
-                <a href="{{ route('contact') }}">Contacto</a>
+                <a href="{{ route('comments.create') }}">Contacto</a>
               </li>
             </ul>
           </div>
@@ -106,7 +106,7 @@
             <p><a href="tel:+584243229743"><i class="fas fa-fw fa-phone mr-2"></i> (0424)-322.97.43</a></p>
           </div>
           <div>
-            <form method="GET" action="{{ route('contact') }}">
+            <form method="GET" action="{{ route('comments.create') }}">
               @csrf
               <label for="email" class="sr-only">Email</label>
               <div class="mt-1 relative rounded-md shadow-sm">

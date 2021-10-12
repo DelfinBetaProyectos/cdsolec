@@ -17,13 +17,13 @@
 </div>
 
 @push('scripts')
-<script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
-<script>
-  tinymce.init({
-    selector: 'textarea.tinymce',
-    height: 400,
-    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor emoticons',
-    plugins: 'lists advlist link emoticons'
-  });
-</script>
+  <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+  <script>
+    tinymce.init({
+      selector: 'textarea.tinymce',
+      height: 400,
+      toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor emoticons',
+      plugins: 'lists advlist link emoticons'
+    });
+  </script>
 @endpush

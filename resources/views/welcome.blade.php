@@ -76,9 +76,8 @@
 						<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">
 							Bienvenido a nuestro sitio web
 						</h6>
-						<h2 class="text-3xl leading-tight font-bold mt-4">Acerca de Nosotros</h2>
-						<p class="py-2">Somos un grupo de empresas 100% capital venezolano, conformadas por profesionales con clara visión tecnológica y gerencial, con más de 40 años de experiencia en soluciones de automatización, instrumentación, control de proceso y distribución eficiente y segura de la Energía, para sectores de mercado como Industria química, alimentos y bebidas, Oil&Gas, metal mecánico, minería, residencial y construcción. En todas nuestras soluciones integrales incorporamos productos con las últimas tecnologías en digitalización e interconectividad a los fines de asegurar el manejo inteligente y eficiente de los recursos.</p>
-						<p class="py-2">En <strong>CD-SOLEC</strong> distribuimos equipos y componentes de las mejores marcas disponibles, tales como Siemens, Schneider Electric, Rockwell Automación, Mitsubishi Electric y ABB, a los fines de facilitarles a nuestros clientes el desarrollo de soluciones de ingeniería a los mejores precios con máxima calidad y sin intermediarios.</p>
+						<h2 class="text-3xl leading-tight font-bold mt-4">{{ $about->name }}</h2>
+						{!! $about->description !!}
 					</div>
 					<div class="md:w-1/5 text-center mx-4 pt-1">
 						<img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" />
