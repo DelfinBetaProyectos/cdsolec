@@ -70,7 +70,7 @@
                     </div>
                     <div x-show="activeTab===1">
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
-                        @if ($sectors)    
+                        @if ($sectors)
                           @foreach($sectors as $item)
                           <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
