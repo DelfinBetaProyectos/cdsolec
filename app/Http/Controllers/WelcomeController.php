@@ -80,9 +80,10 @@ class WelcomeController extends Controller
     {
         $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
 
-        if(empty($request->category)) {
-            $category = null;
-        } else {
+        $category = null;
+        $parent = null;
+
+        if(!empty($request->category)) {
             $url = $this->erpapi_url.'categories/'.$request->category.'?include_childs=true';
 
             $ch = curl_init();
@@ -96,15 +97,29 @@ class WelcomeController extends Controller
             $err = curl_error($ch);
             curl_close($ch);
             
-            if ($err) {
-                $category = null;
-                // dd("cURL Error: " . $err);
-            } else {
+            if (!$err) {
                 $category = json_decode($response);
+            }
+            
+            $url = $this->erpapi_url.'categories/'.$category->fk_parent.'?include_childs=true';
+
+            $ch = curl_init();
+            
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+
+            $response = curl_exec($ch);
+            $err = curl_error($ch);
+            curl_close($ch);
+            
+            if (!$err) {
+                $parent = json_decode($response);
             }
         }
 
-        return view('web.products')->with('category', $category);
+        return view('web.products')->with('category', $category)->with('parent', $parent);
     }
 
     /**
