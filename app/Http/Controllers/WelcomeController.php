@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Content, Comment};
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class WelcomeController extends Controller
 {
@@ -119,7 +120,30 @@ class WelcomeController extends Controller
             }
         }
 
-        return view('web.products')->with('category', $category)->with('parent', $parent);
+        $page = $request->page ?? 1;
+
+        $url = $this->erpapi_url.'products/?mode=1&sortfield=t.ref&sortorder=ASC&page='.$page;
+
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $response = curl_exec($ch);
+        $err = curl_error($ch);
+        curl_close($ch);
+        
+        if (!$err) {
+            $products = json_decode($response);
+        }
+
+        $products = new LengthAwarePaginator($products, count($products), 20, $page, ['path' => $request->url()]);
+
+        return view('web.products')->with('category', $category)
+                                   ->with('parent', $parent)
+                                   ->with('products', $products);
     }
 
     /**
