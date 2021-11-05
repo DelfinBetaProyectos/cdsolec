@@ -55,8 +55,8 @@
 				@endif
 			@endif
 
-			<div class="mt-3 grid gap-4 md:grid-flow-col md:auto-cols-auto">
-      	<div class="w-full md:w-48 lg:w-60">
+			<div class="mt-3 grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-5">
+      	<div class="relative">
       		<div class="flex mb-3">
       			<form method="GET" action="{{ route('products') }}" class="w-full">
               @csrf
@@ -178,73 +178,88 @@
 						</div>
 					</div>
       	</div>
-      	<div class="w-full">
-      		<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
-      			<thead class="bg-gray-300 py-2">
-	              <tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
-	                <th style="width: 150px" class="py-3 border border-gray-300">Comparar</th>
-	                <th class="py-3 border border-gray-300">Información</th>
-	                <th style="width: 150px" class="py-3 border border-gray-300">Disponiblidad</th>
-	                <th style="width: 150px" class="py-3 border border-gray-300">Precio</th>
-	                <th class="py-3 border border-gray-300">Cantidad</th>
-	              </tr>
-            	</thead>
-            	<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-            		<tr class="flex flex-col lg:table-row even:bg-gray-200">
-            			<td class="p-2 border border-gray-300 flex flex-row lg:table-cell">
-            				<div class="p-2 w-32 lg:hidden text-sm leading-4 tracking-wider font-bold">
-                            	Comparar
-                            </div>
-            				<div class="flex p-2">
-            					<input type="checkbox" class="form-checkbox"/>
-            					<img class="h-20 w-20 ml-2 img-zoomable" src="{{ asset('img/p1.jpg') }}" alt="Producto" title="Porducto"/>
-            				</div>
-            			</td>
-            			<td class="p-2 border border-gray-300 flex flex-row lg:table-cell">
-            				<div class="p-2 w-32 lg:hidden text-sm leading-4 tracking-wider font-bold">
-                            	Información
-                            </div>
-                            <div class="p-2">
-                            	<a href="#" class="text-cdsolec-blue-light font-bold">Siemens <br/>
-								Load Center, 400A, 6 Circuit, 120/240V, Single Phase, Enclosed</a>
-								<p>Descripción</p>
-								<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
-                            </div>
-            			</td>
-            			<td class="p-2 border border-gray-300 flex flex-row lg:table-cell">
-            				<div class="p-2 w-32 lg:hidden text-sm leading-4 tracking-wider font-bold">
-                            	Disponibilidad
-                            </div>
-                            <div class="p-2">
-	            				Stock: 724 <br/>
-	            				Orden: 630
-	            			</div>
-            			</td>
-            			<td class="p-2 border border-gray-300 flex flex-row lg:table-cell">
-            				<div class="p-2 w-32 lg:hidden text-sm leading-4 tracking-wider font-bold">
-                            	Precio
-                            </div>
-                            <div class="p-2">
-            					+1 18.74
-            				</div>      
-            			</td>
-            			<td class="p-2 border border-gray-300 flex flex-row lg:table-cell">
-            				<div class="p-2 w-32 lg:hidden text-sm leading-4 tracking-wider font-bold">
-                            	Cantidad
-                            </div>
-                            <div class="p-2 text-center">
-                            	<div class="flex pb-2">
-            						<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-            						<input type="text" name="cantidad" id="cantidad" class="w-20" />
-            						<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
-            					</div>
-            					<button type="button" class="px-5 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">Agregar al <br/>Carrito <i class="fas fa-shopping-cart"></i></button>
-                            </div>
-            				
-            			</td>
-            		</tr>
-            	</tbody>
-      		</table>
+      	<div class="relative md:col-span-3 lg:col-span-4">
+					@if ($products)
+						<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
+							<thead class="bg-gray-300">
+								<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
+									<th class="py-3" style="width: 100px">Comparar</th>
+									<th class="py-3">Información</th>
+									<th class="py-3" style="width: 120px">Disponiblidad</th>
+									<th class="py-3" style="width: 140px">Precio</th>
+									<th class="py-3" style="width: 140px">Cantidad</th>
+								</tr>
+							</thead>
+							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
+								@for ($i = $products->firstItem() - 1; $i < ($products->perPage() * $products->currentPage()); $i++)
+									<tr class="flex flex-col lg:table-row even:bg-gray-200">
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Comparar
+											</div>
+											<div class="p-2 flex">
+												<input type="checkbox" class="form-checkbox" />
+												<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/p1.jpg') }}" alt="Producto" title="Porducto" />
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Información
+											</div>
+											<div class="p-2">
+												<a href="{{ route('product', $products[$i]->ref) }}" class="text-cdsolec-blue-light font-bold">
+													{{ $products[$i]->description }}
+												</a>
+												<p>Marca</p>
+												<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Disponibilidad
+											</div>
+											<div class="p-2 lg:text-right">
+												Stock: {{ $products[$i]->stock_reel }}<br />
+												Orden: 630
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Precio
+											</div>
+											<div class="p-2 lg:text-right">
+												{{ number_format($products[$i]->price, 2, ',', '.') }}
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Cantidad
+											</div>
+											<div class="p-2 text-center">
+												<div class="w-full flex pb-2">
+													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
+													<input type="text" name="cantidad" id="cantidad" class="w-20" />
+													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+												</div>
+												<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+													Agregar al <br />
+													Carrito <i class="fas fa-shopping-cart"></i>
+												</button>
+											</div>
+										</td>
+									</tr>
+								@endfor
+							</tbody>
+						</table>
+
+						<div class="my-2 text-right">
+							{{ $products->links() }}
+						</div>
+					@else
+						<div class="w-full px-3 py-2 rounded border border-blue-600 bg-blue-200 text-blue-600 text-sm font-bold">
+							No hay productos disponibles
+						</div>
+					@endif
       	</div>
       </div>
     </div>
