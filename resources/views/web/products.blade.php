@@ -27,7 +27,7 @@
 				</nav>
 
 				@if (count($category->childs) > 0)
-					<div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
+					{{-- <div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
 						@foreach($category->childs as $child)
 							<div class="m-2 p-2 bg-white shadow-md">
 								<a href="{{ route('products').'?category='.$child->id }}" class="block">
@@ -41,8 +41,8 @@
 								</a>
 							</div>
 						@endforeach
-					</div>
-					{{-- <div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
+					</div> --}}
+					<div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
 						@foreach($category->childs as $child)
 							<div class="m-2 p-2 bg-white shadow-md">
 								<a href="{{ route('products').'?category='.$child->id }}" class="block">
@@ -51,7 +51,7 @@
 								</a>
 							</div>
 						@endforeach
-					</div> --}}
+					</div>
 				@endif
 			@endif
 
@@ -187,7 +187,7 @@
 									<th class="py-3">Información</th>
 									<th class="py-3" style="width: 120px">Disponiblidad</th>
 									<th class="py-3" style="width: 140px">Precio</th>
-									<th class="py-3" style="width: 140px">Cantidad</th>
+									<!-- <th class="py-3" style="width: 140px">Cantidad</th> -->
 								</tr>
 							</thead>
 							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
@@ -198,8 +198,8 @@
 												Comparar
 											</div>
 											<div class="p-2 flex">
-												<input type="checkbox" class="form-checkbox" />
-												<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/p1.jpg') }}" alt="Producto" title="Porducto" />
+												<!-- <input type="checkbox" class="form-checkbox" /> -->
+												<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/favicon/apple-icon.png') }}" alt="Producto" title="Porducto" />
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -207,10 +207,10 @@
 												Información
 											</div>
 											<div class="p-2">
-												<a href="{{ route('product', $products[$i]->ref) }}" class="text-cdsolec-blue-light font-bold">
+												<a href="{{ route('product', $products[$i]->id) }}" class="text-cdsolec-blue-light font-bold">
 													{{ $products[$i]->description }}
 												</a>
-												<p>Marca</p>
+												<p>Ref: {{ $products[$i]->ref }}</p>
 												<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
 											</div>
 										</td>
@@ -220,7 +220,7 @@
 											</div>
 											<div class="p-2 lg:text-right">
 												Stock: {{ $products[$i]->stock_reel }}<br />
-												Orden: 630
+												<!-- Orden: 630 -->
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -231,7 +231,7 @@
 												{{ number_format($products[$i]->price, 2, ',', '.') }}
 											</div>
 										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
+										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
 											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 												Cantidad
 											</div>
@@ -246,7 +246,7 @@
 													Carrito <i class="fas fa-shopping-cart"></i>
 												</button>
 											</div>
-										</td>
+										</td> -->
 									</tr>
 								@endfor
 							</tbody>
