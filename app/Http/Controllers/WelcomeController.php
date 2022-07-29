@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use App\Models\{Content, Comment};
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Mail;
 
 class WelcomeController extends Controller
 {
@@ -243,6 +245,8 @@ class WelcomeController extends Controller
 			'phone' => $request->phone,
 			'message' => $request->message
 		]);
+        
+        Mail::to('ventas@cd-solec.com', 'Contacto CD-SOLEC')->send(new ContactMail($comment));
 
         return redirect()->back()->with("message", "Mensaje enviado Existosamente, ¡Gracias por su contacto!");
     }
