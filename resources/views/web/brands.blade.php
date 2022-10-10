@@ -12,7 +12,7 @@
 				@foreach ($brands as $brand)
 					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg {{ ($loop->index > 4) ? 'transition duration-1000 ease-out opacity-0 transform scale-50' : '' }}">
 						<a href="{{ route('products') }}">
-							<img src="http://img.cd-solec.com/societe/{{ $brand->ref }}/logos/{{ $brand->logo }}" alt="{{ $brand->name }}" title="{{ $brand->name }}" />
+							<img src="http://img.cd-solec.com/societe/{{ $brand['ref'] }}/logos/{{ $brand['logo'] }}" alt="{{ $brand['name'] }}" title="{{ $brand['name'] }}" />
 						</a>
 					</div>
 				@endforeach
