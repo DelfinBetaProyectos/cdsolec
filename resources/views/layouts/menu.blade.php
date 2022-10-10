@@ -44,7 +44,7 @@
         <!-- Navigation Links Menú -->
         <div class="h-16 space-x-4 flex flex-shrink-0">
           <div class="hoverable flex flex-shrink-0">
-            <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+            <x-jet-nav-link href="#" :active="request()->routeIs('products')">
               Productos
             </x-jet-nav-link>
             <div class="p-6 mega-menu shadow-xl bg-white overflow-x-auto h-96">
@@ -60,9 +60,9 @@
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
                         @if ($categories)
                           @foreach($categories as $item)
-                          <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
-                            {{ $item->label }}
+                            {{ $item['label'] }}
                           </a>
                           @endforeach
                         @endif
@@ -72,9 +72,9 @@
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
                         @if ($sectors)
                           @foreach($sectors as $item)
-                          <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
-                            {{ $item->label }}
+                            {{ $item['label'] }}
                           </a>
                           @endforeach
                         @endif
@@ -133,9 +133,9 @@
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     @if ($categories)
                       @foreach($categories as $item)
-                        <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                        <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
-                          {{ $item->label }}
+                          {{ $item['label'] }}
                         </a>
                       @endforeach
                     @endif
@@ -145,9 +145,9 @@
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     @if ($sectors)
                       @foreach($sectors as $item)
-                        <a href="{{ route('products').'?category='.$item->id }}" class="block px-2 hover:bg-cdsolec-green-light">
+                        <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
-                          {{ $item->label }}
+                          {{ $item['label'] }}
                         </a>
                       @endforeach
                     @endif

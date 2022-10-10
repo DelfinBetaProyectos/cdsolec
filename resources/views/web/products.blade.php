@@ -18,15 +18,15 @@
 				<nav class="my-2">
 					<ol class="flex flex-wrap text-cdsolec-green-dark font-semibold text-xl">
 						<li>
-							<a href="{{ route('products') }}?category={{ $parent->id }}">{{ $parent->label }}</a><span class="mx-2">/</span>
+							<a href="{{ route('products') }}?category={{ $parent['id'] }}">{{ $parent['label'] }}</a><span class="mx-2">/</span>
 						</li>
 						<li>
-							<a href="{{ route('products') }}?category={{ $category->id }}">{{ $category->label }}</a><span class="mx-2">/</span>
+							<a href="{{ route('products') }}?category={{ $category['id'] }}">{{ $category['label'] }}</a><span class="mx-2">/</span>
 						</li>
 					</ol>
 				</nav>
 
-				@if (count($category->childs) > 0)
+				@if (count($category['childs']) > 0)
 					{{-- <div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
 						@foreach($category->childs as $child)
 							<div class="m-2 p-2 bg-white shadow-md">
@@ -43,10 +43,10 @@
 						@endforeach
 					</div> --}}
 					<div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
-						@foreach($category->childs as $child)
+						@foreach($category['childs'] as $child)
 							<div class="m-2 p-2 bg-white shadow-md">
-								<a href="{{ route('products').'?category='.$child->id }}" class="block">
-									<h4 class="text-cdsolec-blue-light font-bold">{{ $child->label }}</h4>
+								<a href="{{ route('products').'?category='.$child['id'] }}" class="block">
+									<h4 class="text-cdsolec-blue-light font-bold">{{ $child['label'] }}</h4>
 									<p class="text-xs">(350 Resultados)</p>
 								</a>
 							</div>
@@ -73,7 +73,7 @@
       		</div>
       		<div class="accordion">
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" {{ (($category == null) || ($category->fk_parent == '715') || ($parent->fk_parent == '715')) ? 'checked' : '' }} />
+		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" {{ (($category == null) || ($category['fk_parent'] == '715') || ($parent['fk_parent'] == '715')) ? 'checked' : '' }} />
 							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">Categorías</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($categories)
@@ -81,37 +81,37 @@
 										@foreach($categories as $item)
 											@php
 												$bg = '';
-												if (($category != null) && ($item->id == $category->id)) {
+												if (($category != null) && ($item['id'] == $category['id'])) {
 													$bg = 'bg-cdsolec-green-light';
 												}
-												if (($parent != null) && ($item->id == $parent->id)) {
+												if (($parent != null) && ($item['id'] == $parent['id'])) {
 													$bg = 'bg-cdsolec-green-light';
 												}
 											@endphp
 											<li>
-												<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}" href="{{ route('products') }}?category={{ $item->id }}">
-													{{ $item->label }}
+												<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}" href="{{ route('products') }}?category={{ $item['id'] }}">
+													{{ $item['label'] }}
 												</a>
-												@if (($category != null) && ($item->id == $category->id))
-													@if (count($category->childs) > 0)
+												@if (($category != null) && ($item['id'] == $category['id']))
+													@if (count($category['childs']) > 0)
 														<ul class="ml-2">
-															@foreach($category->childs as $child)
+															@foreach($category['childs'] as $child)
 																<li>
-																	<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->id == $category->id) ? 'bg-cdsolec-green-light' : '' }}" href="{{ route('products') }}?category={{ $child->id }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
+																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
+																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
 																	</a>
 																</li>
 															@endforeach
 														</ul>
 													@endif
 												@endif
-												@if (($parent != null) && ($item->id == $parent->id))
-													@if (count($parent->childs) > 0)
+												@if (($parent != null) && ($item['id'] == $parent['id']))
+													@if (count($parent['childs']) > 0)
 														<ul class="ml-2">
-															@foreach($parent->childs as $child)
+															@foreach($parent['childs'] as $child)
 																<li>
-																	<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->id == $category->id) ? 'bg-cdsolec-green-light' : '' }}" href="{{ route('products') }}?category={{ $child->id }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
+																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
+																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
 																	</a>
 																</li>
 															@endforeach
@@ -125,7 +125,7 @@
 							</div>
 						</div>
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" {{ (($category == null) || ($category->fk_parent == '693') || ($parent->fk_parent == '693')) ? 'checked' : '' }} />
+		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" {{ (($category == null) || ($category['fk_parent'] == '693') || ($parent['fk_parent'] == '693')) ? 'checked' : '' }} />
 							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">Sectores de Interés</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($sectors)
@@ -133,37 +133,37 @@
 										@foreach($sectors as $item)
 											@php
 												$bg = '';
-												if (($category != null) && ($item->id == $category->id)) {
+												if (($category != null) && ($item['id'] == $category['id'])) {
 													$bg = 'bg-cdsolec-green-light';
 												}
-												if (($parent != null) && ($item->id == $parent->id)) {
+												if (($parent != null) && ($item['id'] == $parent['id'])) {
 													$bg = 'bg-cdsolec-green-light';
 												}
 											@endphp
 											<li>
-												<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}" href="{{ route('products') }}?category={{ $item->id }}">
-													{{ $item->label }}
+												<a href="{{ route('products') }}?category={{ $item['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+													{{ $item['label'] }}
 												</a>
-												@if (($category != null) && ($item->id == $category->id))
-													@if (count($category->childs) > 0)
+												@if (($category != null) && ($item['id'] == $category['id']))
+													@if (count($category['childs']) > 0)
 														<ul class="ml-2">
-															@foreach($category->childs as $child)
+															@foreach($category['childs'] as $child)
 																<li>
-																	<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->id == $category->id) ? 'bg-cdsolec-green-light' : '' }}" href="{{ route('products') }}?category={{ $child->id }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
+																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
+																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
 																	</a>
 																</li>
 															@endforeach
 														</ul>
 													@endif
 												@endif
-												@if (($parent != null) && ($item->id == $parent->id))
-													@if (count($parent->childs) > 0)
+												@if (($parent != null) && ($item['id'] == $parent['id']))
+													@if (count($parent['childs']) > 0)
 														<ul class="ml-2">
-															@foreach($parent->childs as $child)
+															@foreach($parent['childs'] as $child)
 																<li>
-																	<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->id == $category->id) ? 'bg-cdsolec-green-light' : '' }}" href="{{ route('products') }}?category={{ $child->id }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
+																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
+																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
 																	</a>
 																</li>
 															@endforeach
@@ -179,7 +179,7 @@
 					</div>
       	</div>
       	<div class="relative md:col-span-3 lg:col-span-4">
-					@if ($products)
+					@if ($products && $products->isNotEmpty())
 						<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
 							<thead class="bg-gray-300">
 								<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
@@ -207,10 +207,10 @@
 												Información
 											</div>
 											<div class="p-2">
-												<a href="{{ route('product', $products[$i]->id) }}" class="text-cdsolec-blue-light font-bold">
-													{{ $products[$i]->description }}
+												<a href="{{ route('product', $products[$i]['id']) }}" class="text-cdsolec-blue-light font-bold">
+													{{ $products[$i]['description'] }}
 												</a>
-												<p>Ref: {{ $products[$i]->ref }}</p>
+												<p>Ref: {{ $products[$i]['ref'] }}</p>
 												<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
 											</div>
 										</td>
@@ -219,7 +219,7 @@
 												Disponibilidad
 											</div>
 											<div class="p-2 lg:text-right">
-												Stock: {{ $products[$i]->stock_reel }}<br />
+												Stock: {{ $products[$i]['stock_reel'] }}<br />
 												<!-- Orden: 630 -->
 											</div>
 										</td>
@@ -228,7 +228,7 @@
 												Precio
 											</div>
 											<div class="p-2 lg:text-right">
-												{{ number_format($products[$i]->price, 2, ',', '.') }}
+												{{ number_format($products[$i]['price'], 2, ',', '.') }}
 											</div>
 										</td>
 										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">

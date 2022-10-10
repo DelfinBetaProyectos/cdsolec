@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
 use App\Models\{Content, Comment};
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class WelcomeController extends Controller
@@ -36,27 +38,13 @@ class WelcomeController extends Controller
     {
         $about = Content::find(1);
 
-        $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
-
         $url = $this->erpapi_url.'thirdparties?mode=4&category=717&limit=10';
+        $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                        ->withOptions(['verify' => false])
+                        ->accept('application/json')
+                        ->get($url);
 
-        $ch = curl_init();
-        
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-
-        $response = curl_exec($ch);
-        $err = curl_error($ch);
-        curl_close($ch);
-        
-        if ($err) {
-            $brands = null;
-            // dd("cURL Error: " . $err);
-        } else {
-            $brands = json_decode($response);
-        }
+        $brands = $response->json();
 
         return view('welcome')->with('about', $about)->with('brands', $brands);
     }
@@ -81,67 +69,45 @@ class WelcomeController extends Controller
      */
     public function products(Request $request)
     {
-        $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
-
-        $category = null;
-        $parent = null;
-
-        if(!empty($request->category)) {
-            $url = $this->erpapi_url.'categories/'.$request->category.'?include_childs=true';
-
-            $ch = curl_init();
-            
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-
-            $response = curl_exec($ch);
-            $err = curl_error($ch);
-            curl_close($ch);
-            
-            if (!$err) {
-                $category = json_decode($response);
-            }
-            
-            $url = $this->erpapi_url.'categories/'.$category->fk_parent.'?include_childs=true';
-
-            $ch = curl_init();
-            
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-
-            $response = curl_exec($ch);
-            $err = curl_error($ch);
-            curl_close($ch);
-            
-            if (!$err) {
-                $parent = json_decode($response);
-            }
+        if(empty($request->category)) {
+            return redirect()->route('welcome');
         }
+
+        //--------------------- API - CATEGORIA ----------------------
+        $url = $this->erpapi_url.'categories/'.$request->category.'?include_childs=true';
+        $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                        ->withOptions(['verify' => false])
+                        ->accept('application/json')
+                        ->get($url);
+
+        $category = $response->json();
+        
+        //-------------------- API - SUBCATEGORIAS -------------------
+        $url = $this->erpapi_url.'categories/'.$category['fk_parent'].'?include_childs=true';
+        $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                        ->withOptions(['verify' => false])
+                        ->accept('application/json')
+                        ->get($url);
+
+        $parent = $response->json();
 
         $page = $request->page ?? 1;
 
-        $url = $this->erpapi_url.'products/?mode=1&sortfield=t.ref&sortorder=ASC&page='.$page;
+        // $url = $this->erpapi_url.'products/?mode=1&category='.$category['id'].'&sortfield=t.ref&sortorder=ASC&page='.$page;
+        $url = $this->erpapi_url.'products/?category='.$category['id'].'&sortfield=t.ref&sortorder=ASCsqlfilters=t.tosell=1';
+        // dd($url);
 
-        $ch = curl_init();
-        
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                        ->withOptions(['verify' => false])
+                        ->accept('application/json')
+                        ->get($url);
 
-        $response = curl_exec($ch);
-        $err = curl_error($ch);
-        curl_close($ch);
-        
-        if (!$err) {
-            $products = json_decode($response);
-        }
+        $products = $response->json();
+        // dd($products);
+        // dd(count($products));
 
         $products = new LengthAwarePaginator($products, count($products), 20, $page, ['path' => $request->url()]);
+        // dd($products);
 
         return view('web.products')->with('category', $category)
                                    ->with('parent', $parent)
@@ -165,27 +131,13 @@ class WelcomeController extends Controller
      */
     public function brands()
     {
-        $headers = array('Content-Type:application/json', 'DOLAPIKEY: '.$this->erpapi_key);
-
         $url = $this->erpapi_url.'thirdparties?mode=4&category=717';
+        $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                        ->withOptions(['verify' => false])
+                        ->accept('application/json')
+                        ->get($url);
 
-        $ch = curl_init();
-        
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-
-        $response = curl_exec($ch);
-        $err = curl_error($ch);
-        curl_close($ch);
-        
-        if ($err) {
-            $brands = null;
-            // dd("cURL Error: " . $err);
-        } else {
-            $brands = json_decode($response);
-        }
+        $brands = $response->json();
 
         return view('web.brands')->with('brands', $brands);
     }
