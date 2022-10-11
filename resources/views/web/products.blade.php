@@ -191,64 +191,64 @@
 								</tr>
 							</thead>
 							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-								@for ($i = $products->firstItem() - 1; $i < ($products->perPage() * $products->currentPage()); $i++)
-									<tr class="flex flex-col lg:table-row even:bg-gray-200">
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Comparar
+								@foreach ($products->items() as $product)
+								<tr class="flex flex-col lg:table-row even:bg-gray-200">
+									<td class="border border-gray-300 flex flex-row lg:table-cell">
+										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+											Comparar
+										</div>
+										<div class="p-2 flex">
+											<!-- <input type="checkbox" class="form-checkbox" /> -->
+											<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/favicon/apple-icon.png') }}" alt="Producto" title="Porducto" />
+										</div>
+									</td>
+									<td class="border border-gray-300 flex flex-row lg:table-cell">
+										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+											Información
+										</div>
+										<div class="p-2">
+											<a href="{{ route('product', $product['id']) }}" class="text-cdsolec-blue-light font-bold">
+												{{ $product['description'] }}
+											</a>
+											<p>Ref: {{ $product['ref'] }}</p>
+											<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
+										</div>
+									</td>
+									<td class="border border-gray-300 flex flex-row lg:table-cell">
+										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+											Disponibilidad
+										</div>
+										<div class="p-2 lg:text-right">
+											Stock: {{ $product['stock_reel'] }}<br />
+											<!-- Orden: 630 -->
+										</div>
+									</td>
+									<td class="border border-gray-300 flex flex-row lg:table-cell">
+										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+											Precio
+										</div>
+										<div class="p-2 lg:text-right">
+											{{ number_format($product['price'], 2, ',', '.') }}
+										</div>
+									</td>
+									<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
+										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+											Cantidad
+										</div>
+										<div class="p-2 text-center">
+											<div class="w-full flex pb-2">
+												<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
+												<input type="text" name="cantidad" id="cantidad" class="w-20" />
+												<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
 											</div>
-											<div class="p-2 flex">
-												<!-- <input type="checkbox" class="form-checkbox" /> -->
-												<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/favicon/apple-icon.png') }}" alt="Producto" title="Porducto" />
-											</div>
-										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Información
-											</div>
-											<div class="p-2">
-												<a href="{{ route('product', $products[$i]['id']) }}" class="text-cdsolec-blue-light font-bold">
-													{{ $products[$i]['description'] }}
-												</a>
-												<p>Ref: {{ $products[$i]['ref'] }}</p>
-												<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
-											</div>
-										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Disponibilidad
-											</div>
-											<div class="p-2 lg:text-right">
-												Stock: {{ $products[$i]['stock_reel'] }}<br />
-												<!-- Orden: 630 -->
-											</div>
-										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Precio
-											</div>
-											<div class="p-2 lg:text-right">
-												{{ number_format($products[$i]['price'], 2, ',', '.') }}
-											</div>
-										</td>
-										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Cantidad
-											</div>
-											<div class="p-2 text-center">
-												<div class="w-full flex pb-2">
-													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-													<input type="text" name="cantidad" id="cantidad" class="w-20" />
-													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
-												</div>
-												<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-													Agregar al <br />
-													Carrito <i class="fas fa-shopping-cart"></i>
-												</button>
-											</div>
-										</td> -->
-									</tr>
-								@endfor
+											<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+												Agregar al <br />
+												Carrito <i class="fas fa-shopping-cart"></i>
+											</button>
+										</div>
+									</td> -->
+								</tr>
+								@endforeach
 							</tbody>
 						</table>
 
