@@ -91,12 +91,16 @@ class WelcomeController extends Controller
 
         $parent = $response->json();
 
+        $url = $this->erpapi_url.'products/?category='.$category['id'].'&sqlfilters=t.tosell=1';
+        $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                        ->withOptions(['verify' => false])
+                        ->accept('application/json')
+                        ->get($url);
+        $products_total = count($response->json());
+
         $page = $request->page ?? 1;
-
-        // $url = $this->erpapi_url.'products/?mode=1&category='.$category['id'].'&sortfield=t.ref&sortorder=ASC&page='.$page;
-        $url = $this->erpapi_url.'products/?category='.$category['id'].'&sortfield=t.ref&sortorder=ASCsqlfilters=t.tosell=1';
-        // dd($url);
-
+        $perpage = 20;
+        $url = $this->erpapi_url.'products/?category='.$category['id'].'&sqlfilters=t.tosell=1&limit='.$perpage.'&page='.($page - 1);
         $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
                         ->withOptions(['verify' => false])
                         ->accept('application/json')
@@ -106,7 +110,7 @@ class WelcomeController extends Controller
         // dd($products);
         // dd(count($products));
 
-        $products = new LengthAwarePaginator($products, count($products), 20, $page, ['path' => $request->url()]);
+        $products = new LengthAwarePaginator($products, $products_total, $perpage, $page, ['path' => $request->url(), 'query' => $request->query()]);
         // dd($products);
 
         return view('web.products')->with('category', $category)
