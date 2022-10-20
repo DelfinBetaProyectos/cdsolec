@@ -192,62 +192,87 @@
 							</thead>
 							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
 								@foreach ($products->items() as $product)
-								<tr class="flex flex-col lg:table-row even:bg-gray-200">
-									<td class="border border-gray-300 flex flex-row lg:table-cell">
-										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-											Comparar
-										</div>
-										<div class="p-2 flex">
-											<!-- <input type="checkbox" class="form-checkbox" /> -->
-											<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/favicon/apple-icon.png') }}" alt="Producto" title="Porducto" />
-										</div>
-									</td>
-									<td class="border border-gray-300 flex flex-row lg:table-cell">
-										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-											Información
-										</div>
-										<div class="p-2">
-											<a href="{{ route('product', $product['id']) }}" class="text-cdsolec-blue-light font-bold">
-												{{ $product['description'] }}
-											</a>
-											<p>Ref: {{ $product['ref'] }}</p>
-											<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
-										</div>
-									</td>
-									<td class="border border-gray-300 flex flex-row lg:table-cell">
-										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-											Disponibilidad
-										</div>
-										<div class="p-2 lg:text-right">
-											Stock: {{ $product['stock_reel'] }}<br />
-											<!-- Orden: 630 -->
-										</div>
-									</td>
-									<td class="border border-gray-300 flex flex-row lg:table-cell">
-										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-											Precio
-										</div>
-										<div class="p-2 lg:text-right">
-											{{ number_format($product['price'], 2, ',', '.') }}
-										</div>
-									</td>
-									<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
-										<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-											Cantidad
-										</div>
-										<div class="p-2 text-center">
-											<div class="w-full flex pb-2">
-												<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-												<input type="text" name="cantidad" id="cantidad" class="w-20" />
-												<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+									@php
+										$image = null;
+										$dir = '';
+										$datasheet = null;
+
+										if (count($product['documents']) > 0) {
+											foreach ($product['documents'] as $document) {
+												if (($image == null) && ($document['extension'] == 'jpg')) {
+													$image = $document['name'];
+													$dir = $document['level1name'];
+												}
+												if (($datasheet == null) && ($document['extension'] == 'pdf')) {
+													$datasheet = $document['fullname'];
+												}
+											}
+										}
+
+										if ($image == null) {
+											$image_path = asset('img/favicon/apple-icon.png');
+										} else {
+											$image_path = 'http://img.cd-solec.com/produit/'.$dir.'/'.$image;
+										}
+									@endphp
+									<tr class="flex flex-col lg:table-row even:bg-gray-200">
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Comparar
 											</div>
-											<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-												Agregar al <br />
-												Carrito <i class="fas fa-shopping-cart"></i>
-											</button>
-										</div>
-									</td> -->
-								</tr>
+											<div class="p-2 flex">
+												<!-- <input type="checkbox" class="form-checkbox" /> -->
+												<img class="w-14 ml-2 img-zoomable" src="{{ $image_path }}" alt="{{ $product['label'] }}" title="{{ $product['label'] }}" />
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Información
+											</div>
+											<div class="p-2">
+												<a href="{{ route('product', $product['id']) }}" class="text-cdsolec-blue-light font-bold">
+													{{ $product['label'] }}
+												</a>
+												<p>Ref: {{ $product['ref'] }}</p>
+												<a href="{{ $datasheet }}" target="_blank">
+													<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
+												</a>
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Disponibilidad
+											</div>
+											<div class="p-2 lg:text-right">
+												Stock: {{ $product['stock_reel'] }}<br />
+												<!-- Orden: 630 -->
+											</div>
+										</td>
+										<td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Precio
+											</div>
+											<div class="p-2 lg:text-right">
+												{{ number_format($product['price'], 2, ',', '.') }}
+											</div>
+										</td>
+										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
+											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+												Cantidad
+											</div>
+											<div class="p-2 text-center">
+												<div class="w-full flex pb-2">
+													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
+													<input type="text" name="cantidad" id="cantidad" class="w-20" />
+													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+												</div>
+												<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+													Agregar al <br />
+													Carrito <i class="fas fa-shopping-cart"></i>
+												</button>
+											</div>
+										</td> -->
+									</tr>
 								@endforeach
 							</tbody>
 						</table>

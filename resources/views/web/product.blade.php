@@ -6,7 +6,7 @@
 		<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800">
 			Detalle del Producto
 		</h6>
-		<h6 class="text-cdsolec-blue-light font-semibold py-3"><a href="#"><i class="fas fa-arrow-left"></i> Atrás </a> | Inicio / Productos / Producto</h6>
+		<h6 class="text-cdsolec-blue-light font-semibold py-3"><a href="{{ URL::previous() }}"><i class="fas fa-arrow-left"></i> Atrás </a> | Inicio / Productos / Producto</h6>
 
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 			<div class="m-1">
