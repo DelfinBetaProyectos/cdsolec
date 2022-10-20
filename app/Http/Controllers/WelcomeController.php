@@ -91,6 +91,7 @@ class WelcomeController extends Controller
 
         $parent = $response->json();
 
+        //------------------ API - TOTAL PRODUCTOS -------------------
         $url = $this->erpapi_url.'products/?category='.$category['id'].'&sqlfilters=t.tosell=1';
         $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
                         ->withOptions(['verify' => false])
@@ -98,6 +99,7 @@ class WelcomeController extends Controller
                         ->get($url);
         $products_total = count($response->json());
 
+        //--------------------- API - PRODUCTOS ----------------------
         $page = $request->page ?? 1;
         $perpage = 20;
         $url = $this->erpapi_url.'products/?category='.$category['id'].'&sqlfilters=t.tosell=1&limit='.$perpage.'&page='.($page - 1);
@@ -106,9 +108,50 @@ class WelcomeController extends Controller
                         ->accept('application/json')
                         ->get($url);
 
-        $products = $response->json();
+        $products_api = $response->json();
+
+        $products = [];
+        if (!isset($products_api['error']) && count($products_api) > 0) {
+            foreach ($products_api as $item) {
+                $url = $this->erpapi_url.'documents/?modulepart=product&id='.$item['id'];
+
+                $response = Http::withHeaders(['DOLAPIKEY' => $this->erpapi_key])
+                                ->withOptions(['verify' => false])
+                                ->accept('application/json')
+                                ->get($url);
+
+                $documents_api = $response->json();
+
+                $documents = [];
+                if (!isset($documents_api['error']) && count($documents_api) > 0) {
+                    foreach ($documents_api as $item2) {
+                        if (isset($item2['name'])) {
+                            $path_info = pathinfo($item2['fullname']);
+                            $documents[] = [
+                                'name' => $item2['name'],
+                                'path' => $item2['path'],
+                                'level1name' => $item2['level1name'],
+                                'fullname' => $item2['fullname'],
+                                'dirname' => $path_info['dirname'],
+                                'basename' => $path_info['basename'],
+                                'extension' => $path_info['extension'],
+                                'filename' => $path_info['filename']
+                            ];
+                        }
+                    }
+                }
+
+                $products[] = [
+                    'id' => $item['id'],
+                    'ref' => $item['ref'],
+                    'label' => $item['label'],
+                    'price' => $item['price'],
+                    'stock_reel' => $item['stock_reel'],
+                    'documents' => $documents
+                ];
+            }
+        }
         // dd($products);
-        // dd(count($products));
 
         $products = new LengthAwarePaginator($products, $products_total, $perpage, $page, ['path' => $request->url(), 'query' => $request->query()]);
         // dd($products);
