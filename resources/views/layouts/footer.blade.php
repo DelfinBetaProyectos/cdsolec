@@ -45,6 +45,10 @@
               </li>
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
+                <a href="#">Soluciones</a>
+              </li>
+              <li>
+                <i class="fas fa-angle-right mr-1"></i>
                 <a href="{{ route('about') }}">Nosotros</a>
               </li>
               <li>
@@ -125,7 +129,7 @@
     </div>
     <p class="text-xs text-center">
       Copyright © <span id="get-current-year">{{ config('app.name', 'Laravel') }} {{ date('Y') }}</span>
-      Desarrollado por <a href="http://www.tecnod20.com/" target="_blank" class="italic">Tecno D 2.0</a>
+      Desarrollado por <a href="https://delfinbeta.tech/" target="_blank" class="italic">DelfinBeta</a>
     </p>
   </div>
 </footer>
