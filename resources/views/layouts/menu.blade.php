@@ -19,7 +19,7 @@
               @csrf
               <label for="search" class="sr-only">Buscar</label>
               <div class="my-2 relative rounded-md shadow-sm">
-                <input type="text" name="search" id="search" class="block w-full pl-2 pr-12 text-sm rounded-md border border-cdsolec-green-dark focus:ring-gray-300 focus:border-gray-300" placeholder="Buscar Productos" />
+                <input type="text" name="search" id="search" value="{{ request('search', '') }}" class="block w-full pl-2 pr-12 text-sm rounded-md border border-cdsolec-green-dark focus:ring-gray-300 focus:border-gray-300" placeholder="Buscar Productos" />
                 <div class="absolute inset-y-0 right-0 flex items-center">
                   <button type="submit" class="px-3 py-2 bg-cdsolec-green-dark rounded-r-md text-center text-white font-semibold uppercase tracking-wider hover:bg-cdsolec-green-light">
                     <i class="fas fa-fw mr-1 fa-search"></i> Buscar
@@ -44,7 +44,7 @@
         <!-- Navigation Links Menú -->
         <div class="h-16 space-x-4 flex flex-shrink-0">
           <div class="hoverable flex flex-shrink-0">
-            <x-jet-nav-link href="#" :active="request()->routeIs('products')">
+            <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
               Productos
             </x-jet-nav-link>
             <div class="p-6 mega-menu shadow-xl bg-white overflow-x-auto h-96">
@@ -58,11 +58,11 @@
                   <div class="pt-4 border-t border-gray-400">
                     <div x-show="activeTab===0">
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
-                        @if ($categories)
+                        @if ($categories->isNotEmpty())
                           @foreach($categories as $item)
-                          <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <a href="{{ route('products').'?category='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
-                            {{ $item['label'] }}
+                            {{ $item->label }}
                           </a>
                           @endforeach
                         @endif
@@ -70,11 +70,11 @@
                     </div>
                     <div x-show="activeTab===1">
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
-                        @if ($sectors)
+                        @if ($sectors->isNotEmpty())
                           @foreach($sectors as $item)
-                          <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <a href="{{ route('products').'?category='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
-                            {{ $item['label'] }}
+                            {{ $item->label }}
                           </a>
                           @endforeach
                         @endif
@@ -85,6 +85,9 @@
               </div>
             </div>
           </div>
+          <x-jet-nav-link href="#">
+            Soluciones
+          </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
             Fabricantes
           </x-jet-nav-link>
@@ -131,11 +134,11 @@
               <div class="pt-4 border-t border-gray-400">
                 <div x-show="activeTab===0">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    @if ($categories)
+                    @if ($categories->isNotEmpty())
                       @foreach($categories as $item)
-                        <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
+                        <a href="{{ route('products').'?category='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
-                          {{ $item['label'] }}
+                          {{ $item->label }}
                         </a>
                       @endforeach
                     @endif
@@ -143,11 +146,11 @@
                 </div>
                 <div x-show="activeTab===1">
                   <div class="grid gap-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    @if ($sectors)
+                    @if ($sectors->isNotEmpty())
                       @foreach($sectors as $item)
-                        <a href="{{ route('products').'?category='.$item['id'] }}" class="block px-2 hover:bg-cdsolec-green-light">
+                        <a href="{{ route('products').'?category='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
                           <span class="fas fa-angle-right mr-1"></span>
-                          {{ $item['label'] }}
+                          {{ $item->label }}
                         </a>
                       @endforeach
                     @endif
@@ -158,6 +161,9 @@
           </div>
         </div>
       </div>
+      <x-jet-responsive-nav-link href="#">
+        Soluciones
+      </x-jet-responsive-nav-link>
       <x-jet-responsive-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
         Fabricantes
       </x-jet-responsive-nav-link>

@@ -14,45 +14,30 @@
 				</ol>
 			</nav>
 
-			@if ($category)
-				<nav class="my-2">
-					<ol class="flex flex-wrap text-cdsolec-green-dark font-semibold text-xl">
+			<nav class="my-2">
+				<ol class="flex flex-wrap text-cdsolec-green-dark font-semibold text-xl">
+					@if ($category->parent)
 						<li>
-							<a href="{{ route('products') }}?category={{ $parent['id'] }}">{{ $parent['label'] }}</a><span class="mx-2">/</span>
+							<a href="{{ route('products') }}?category={{ $category->parent->rowid }}">{{ $category->parent->label }}</a><span class="mx-2">/</span>
 						</li>
-						<li>
-							<a href="{{ route('products') }}?category={{ $category['id'] }}">{{ $category['label'] }}</a><span class="mx-2">/</span>
-						</li>
-					</ol>
-				</nav>
+					@endif
+					<li>
+						<a href="{{ route('products') }}?category={{ $category->rowid }}">{{ $category->label }}</a><span class="mx-2">/</span>
+					</li>
+				</ol>
+			</nav>
 
-				@if (count($category['childs']) > 0)
-					{{-- <div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
-						@foreach($category->childs as $child)
-							<div class="m-2 p-2 bg-white shadow-md">
-								<a href="{{ route('products').'?category='.$child->id }}" class="block">
-									<div class="flex flex-wrap">
-										<img class="h-10 w-10" src="{{ asset('img/p1.jpg') }}" alt="Producto" title="Porducto" />
-										<div class="ml-1 flex-1">
-											<h4 class="text-cdsolec-blue-light font-bold">{{ $child->label }}</h4>
-											<p class="text-xs">(350 Resultados)</p>
-										</div>
-									</div>
-								</a>
-							</div>
-						@endforeach
-					</div> --}}
-					<div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
-						@foreach($category['childs'] as $child)
-							<div class="m-2 p-2 bg-white shadow-md">
-								<a href="{{ route('products').'?category='.$child['id'] }}" class="block">
-									<h4 class="text-cdsolec-blue-light font-bold">{{ $child['label'] }}</h4>
-									<p class="text-xs">(350 Resultados)</p>
-								</a>
-							</div>
-						@endforeach
-					</div>
-				@endif
+			@if ($category->subcategories->isNotEmpty())
+				<div class="my-2 p-2 rounded-lg bg-gray-300 h-64 overflow-x-auto flex flex-col flex-wrap">
+					@foreach($category->subcategories as $subcategory)
+						<div class="m-2 p-2 bg-white shadow-md">
+							<a href="{{ route('products').'?category='.$subcategory->rowid }}" class="block">
+								<h4 class="text-cdsolec-blue-light font-bold">{{ $subcategory->label }}</h4>
+								<p class="text-xs">(xx Resultados)</p>
+							</a>
+						</div>
+					@endforeach
+				</div>
 			@endif
 
 			<div class="mt-3 grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-5">
@@ -62,7 +47,7 @@
               @csrf
               <label for="search" class="sr-only">Buscar</label>
               <div class="relative rounded-md shadow-sm">
-                <input type="text" name="search" id="search2" class="block w-full pl-2 pr-12 text-sm rounded-md border border-cdsolec-green-dark focus:ring-gray-300 focus:border-gray-300" placeholder="Buscar" />
+                <input type="text" name="search" id="search2" value="{{ request('search', '') }}" class="block w-full pl-2 pr-12 text-sm rounded-md border border-cdsolec-green-dark focus:ring-gray-300 focus:border-gray-300" placeholder="Buscar" />
                 <div class="absolute inset-y-0 right-0 flex items-center">
                   <button type="submit" class="px-3 py-2 bg-cdsolec-green-dark rounded-r-md text-center text-white font-semibold uppercase tracking-wider hover:bg-cdsolec-green-light">
                     <i class="fas fa-fw fa-search"></i>
@@ -73,45 +58,31 @@
       		</div>
       		<div class="accordion">
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" {{ (($category == null) || ($category['fk_parent'] == '715') || ($parent['fk_parent'] == '715')) ? 'checked' : '' }} />
+		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" {{ ((!$category->parent) || ($category->parent->fk_parent == '715') || ($category->fk_parent == '715')) ? 'checked' : '' }} />
 							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">Categorías</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
-								@if ($categories)
+								@if ($categories->isNotEmpty())
 									<ul class="text-cdsolec-blue-light">
 										@foreach($categories as $item)
 											@php
 												$bg = '';
-												if (($category != null) && ($item['id'] == $category['id'])) {
-													$bg = 'bg-cdsolec-green-light';
-												}
-												if (($parent != null) && ($item['id'] == $parent['id'])) {
+												if (($item->rowid == $category->rowid) || 
+														($category->parent && ($item->rowid == $category->parent->rowid))) {
 													$bg = 'bg-cdsolec-green-light';
 												}
 											@endphp
 											<li>
-												<a class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}" href="{{ route('products') }}?category={{ $item['id'] }}">
-													{{ $item['label'] }}
+												<a href="{{ route('products') }}?category={{ $item->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+													{{ $item->label }}
 												</a>
-												@if (($category != null) && ($item['id'] == $category['id']))
-													@if (count($category['childs']) > 0)
+												@if (($item->rowid == $category->rowid) || 
+														 ($category->parent && ($item->rowid == $category->parent->rowid)))
+													@if ($item->subcategories->isNotEmpty())
 														<ul class="ml-2">
-															@foreach($category['childs'] as $child)
+															@foreach($item->subcategories as $child)
 																<li>
-																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
-																	</a>
-																</li>
-															@endforeach
-														</ul>
-													@endif
-												@endif
-												@if (($parent != null) && ($item['id'] == $parent['id']))
-													@if (count($parent['childs']) > 0)
-														<ul class="ml-2">
-															@foreach($parent['childs'] as $child)
-																<li>
-																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
+																	<a href="{{ route('products') }}?category={{ $child->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
+																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
 																	</a>
 																</li>
 															@endforeach
@@ -125,45 +96,31 @@
 							</div>
 						</div>
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" {{ (($category == null) || ($category['fk_parent'] == '693') || ($parent['fk_parent'] == '693')) ? 'checked' : '' }} />
+		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" {{ ((!$category->parent) || ($category->parent->fk_parent == '693') || ($category->fk_parent == '693')) ? 'checked' : '' }} />
 							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">Sectores de Interés</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
-								@if ($sectors)
+								@if ($sectors->isNotEmpty())
 									<ul class="text-cdsolec-blue-light">
 										@foreach($sectors as $item)
 											@php
 												$bg = '';
-												if (($category != null) && ($item['id'] == $category['id'])) {
-													$bg = 'bg-cdsolec-green-light';
-												}
-												if (($parent != null) && ($item['id'] == $parent['id'])) {
+												if (($item->rowid == $category->rowid) || 
+														($category->parent && ($item->rowid == $category->parent->rowid))) {
 													$bg = 'bg-cdsolec-green-light';
 												}
 											@endphp
 											<li>
-												<a href="{{ route('products') }}?category={{ $item['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
-													{{ $item['label'] }}
+												<a href="{{ route('products') }}?category={{ $item->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+													{{ $item->label }}
 												</a>
-												@if (($category != null) && ($item['id'] == $category['id']))
-													@if (count($category['childs']) > 0)
+												@if (($item->rowid == $category->rowid) || 
+														 ($category->parent && ($item->rowid == $category->parent->rowid)))
+													@if ($item->subcategories->isNotEmpty())
 														<ul class="ml-2">
-															@foreach($category['childs'] as $child)
+															@foreach($item->subcategories as $child)
 																<li>
-																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
-																	</a>
-																</li>
-															@endforeach
-														</ul>
-													@endif
-												@endif
-												@if (($parent != null) && ($item['id'] == $parent['id']))
-													@if (count($parent['childs']) > 0)
-														<ul class="ml-2">
-															@foreach($parent['childs'] as $child)
-																<li>
-																	<a href="{{ route('products') }}?category={{ $child['id'] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child['id'] == $category['id']) ? 'bg-cdsolec-green-light' : '' }}">
-																		<span class="fas fa-angle-right mr-1"></span> {{ $child['label'] }}
+																	<a href="{{ route('products') }}?category={{ $child->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
+																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
 																	</a>
 																</li>
 															@endforeach
@@ -179,7 +136,7 @@
 					</div>
       	</div>
       	<div class="relative md:col-span-3 lg:col-span-4">
-					@if ($products && $products->isNotEmpty())
+					@if ($products->isNotEmpty())
 						<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
 							<thead class="bg-gray-300">
 								<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
@@ -191,38 +148,22 @@
 								</tr>
 							</thead>
 							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-								@foreach ($products->items() as $product)
-									@php
-										$image = null;
-										$dir = '';
-										$datasheet = null;
-
-										if (count($product['documents']) > 0) {
-											foreach ($product['documents'] as $document) {
-												if (($image == null) && ($document['extension'] == 'jpg')) {
-													$image = $document['name'];
-													$dir = $document['level1name'];
-												}
-												if (($datasheet == null) && ($document['extension'] == 'pdf')) {
-													$datasheet = $document['fullname'];
-												}
-											}
-										}
-
-										if ($image == null) {
-											$image_path = asset('img/favicon/apple-icon.png');
-										} else {
-											$image_path = 'http://img.cd-solec.com/produit/'.$dir.'/'.$image;
-										}
-									@endphp
+								@foreach ($products as $product)
 									<tr class="flex flex-col lg:table-row even:bg-gray-200">
+										@php
+											// if ($image == null) {
+											// 	$image_path = asset('img/favicon/apple-icon.png');
+											// } else {
+											// 	$image_path = 'http://img.cd-solec.com/produit/'.$dir.'/'.$image;
+											// }
+										@endphp
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
 											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 												Comparar
 											</div>
 											<div class="p-2 flex">
 												<!-- <input type="checkbox" class="form-checkbox" /> -->
-												<img class="w-14 ml-2 img-zoomable" src="{{ $image_path }}" alt="{{ $product['label'] }}" title="{{ $product['label'] }}" />
+												<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/favicon/apple-icon.png') }}" alt="{{ $product->label }}" title="{{ $product->label }}" />
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -230,11 +171,11 @@
 												Información
 											</div>
 											<div class="p-2">
-												<a href="{{ route('product', $product['id']) }}" class="text-cdsolec-blue-light font-bold">
-													{{ $product['label'] }}
+												<a href="{{ route('product', $product->ref) }}" class="text-cdsolec-blue-light font-bold">
+													{{ $product->label }}
 												</a>
-												<p>Ref: {{ $product['ref'] }}</p>
-												<a href="{{ $datasheet }}" target="_blank">
+												<p>Ref: {{ $product->ref }}</p>
+												<a href="#" target="_blank">
 													<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
 												</a>
 											</div>
@@ -244,8 +185,7 @@
 												Disponibilidad
 											</div>
 											<div class="p-2 lg:text-right">
-												Stock: {{ $product['stock_reel'] }}<br />
-												<!-- Orden: 630 -->
+												Stock: {{ $product->stock }}
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -253,7 +193,7 @@
 												Precio
 											</div>
 											<div class="p-2 lg:text-right">
-												{{ number_format($product['price'], 2, ',', '.') }}
+												{{ number_format($product->price, 2, ',', '.') }}
 											</div>
 										</td>
 										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">

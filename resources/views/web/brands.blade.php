@@ -8,11 +8,11 @@
 		</h6>
 		<h2 class="text-3xl leading-tight font-bold mt-4">Fabricantes</h2>
 		<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
-			@if ($brands)
+			@if ($brands->isNotEmpty())
 				@foreach ($brands as $brand)
 					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg {{ ($loop->index > 4) ? 'transition duration-1000 ease-out opacity-0 transform scale-50' : '' }}">
-						<a href="{{ route('products') }}">
-							<img src="http://img.cd-solec.com/societe/{{ $brand['ref'] }}/logos/{{ $brand['logo'] }}" alt="{{ $brand['name'] }}" title="{{ $brand['name'] }}" />
+						<a href="{{ route('products').'?brand='.$brand->rowid }}">
+							<img src="http://img.cd-solec.com/societe/{{ $brand->rowid }}/logos/{{ $brand->logo }}" alt="{{ $brand->nom }}" title="{{ $brand->nom }}" />
 						</a>
 					</div>
 				@endforeach
