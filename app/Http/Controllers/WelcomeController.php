@@ -6,6 +6,7 @@ use App\Mail\ContactMail;
 use App\Models\{Content, Comment, Category, Product};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -18,6 +19,12 @@ class WelcomeController extends Controller
    */
   public function welcome()
   {
+    if(App::environment('production')) { 
+      $url_brands = 'storage/societe/#rowid#/logos/#logo#';
+    } else {
+      $url_brands = 'img/logos/CD-SOLEC-ICON.jpg';
+    }
+
     $about = Content::find(1);
 
     $brands = DB::connection('mysqlerp')
@@ -30,7 +37,9 @@ class WelcomeController extends Controller
                 ->take(10)
                 ->get();
 
-    return view('welcome')->with('about', $about)->with('brands', $brands);
+    return view('welcome')->with('about', $about)
+                          ->with('brands', $brands)
+                          ->with('url_brands', $url_brands);
   }
 
   /**
@@ -94,6 +103,12 @@ class WelcomeController extends Controller
    */
   public function brands()
   {
+    if(App::environment('production')) { 
+      $url_brands = 'storage/societe/#rowid#/logos/#logo#';
+    } else {
+      $url_brands = 'img/logos/CD-SOLEC-ICON.jpg';
+    }
+
     $brands = DB::connection('mysqlerp')
                 ->table('llx_societe')
                 ->leftJoin('llx_categorie_fournisseur', 'llx_societe.rowid', '=', 'llx_categorie_fournisseur.fk_soc')
@@ -103,7 +118,7 @@ class WelcomeController extends Controller
                 ])
                 ->get();
 
-    return view('web.brands')->with('brands', $brands);
+    return view('web.brands')->with('brands', $brands)->with('url_brands', $url_brands);
   }
 
   /**
