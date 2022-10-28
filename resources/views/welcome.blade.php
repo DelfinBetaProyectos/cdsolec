@@ -95,9 +95,17 @@
 				<div class="my-8 grid gap-4 grid-cols-3 md:grid-cols-5">
 					@if ($brands->isNotEmpty())
 						@foreach ($brands as $brand)
+							@php
+								if (app()->environment('production')) {
+									$image = str_replace('#rowid#', $brand->rowid, $url_brands);
+									$image = str_replace('#logo#', $brand->logo, $image);
+								} else {
+									$image = $url_brands;
+								}
+							@endphp
 							<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
 								<a href="{{ route('products').'?brand='.$brand->rowid }}">
-									<img src="http://img.cd-solec.com/societe/{{ $brand->rowid }}/logos/{{ $brand->logo }}" alt="{{ $brand->nom }}" title="{{ $brand->nom }}" />
+									<img src="{{ asset($image) }}" alt="{{ $brand->nom }}" title="{{ $brand->nom }}" />
 								</a>
 							</div>
 						@endforeach

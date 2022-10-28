@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Society extends Model
 {
@@ -54,4 +55,18 @@ class Society extends Model
     'default_lang', 'logo', 'logo_squarred', 'canvas', 'fk_entrepot', 'webservices_url', 'webservices_key', 'tms', 
     'datec', 'fk_user_creat', 'fk_user_modif', 'fk_multicurrency', 'multicurrency_code', 'import_key'
   ];
+
+	/**
+	 * Atributo Url Image.
+	 */
+	public function getUrlImageAttribute()
+	{
+    $image = 'img/favicon/apple-icon.png';
+
+    if(App::environment('production') && $this->logo) {
+      $image = 'storage/societe/'.$this->rowid.'/logos/'.$this->logo;
+    }
+
+		return $image;
+	}
 }
