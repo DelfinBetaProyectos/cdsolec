@@ -6,7 +6,6 @@ use App\Mail\ContactMail;
 use App\Models\{Content, Comment, Category, Product};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,12 +18,6 @@ class WelcomeController extends Controller
    */
   public function welcome()
   {
-    if(App::environment('production')) { 
-      $url_brands = 'storage/societe/#rowid#/logos/#logo#';
-    } else {
-      $url_brands = 'img/logos/CD-SOLEC-ICON.jpg';
-    }
-
     $about = Content::find(1);
 
     $brands = DB::connection('mysqlerp')
@@ -38,8 +31,7 @@ class WelcomeController extends Controller
                 ->get();
 
     return view('welcome')->with('about', $about)
-                          ->with('brands', $brands)
-                          ->with('url_brands', $url_brands);
+                          ->with('brands', $brands);
   }
 
   /**
@@ -63,12 +55,6 @@ class WelcomeController extends Controller
    */
   public function products(Request $request, ProductFilter $filters)
   {
-    if(App::environment('production')) { 
-      $url_products = 'storage/produit/#rowid#/logos/#logo#';
-    } else {
-      $url_products = 'img/logos/CD-SOLEC-ICON.jpg';
-    }
-
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
 
@@ -89,8 +75,7 @@ class WelcomeController extends Controller
     $products->appends($filters->valid());
 
     return view('web.products')->with('category', $category)
-                               ->with('products', $products)
-                               ->with('url_products', $url_products);
+                               ->with('products', $products);
   }
 
   /**
@@ -110,12 +95,6 @@ class WelcomeController extends Controller
    */
   public function brands()
   {
-    if(App::environment('production')) { 
-      $url_brands = 'storage/societe/#rowid#/logos/#logo#';
-    } else {
-      $url_brands = 'img/logos/CD-SOLEC-ICON.jpg';
-    }
-
     $brands = DB::connection('mysqlerp')
                 ->table('llx_societe')
                 ->leftJoin('llx_categorie_fournisseur', 'llx_societe.rowid', '=', 'llx_categorie_fournisseur.fk_soc')
@@ -125,7 +104,7 @@ class WelcomeController extends Controller
                 ])
                 ->get();
 
-    return view('web.brands')->with('brands', $brands)->with('url_brands', $url_brands);
+    return view('web.brands')->with('brands', $brands);
   }
 
   /**
