@@ -61,4 +61,21 @@ class Product extends Model
   {
     return $filters->applyTo($query, $data);
   }
+
+  /**
+   * Get the prices for the blog post.
+   */
+  public function prices()
+  {
+    return $this->hasMany(Price::class, 'fk_product', 'rowid');
+  }
+
+  /**
+   * Get the documents for the blog post.
+   */
+  public function documents()
+  {
+    return $this->hasMany(Document::class, 'src_object_id', 'rowid')
+                ->where('src_object_type', '=', 'product');
+  }
 }

@@ -58,32 +58,39 @@ class WelcomeController extends Controller
    * Display Products.
    * 
    * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Queries\ProductFilter   $filters
    * @return \Illuminate\Http\Response
    */
-  public function products(Request $request)
+  public function products(Request $request, ProductFilter $filters)
   {
+    if(App::environment('production')) { 
+      $url_products = 'storage/produit/#rowid#/logos/#logo#';
+    } else {
+      $url_products = 'img/logos/CD-SOLEC-ICON.jpg';
+    }
+
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
 
-    ($request->search) ? $search = $request->search : $search = '';
+    $products = Product::query()->with([
+                          'prices' => function ($query) {
+                            $query->where('price_level', '=', '1')
+                                  ->orderBy('date_price', 'desc');
+                          }
+                       ])
+                       ->filterBy($filters, $request->only(['search']))
+                       ->where('tosell', '=', '1')
+                       ->whereHas('prices', function ($query) {
+                          $query->where('price_level', '=', '1');
+                       })
+                       ->orderBy('rowid', 'ASC')
+                       ->paginate(20);
 
-    $products = DB::connection('mysqlerp')
-                  ->table('llx_product')
-                  ->leftJoin('llx_product_price', 'llx_product.rowid', '=', 'llx_product_price.fk_product')
-                  ->where([
-                    ['llx_product.tosell', '=', '1'],
-                    ['llx_product_price.price_level', '=', '1'],
-                  ])
-                  ->where(function ($query) use ($search) {
-                    $query->where('llx_product.ref', 'like', "%{$search}%")
-                          ->orWhere('llx_product.label', 'like', "%{$search}%")
-                          ->orWhere('llx_product.description', 'like', "%{$search}%");
-                  })
-                  ->select('llx_product.rowid', 'llx_product.ref', 'llx_product.label', 'llx_product.stock', 'llx_product_price.price_level', 'llx_product_price.price')
-                  ->paginate(20);
+    $products->appends($filters->valid());
 
     return view('web.products')->with('category', $category)
-                               ->with('products', $products);
+                               ->with('products', $products)
+                               ->with('url_products', $url_products);
   }
 
   /**

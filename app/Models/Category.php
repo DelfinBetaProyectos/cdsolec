@@ -66,7 +66,7 @@ class Category extends Model
    */
   public function subcategories()
   {
-      return $this->hasMany(Category::class, 'fk_parent', 'rowid');
+    return $this->hasMany(Category::class, 'fk_parent', 'rowid');
   }
 
   /**

@@ -18,7 +18,8 @@ class ProductFilter extends QueryFilter
     }
 
     return $query->where(function ($query) use ($search) {
-      $query->where('label', 'like', "%{$search}%")
+      $query->where('ref', 'like', "%{$search}%")
+            ->where('label', 'like', "%{$search}%")
             ->orWhere('description', 'like', "%{$search}%");
     });
 	}

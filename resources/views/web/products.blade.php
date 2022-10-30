@@ -149,21 +149,35 @@
 							</thead>
 							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
 								@foreach ($products as $product)
+									@php
+										if (app()->environment('production')) {
+											$image = null;
+											$datasheet = null;
+											if ($product->documents->isNotEmpty()) {
+												foreach ($product->documents as $document) {
+													if (!$datasheet && (pathinfo($document->filename, PATHINFO_EXTENSION) == 'pdf')) {
+														$datasheet = $document->filepath.'/'.$document->filename;
+													}
+													if (!$image && (pathinfo($document->filename, PATHINFO_EXTENSION) == 'jpg')) {
+														$image = $document->filepath.'/'.$document->filename;
+													}
+												}
+											}
+
+											if (!$image) { $image = 'img/favicon/apple-icon.png'; }
+										} else {
+											$image = 'img/favicon/apple-icon.png';
+											$datasheet = null;
+										}
+									@endphp
 									<tr class="flex flex-col lg:table-row even:bg-gray-200">
-										@php
-											// if ($image == null) {
-											// 	$image_path = asset('img/favicon/apple-icon.png');
-											// } else {
-											// 	$image_path = 'http://img.cd-solec.com/produit/'.$dir.'/'.$image;
-											// }
-										@endphp
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
 											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 												Comparar
 											</div>
 											<div class="p-2 flex">
 												<!-- <input type="checkbox" class="form-checkbox" /> -->
-												<img class="w-14 ml-2 img-zoomable" src="{{ asset('img/favicon/apple-icon.png') }}" alt="{{ $product->label }}" title="{{ $product->label }}" />
+												<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="w-14 ml-2 img-zoomable" />
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -175,9 +189,11 @@
 													{{ $product->label }}
 												</a>
 												<p>Ref: {{ $product->ref }}</p>
-												<a href="#" target="_blank">
-													<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
-												</a>
+												@if ($datasheet)
+													<a href="{{ $datasheet }}" target="_blank">
+														<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
+													</a>
+												@endif
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -185,7 +201,7 @@
 												Disponibilidad
 											</div>
 											<div class="p-2 lg:text-right">
-												Stock: {{ $product->stock }}
+												Stock: {{ $product->stock - $product->seuil_stock_alerte }}
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -193,7 +209,7 @@
 												Precio
 											</div>
 											<div class="p-2 lg:text-right">
-												{{ number_format($product->price, 2, ',', '.') }}
+												{{ number_format($product->prices[0]->price, 2, ',', '.') }}
 											</div>
 										</td>
 										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
