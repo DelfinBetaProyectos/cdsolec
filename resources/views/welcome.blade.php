@@ -97,10 +97,9 @@
 						@foreach ($brands as $brand)
 							@php
 								if (app()->environment('production')) {
-									$image = str_replace('#rowid#', $brand->rowid, $url_brands);
-									$image = str_replace('#logo#', $brand->logo, $image);
+									$image = 'storage/societe/'.$brand->rowid.'/logos/'.$brand->logo;
 								} else {
-									$image = $url_brands;
+									$image = 'img/logos/CD-SOLEC-ICON.jpg';
 								}
 							@endphp
 							<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">

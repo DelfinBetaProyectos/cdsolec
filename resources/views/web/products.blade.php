@@ -156,10 +156,10 @@
 											if ($product->documents->isNotEmpty()) {
 												foreach ($product->documents as $document) {
 													if (!$datasheet && (pathinfo($document->filename, PATHINFO_EXTENSION) == 'pdf')) {
-														$datasheet = $document->filepath.'/'.$document->filename;
+														$datasheet = 'storage/produit/'.$product->ref.'/'.$document->filename;
 													}
 													if (!$image && (pathinfo($document->filename, PATHINFO_EXTENSION) == 'jpg')) {
-														$image = $document->filepath.'/'.$document->filename;
+														$image = 'storage/produit/'.$product->ref.'/'.$document->filename;
 													}
 												}
 											}
