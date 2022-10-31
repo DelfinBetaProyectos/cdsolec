@@ -55,6 +55,7 @@ class WelcomeController extends Controller
    */
   public function products(Request $request, ProductFilter $filters)
   {
+    $tasa_usd = 9;
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
 
@@ -75,17 +76,47 @@ class WelcomeController extends Controller
     $products->appends($filters->valid());
 
     return view('web.products')->with('category', $category)
-                               ->with('products', $products);
+                               ->with('products', $products)
+                               ->with('tasa_usd', $tasa_usd);
   }
 
   /**
    * Display Product.
    * 
+   * @param  string  $ref
    * @return \Illuminate\Http\Response
    */
-  public function product()
+  public function product(string $ref)
   {
-    return view('web.product');
+    $product = Product::where('ref', '=', $ref)->first();
+
+    if (app()->environment('production')) {
+      $image = null;
+      $datasheet = null;
+      if ($product->documents->isNotEmpty()) {
+        $documents = $product->documents;
+        $total = count($product->documents);
+        $i = 0;
+        while ((!$datasheet || !$image) && ($i < $total)) {
+          if (!$datasheet && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'pdf')) {
+            $datasheet = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+          }
+          if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+            $image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+          }
+          $i++;
+        }
+      }
+
+      if (!$image) { $image = 'img/logos/CD-SOLEC-ICON.jpg'; }
+    } else {
+      $image = 'img/logos/CD-SOLEC-ICON.jpg';
+      $datasheet = null;
+    }
+
+    return view('web.product')->with('product', $product)
+                              ->with('image', $image)
+                              ->with('datasheet', $datasheet);
   }
 
   /**

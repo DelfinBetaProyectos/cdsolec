@@ -21,10 +21,6 @@
     transition: max-height .35s;
 }
 
-.accordion .tab-content a:active {
-    background-color: #8DFC00;
-}
-
 .accordion .tab input:checked ~ .tab-content {
     max-height: 100%;
 }
