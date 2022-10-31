@@ -154,13 +154,17 @@
 											$image = null;
 											$datasheet = null;
 											if ($product->documents->isNotEmpty()) {
-												foreach ($product->documents as $document) {
-													if (!$datasheet && (pathinfo($document->filename, PATHINFO_EXTENSION) == 'pdf')) {
-														$datasheet = 'storage/produit/'.$product->ref.'/'.$document->filename;
+												$documents = $product->documents;
+												$total = count($product->documents);
+												$i = 0;
+												while ((!$datasheet || !$image) && ($i < $total)) {
+													if (!$datasheet && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'pdf')) {
+														$datasheet = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
 													}
-													if (!$image && (pathinfo($document->filename, PATHINFO_EXTENSION) == 'jpg')) {
-														$image = 'storage/produit/'.$product->ref.'/'.$document->filename;
+													if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+														$image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
 													}
+													$i++;
 												}
 											}
 
@@ -190,9 +194,11 @@
 												</a>
 												<p>Ref: {{ $product->ref }}</p>
 												@if ($datasheet)
-													<a href="{{ $datasheet }}" target="_blank">
-														<img class="h-5 w-5" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" />
-													</a>
+													<p>
+														<a href="{{ $datasheet }}" target="_blank">
+															<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar Datasheet
+														</a>
+													</p>
 												@endif
 											</div>
 										</td>
@@ -209,7 +215,8 @@
 												Precio
 											</div>
 											<div class="p-2 lg:text-right">
-												{{ number_format($product->prices[0]->price, 2, ',', '.') }}
+												<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
+												<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
 											</div>
 										</td>
 										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
