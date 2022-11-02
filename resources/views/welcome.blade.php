@@ -120,42 +120,60 @@
 
 		<section id="products">
 			<div class="container mx-auto px-4 py-14">
-				<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800 text-center">
-					Soluciones a tu alcance
-				</h6>
-				<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Productos</h2>
-				<div class="splide" data-splide='{"gap":"1em","type":"loop", "perPage": 2, "perMove": 1, "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
-					<div class="splide__track">
-						<ul class="splide__list">
-							<li class="splide__slide border border-gray-400 rounded-xl">
-								<div class="m-2">
-									<img data-splide-lazy="{{ asset('img/p1.jpg') }}" alt="" class="shadow-lg rounded-xl">
-								</div>
-								<div class="text-center">
-									<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
-									<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
-									<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
-									<div class="py-2 my-1 border-t border-gray-400">
-										<a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
-									</div>
-								</div>
-							</li>
-							<li class="splide__slide border border-gray-400 rounded-xl">
-								<div class="m-2">
-									<img data-splide-lazy="{{ asset('img/p2.jpg') }}" alt="" class="shadow-lg rounded-xl">
-								</div>
-								<div class="text-center">
-									<h6 class="text-lg font-semibold">Cable xxxxxxxx</h6>
-									<div class="text-base font-bold text-cdsolec-green-dark">$10,00</div>
-									<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">Cables</span>
-									<div class="py-2 my-1 border-t border-gray-400">
-										<a href="">Detalles <i class="fas fa-long-arrow-alt-right"></i></a>
-									</div>
-								</div>
-							</li>
-						</ul>
+				@if ($products->isNotEmpty())
+					<h6 class="text-sm uppercase font-semibold tracking-widest text-blue-800 text-center">
+						Soluciones a tu alcance
+					</h6>
+					<h2 class="text-3xl leading-tight font-bold mt-4 text-center">Productos Destacados</h2>
+					<div class="splide" data-splide='{"gap": "1em", "type": "loop", "perPage": 2, "perMove": 1, "fixedWidth": "12rem", "focus": "center", "lazyLoad": true, "autoplay": true}'>
+						<div class="splide__track">
+							<ul class="splide__list">
+								@foreach ($products as $product)
+									@php
+										if (app()->environment('production')) {
+											$image = null;
+											if ($product->documents->isNotEmpty()) {
+												$documents = $product->documents;
+												$total = count($product->documents);
+												$i = 0;
+												while (!$image && ($i < $total)) {
+													if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+														$image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+													}
+													$i++;
+												}
+											}
+
+											if (!$image) { $image = 'img/favicon/apple-icon.png'; }
+										} else {
+											$image = 'img/favicon/apple-icon.png';
+										}
+									@endphp
+									<li class="splide__slide border border-gray-400 rounded-xl">
+										<div class="m-2">
+											<img data-splide-lazy="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="shadow-lg rounded-xl" />
+										</div>
+										<div class="text-center">
+											<h6 class="text-lg font-semibold">{{ $product->label }}</h6>
+											<div class="text-base font-bold text-cdsolec-green-dark">
+												<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
+												<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
+											</div>
+											<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">
+												Ref: {{ $product->ref }}
+											</span>
+											<div class="py-2 my-1 border-t border-gray-400">
+												<a href="{{ route('product', $product->ref) }}">
+													Detalles <i class="fas fa-long-arrow-alt-right"></i>
+												</a>
+											</div>
+										</div>
+									</li>
+								@endforeach
+							</ul>
+						</div>
 					</div>
-				</div>
+				@endif
 			</div>
 		</section>
 	</main>

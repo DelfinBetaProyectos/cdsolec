@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Queries\QueryFilter;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -46,14 +45,6 @@ class Category extends Model
   ];
 
   /**
-   * Search Filters.
-   */
-  public function scopeFilterBy($query, QueryFilter $filters, array $data)
-  {
-    return $filters->applyTo($query, $data);
-  }
-
-  /**
    * Get the parent that owns the category.
    */
   public function parent()
@@ -62,7 +53,7 @@ class Category extends Model
   }
 
   /**
-   * Get the subcategories for the blog post.
+   * Get the subcategories for the category.
    */
   public function subcategories()
   {
@@ -70,10 +61,10 @@ class Category extends Model
   }
 
   /**
-   * Get the products for the category.
+   * The products that belong to the category.
    */
   public function products()
   {
-    return $this->hasMany(Products::class);
+    return $this->belongsToMany(Product::class, 'llx_categorie_product', 'fk_categorie', 'fk_product');
   }
 }

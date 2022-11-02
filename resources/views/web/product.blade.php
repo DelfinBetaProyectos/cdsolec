@@ -23,11 +23,18 @@
 						<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="h-60 w-60" />
 					</div>
 					@if ($product->documents->isNotEmpty())
-						<div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
+						<div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
 							@foreach ($product->documents as $document)
+								@php
+									if (app()->environment('production')) {
+										$image = '/storage/produit/'.$product->ref.'/'.$document->filename;
+									} else {
+										$image = '/img/favicon/apple-icon.png';
+									}
+								@endphp
 								@if (pathinfo($document->filename, PATHINFO_EXTENSION) == 'jpg')
 									<div class="rounded-lg border border-cdsolec-green-dark">
-										<img src="{{ asset('storage/produit/'.$product->ref.'/'.$document->filename) }}" alt="{{ $product->label }}" title="{{ $product->label }}" />
+										<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" />
 									</div>
 								@endif
 							@endforeach
@@ -35,9 +42,9 @@
 					@endif
 				</div>
 				<div>
-					<h6 class="text-cdsolec-green-dark font-semibold text-lg py-1">{{ $product->label }}</h6>
-					<p class="uppercase font-semibold tracking-widest">Ref: {{ $product->ref }}</p>
-					<p><strong>Descripción</strong></p>
+					<h2 class="text-cdsolec-green-dark font-semibold text-lg py-1">{{ $product->label }}</h2>
+					<h3 class="uppercase font-semibold tracking-widest">Ref: {{ $product->ref }}</h3>
+					<h4 class="font-bold">Descripción</h4>
 					{!! $product->description !!}
 					@if ($datasheet)
 						<p>
@@ -60,30 +67,77 @@
 							</button>
 						</div>
 					</div>
-					<table class="w-full mb-5 text-sm">
-						<tr>
-							<td>Precio</td>
-							<td class="p-1 text-right">${{ number_format($product->prices[0]->price, 2, ',', '.') }}</td>
-						</tr>
-						<tr>
-							<td>Total</td>
-							<td class="text-right text-cdsolec-green-dark font-semibold">${{ number_format($product->prices[0]->price, 2, ',', '.') }}</td>
-						</tr>
-					</table>
-					<strong>Precio</strong>
+					<p><strong>Precio</strong></p>
 					<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
-						<tr>
-							<td class="p-2"><strong>Cantidad</strong></td>
-							<td class="p-2 text-right"><strong>Precio</strong></td>
-						</tr>
-						<tr class="bg-gray-300 border border-gray-300">
-							<td class="p-2">1</td>
-							<td class="p-2 text-right text-cdsolec-green-dark font-semibold">$1.100</td>
-						</tr>
-						<tr class="border border-gray-300">
-							<td class="p-2">3</td>
-							<td class="p-2 text-right">$1.050</td>
-						</tr>
+						<thead>
+							<tr>
+								<th class="p-2 text-left">Moneda</th>
+								<th class="p-2 text-right">Cant.</th>
+								<th class="p-2 text-right">Precio</th>
+								<th class="p-2 text-right">Subtotal</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="bg-gray-300 border border-gray-300">
+								<td class="p-2 text-left">Bs</td>
+								<td class="p-2 text-right">{{ $quantity = 1 }}</td>
+								<td class="p-2 text-right">
+									{{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}
+								</td>
+								<td class="p-2 text-right text-cdsolec-green-dark font-semibold">
+									{{ number_format(($product->prices[0]->price * $tasa_usd * $quantity), 2, ',', '.') }}
+								</td>
+							</tr>
+							<tr class="border border-gray-300">
+								<td class="p-2 text-left">$USD</td>
+								<td class="p-2 text-right">{{ $quantity = 1 }}</td>
+								<td class="p-2 text-right">
+									{{ number_format($product->prices[0]->price, 2, ',', '.') }}
+								</td>
+								<td class="p-2 text-right text-cdsolec-green-dark font-semibold">
+									{{ number_format(($product->prices[0]->price * $quantity), 2, ',', '.') }}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="lg:col-span-2">
+					<p><strong>Especificaciones del Producto:</strong></p>
+					<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
+						<thead>
+							<tr class="bg-gray-300">
+								<th class="p-2 text-left">Atributo</th>
+								<th class="p-2 text-left">Valor</th>
+								<th class="p-2 text-center" style="width: 60px">Buscar</th>
+							</tr>
+						</thead>
+						@if ($extrafields->isNotEmpty())
+							@php
+								$product_fields = $product->extrafields->toArray();
+							@endphp
+							<tbody>
+								@foreach ($extrafields as $extrafield)
+									@if ($product_fields[$extrafield->name] != 'N/A')
+										<tr class="even:bg-gray-300">
+											<td class="p-2 text-left">{{ $extrafield->name }}</td>
+											<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
+											<td class="p-2 text-center">
+												<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
+													<x-jet-checkbox id="field_{{ $extrafield->name }}" name="fields[]" />
+												</label>
+											</td>
+										</tr>
+									@endif
+								@endforeach
+								<tr>
+									<td colspan="3" class="p-2 text-center">
+										<button type="button" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+											Buscar <i class="fas fa-search"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						@endif
 					</table>
 				</div>
 			</div>
