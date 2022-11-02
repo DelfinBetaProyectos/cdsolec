@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
-use App\Models\{Content, Comment, Category, Product};
+use App\Models\{Content, Comment, Category, Product, Extrafield};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +18,7 @@ class WelcomeController extends Controller
    */
   public function welcome()
   {
+    $tasa_usd = 9;
     $about = Content::find(1);
 
     $brands = DB::connection('mysqlerp')
@@ -30,8 +31,27 @@ class WelcomeController extends Controller
                 ->take(10)
                 ->get();
 
+    $products = Product::query()->with([
+                  'prices' => function ($query) {
+                    $query->where('price_level', '=', '1')
+                          ->orderBy('date_price', 'desc');
+                  }
+                ])
+                ->where('tosell', '=', '1')
+                ->whereHas('prices', function ($query) {
+                  $query->where('price_level', '=', '1');
+                })
+                ->whereHas('categories', function ($query) {
+                  $query->where('fk_categorie', '=', '807');
+                })
+                ->orderBy('rowid', 'ASC')
+                ->take(10)
+                ->get();
+
     return view('welcome')->with('about', $about)
-                          ->with('brands', $brands);
+                          ->with('brands', $brands)
+                          ->with('products', $products)
+                          ->with('tasa_usd', $tasa_usd);
   }
 
   /**
@@ -59,21 +79,42 @@ class WelcomeController extends Controller
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
 
-    $products = Product::query()->with([
-                          'prices' => function ($query) {
-                            $query->where('price_level', '=', '1')
-                                  ->orderBy('date_price', 'desc');
-                          }
-                       ])
-                       ->filterBy($filters, $request->only(['search']))
-                       ->where('tosell', '=', '1')
-                       ->whereHas('prices', function ($query) {
-                          $query->where('price_level', '=', '1');
-                       })
-                       ->orderBy('rowid', 'ASC')
-                       ->paginate(20);
+    if ($category_id == '715') {
+      $products = Product::query()->with([
+                            'prices' => function ($query) {
+                              $query->where('price_level', '=', '1')
+                                    ->orderBy('date_price', 'desc');
+                            }
+                          ])
+                          ->filterBy($filters, $request->only(['search']))
+                          ->where('tosell', '=', '1')
+                          ->whereHas('prices', function ($query) {
+                            $query->where('price_level', '=', '1');
+                          })
+                          ->orderBy('rowid', 'ASC')
+                          ->paginate(20);
+    } else {
+      $products = Product::query()->with([
+                            'prices' => function ($query) {
+                              $query->where('price_level', '=', '1')
+                                    ->orderBy('date_price', 'desc');
+                            }
+                          ])
+                          ->filterBy($filters, $request->only(['search']))
+                          ->where('tosell', '=', '1')
+                          ->whereHas('prices', function ($query) {
+                            $query->where('price_level', '=', '1');
+                          })
+                          ->whereHas('categories', function ($query) use ($category_id) {
+                            $query->where('fk_categorie', '=', $category_id);
+                          })
+                          ->orderBy('rowid', 'ASC')
+                          ->paginate(20);
+    }
 
-    $products->appends($filters->valid());
+    $params_filters = $filters->valid();
+    $params_filters['category'] = $category_id;
+    $products->appends($params_filters);
 
     return view('web.products')->with('category', $category)
                                ->with('products', $products)
@@ -88,6 +129,7 @@ class WelcomeController extends Controller
    */
   public function product(string $ref)
   {
+    $tasa_usd = 9;
     $product = Product::where('ref', '=', $ref)->first();
 
     if (app()->environment('production')) {
@@ -99,7 +141,7 @@ class WelcomeController extends Controller
         $i = 0;
         while ((!$datasheet || !$image) && ($i < $total)) {
           if (!$datasheet && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'pdf')) {
-            $datasheet = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+            $datasheet = '/storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
           }
           if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
             $image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
@@ -114,9 +156,13 @@ class WelcomeController extends Controller
       $datasheet = null;
     }
 
+    $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
+
     return view('web.product')->with('product', $product)
                               ->with('image', $image)
-                              ->with('datasheet', $datasheet);
+                              ->with('datasheet', $datasheet)
+                              ->with('tasa_usd', $tasa_usd)
+                              ->with('extrafields', $extrafields);
   }
 
   /**

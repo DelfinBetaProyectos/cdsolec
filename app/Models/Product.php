@@ -78,4 +78,20 @@ class Product extends Model
     return $this->hasMany(Document::class, 'src_object_id', 'rowid')
                 ->where('src_object_type', '=', 'product');
   }
+
+  /**
+   * The categories that belong to the product.
+   */
+  public function categories()
+  {
+    return $this->belongsToMany(Category::class, 'llx_categorie_product', 'fk_product', 'fk_categorie');
+  }
+
+  /**
+   * Get the extrafields associated with the product.
+   */
+  public function extrafields()
+  {
+    return $this->hasOne(ExtrafieldProduct::class, 'fk_object', 'rowid');
+  }
 }

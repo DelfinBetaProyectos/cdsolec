@@ -33,7 +33,7 @@
 						<div class="m-2 p-2 bg-white shadow-md">
 							<a href="{{ route('products').'?category='.$subcategory->rowid }}" class="block">
 								<h4 class="text-cdsolec-blue-light font-bold">{{ $subcategory->label }}</h4>
-								<p class="text-xs">(xx Resultados)</p>
+								<p class="text-xs">({{ $subcategory->products->count() }} Resultados)</p>
 							</a>
 						</div>
 					@endforeach
@@ -174,7 +174,7 @@
 											$datasheet = null;
 										}
 									@endphp
-									<tr class="flex flex-col lg:table-row even:bg-gray-200">
+									<tr class="flex flex-col lg:table-row even:bg-gray-300">
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
 											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 												Comparar
