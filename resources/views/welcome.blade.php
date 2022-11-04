@@ -149,9 +149,9 @@
 											$image = 'img/favicon/apple-icon.png';
 										}
 									@endphp
-									<li class="splide__slide border border-gray-400 rounded-xl">
-										<div class="m-2">
-											<img data-splide-lazy="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="shadow-lg rounded-xl" />
+									<li class="splide__slide border border-gray-400 rounded-xl grid grid-cols-1 gap-2 content-between">
+										<div class="p-2">
+											<img data-splide-lazy="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="shadow-lg rounded-xl h-44" />
 										</div>
 										<div class="text-center">
 											<h6 class="text-lg font-semibold">{{ $product->label }}</h6>
@@ -162,11 +162,11 @@
 											<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">
 												Ref: {{ $product->ref }}
 											</span>
-											<div class="py-2 my-1 border-t border-gray-400">
-												<a href="{{ route('product', $product->ref) }}">
-													Detalles <i class="fas fa-long-arrow-alt-right"></i>
-												</a>
-											</div>
+										</div>
+										<div class="py-2 border-t border-gray-400 text-center">
+											<a href="{{ route('product', $product->ref) }}">
+												Detalles <i class="fas fa-long-arrow-alt-right"></i>
+											</a>
 										</div>
 									</li>
 								@endforeach
