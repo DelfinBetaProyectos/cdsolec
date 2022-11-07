@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
@@ -66,5 +67,15 @@ class Category extends Model
   public function products()
   {
     return $this->belongsToMany(Product::class, 'llx_categorie_product', 'fk_categorie', 'fk_product');
+  }
+
+  /**
+   * Get the attributes associated with the product.
+   */
+  public function attributes()
+  {
+    $this->connection = DB::connection('mysqlerp_extras');
+    
+    return $this->hasOne(Attribute::class, 'rowid_erp', 'rowid');
   }
 }
