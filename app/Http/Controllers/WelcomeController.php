@@ -158,11 +158,31 @@ class WelcomeController extends Controller
 
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
 
+    if ($product->categories->isNotEmpty()) {
+      $elements = [];
+      foreach ($product->categories as $category) {
+        $current = $category;
+        $depth = 1;
+        while ($current->fk_parent != "715") {
+          $current = $current->parent;
+          $depth++;
+        }
+
+        $elements[$category->rowid] = $depth;
+      }
+    }
+
+    $max = array_search(max($elements), $elements);
+
+    $subcategory = Category::find($max);
+    $attributes = $subcategory->attributes->toArray();
+
     return view('web.product')->with('product', $product)
                               ->with('image', $image)
                               ->with('datasheet', $datasheet)
                               ->with('tasa_usd', $tasa_usd)
-                              ->with('extrafields', $extrafields);
+                              ->with('extrafields', $extrafields)
+                              ->with('attributes', $attributes);
   }
 
   /**

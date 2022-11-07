@@ -20,7 +20,7 @@
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 				<div>
 					<div class="mb-3 border border-cdsolec-green-dark overflow-hidden rounded-lg flex justify-center content-center">
-						<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="h-60 w-60" />
+						<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="h-60 w-60 rounded-lg" />
 					</div>
 					@if ($product->documents->isNotEmpty())
 						<div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
@@ -34,7 +34,7 @@
 								@endphp
 								@if (pathinfo($document->filename, PATHINFO_EXTENSION) == 'jpg')
 									<div class="rounded-lg border border-cdsolec-green-dark">
-										<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" />
+										<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="rounded-lg" />
 									</div>
 								@endif
 							@endforeach
@@ -119,7 +119,7 @@
 								@foreach ($extrafields as $extrafield)
 									@if ($product_fields[$extrafield->name] != 'N/A')
 										<tr class="even:bg-gray-300">
-											<td class="p-2 text-left">{{ $extrafield->name }}</td>
+											<td class="p-2 text-left">{{ $attributes[$extrafield->name] }}</td>
 											<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
 											<td class="p-2 text-center">
 												<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
