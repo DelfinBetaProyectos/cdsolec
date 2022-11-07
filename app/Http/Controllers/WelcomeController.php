@@ -158,6 +158,9 @@ class WelcomeController extends Controller
 
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
 
+    $product_fields = $product->extrafields->toArray();
+
+    $attributes = [];
     if ($product->categories->isNotEmpty()) {
       $elements = [];
       foreach ($product->categories as $category) {
@@ -170,18 +173,22 @@ class WelcomeController extends Controller
 
         $elements[$category->rowid] = $depth;
       }
+
+      if (count($elements) > 0) {
+        $max = array_search(max($elements), $elements);
+
+        $subcategory = Category::find($max);
+
+        $attributes = $subcategory->attributes->toArray();
+      }
     }
-
-    $max = array_search(max($elements), $elements);
-
-    $subcategory = Category::find($max);
-    $attributes = $subcategory->attributes->toArray();
 
     return view('web.product')->with('product', $product)
                               ->with('image', $image)
                               ->with('datasheet', $datasheet)
                               ->with('tasa_usd', $tasa_usd)
                               ->with('extrafields', $extrafields)
+                              ->with('product_fields', $product_fields)
                               ->with('attributes', $attributes);
   }
 
