@@ -42,9 +42,7 @@ class ContentSeeder extends Seeder
             <div class="w-full flex mb-5">
                 <i class="mr-3 fas fa-5x fa-fw fa-mobile-alt"></i>
                 <div>
-                    <p><a href="tel:+584145904346">(0414)-590.43.46</a></p>
-                    <p><a href="tel:+584243050599">(0424)-305.05.99</a></p>
-                    <p><a href="tel:+584243229743">(0424)-322.97.43</a></p>
+                    <p><a href="tel:+584128915299">(0412)-891.52.99</a></p>
                 </div>
             </div>
             <div class="w-full flex mb-5">

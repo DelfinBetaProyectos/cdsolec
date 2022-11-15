@@ -84,7 +84,8 @@ class WelcomeController extends Controller
                             'prices' => function ($query) {
                               $query->where('price_level', '=', '1')
                                     ->orderBy('date_price', 'desc');
-                            }
+                            },
+                            'extrafields'
                           ])
                           ->filterBy($filters, $request->only(['search']))
                           ->where('tosell', '=', '1')
@@ -98,7 +99,8 @@ class WelcomeController extends Controller
                             'prices' => function ($query) {
                               $query->where('price_level', '=', '1')
                                     ->orderBy('date_price', 'desc');
-                            }
+                            },
+                            'extrafields'
                           ])
                           ->filterBy($filters, $request->only(['search']))
                           ->where('tosell', '=', '1')
@@ -116,9 +118,23 @@ class WelcomeController extends Controller
     $params_filters['category'] = $category_id;
     $products->appends($params_filters);
 
+    $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
+    $attributes = $category->attributes->toArray();
+
+    $matriz = [];
+    if ($products->isNotEmpty()) {
+      foreach ($products as $product) {
+        $matriz[$product->rowid] = $product->extrafields->toArray();
+      }
+    }
+    $matriz = collect($matriz);
+
     return view('web.products')->with('category', $category)
                                ->with('products', $products)
-                               ->with('tasa_usd', $tasa_usd);
+                               ->with('tasa_usd', $tasa_usd)
+                               ->with('extrafields', $extrafields)
+                               ->with('attributes', $attributes)
+                               ->with('matriz', $matriz);
   }
 
   /**
@@ -166,7 +182,7 @@ class WelcomeController extends Controller
       foreach ($product->categories as $category) {
         $current = $category;
         $depth = 1;
-        while ($current->fk_parent != "715") {
+        while (isset($current->fk_parent) && ($current->fk_parent != "715")) {
           $current = $current->parent;
           $depth++;
         }

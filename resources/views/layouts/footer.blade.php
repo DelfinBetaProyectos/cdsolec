@@ -105,9 +105,7 @@
         <hr class="my-2">
         <div class="grid gad-4 grid-cols-1 sm:grid-cols-2">
           <div class="text-sm">
-            <p><a href="tel:+584145904346"><i class="fas fa-fw fa-phone mr-2"></i> (0414)-590.43.46</a></p>
-            <p><a href="tel:+584243050599"><i class="fas fa-fw fa-phone mr-2"></i> (0424)-305.05.99</a></p>
-            <p><a href="tel:+584243229743"><i class="fas fa-fw fa-phone mr-2"></i> (0424)-322.97.43</a></p>
+            <p><a href="tel:+584128915299"><i class="fas fa-fw fa-phone mr-2"></i> (0412)-891.52.99</a></p>
           </div>
           <div>
             <form method="GET" action="{{ route('comments.create') }}">
