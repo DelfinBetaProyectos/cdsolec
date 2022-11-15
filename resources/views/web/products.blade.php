@@ -58,8 +58,10 @@
       		</div>
       		<div class="accordion">
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" {{ ((!$category->parent) || ($category->parent->fk_parent == '715') || ($category->fk_parent == '715')) ? 'checked' : '' }} />
-							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">Categorías</label>
+		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" />
+							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">
+								Categorías
+							</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($categories->isNotEmpty())
 									<ul class="text-cdsolec-blue-light">
@@ -96,8 +98,10 @@
 							</div>
 						</div>
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" {{ ((!$category->parent) || ($category->parent->fk_parent == '693') || ($category->fk_parent == '693')) ? 'checked' : '' }} />
-							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">Sectores de Interés</label>
+		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" />
+							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
+								Sectores de Interés
+							</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($sectors->isNotEmpty())
 									<ul class="text-cdsolec-blue-light">
@@ -133,113 +137,164 @@
 								@endif
 							</div>
 						</div>
+						@if ($extrafields->isNotEmpty())
+							@foreach ($extrafields as $extrafield)
+								@if (isset($attributes[$extrafield->name]))
+									<div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
+										<input type="checkbox" id="tab-{{ $loop->iteration }}" name="filters" class="absolute opacity-0" checked />
+										<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
+											{{ $attributes[$extrafield->name] }}
+										</label>
+										<div class="tab-content overflow-hidden bg-gray-100">
+											@php
+												$unique = $matriz->unique($extrafield->name);
+												$values = $unique->values()->all();
+											@endphp
+											@if (count($values) > 0)
+												<ul class="text-cdsolec-blue-light">
+													@foreach ($values as $value)
+														<li>
+															<a href="{{ route('products') }}" class="px-2 py-1 block hover:bg-cdsolec-green-light">
+																<span class="fas fa-angle-right mr-1"></span> {{ $value[$extrafield->name] }}
+															</a>
+														</li>
+													@endforeach
+												</ul>
+											@endif
+										</div>
+									</div>
+								@endif
+							@endforeach
+						@endif
 					</div>
       	</div>
       	<div class="relative md:col-span-3 lg:col-span-4">
 					@if ($products->isNotEmpty())
-						<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
-							<thead class="bg-gray-300">
-								<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
-									<th class="py-3" style="width: 100px">Comparar</th>
-									<th class="py-3">Información</th>
-									<th class="py-3" style="width: 120px">Disponiblidad</th>
-									<th class="py-3" style="width: 140px">Precio</th>
-									<!-- <th class="py-3" style="width: 140px">Cantidad</th> -->
-								</tr>
-							</thead>
-							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-								@foreach ($products as $product)
-									@php
-										if (app()->environment('production')) {
-											$image = null;
-											$datasheet = null;
-											if ($product->documents->isNotEmpty()) {
-												$documents = $product->documents;
-												$total = count($product->documents);
-												$i = 0;
-												while ((!$datasheet || !$image) && ($i < $total)) {
-													if (!$datasheet && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'pdf')) {
-														$datasheet = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+						<div class="my-2 rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap">
+							<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
+								<thead class="bg-gray-300">
+									<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
+										<th class="py-3" style="min-width: 80px">&nbsp;</th>
+										<th class="py-3" style="min-width: 400px">Información</th>
+										<th class="py-3" style="min-width: 120px">Disponiblidad</th>
+										<th class="py-3" style="min-width: 140px">Precio</th>
+										<th class="py-3" style="min-width: 140px">Cantidad</th>
+										@if ($extrafields->isNotEmpty())
+											@foreach ($extrafields as $extrafield)
+												@if (isset($attributes[$extrafield->name]))
+													<th class="py-3" style="min-width: 160px">{{ $attributes[$extrafield->name] }}</th>
+												@endif
+											@endforeach
+										@endif
+									</tr>
+								</thead>
+								<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
+									@foreach ($products as $product)
+										@php
+											if (app()->environment('production')) {
+												$image = null;
+												$datasheet = null;
+												if ($product->documents->isNotEmpty()) {
+													$documents = $product->documents;
+													$total = count($product->documents);
+													$i = 0;
+													while ((!$datasheet || !$image) && ($i < $total)) {
+														if (!$datasheet && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'pdf')) {
+															$datasheet = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+														}
+														if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+															$image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+														}
+														$i++;
 													}
-													if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
-														$image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
-													}
-													$i++;
 												}
+
+												if (!$image) { $image = 'img/favicon/apple-icon.png'; }
+											} else {
+												$image = 'img/favicon/apple-icon.png';
+												$datasheet = null;
 											}
 
-											if (!$image) { $image = 'img/favicon/apple-icon.png'; }
-										} else {
-											$image = 'img/favicon/apple-icon.png';
-											$datasheet = null;
-										}
-									@endphp
-									<tr class="flex flex-col lg:table-row even:bg-gray-300">
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Comparar
-											</div>
-											<div class="p-2 flex">
-												<!-- <input type="checkbox" class="form-checkbox" /> -->
-												<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="w-14 ml-2 img-zoomable" />
-											</div>
-										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Información
-											</div>
-											<div class="p-2">
-												<a href="{{ route('product', $product->ref) }}" class="text-cdsolec-blue-light font-bold">
-													{{ $product->label }}
-												</a>
-												<p>Ref: {{ $product->ref }}</p>
-												@if ($datasheet)
-													<p>
-														<a href="{{ $datasheet }}" target="_blank">
-															<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar Datasheet
-														</a>
-													</p>
-												@endif
-											</div>
-										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Disponibilidad
-											</div>
-											<div class="p-2 lg:text-right">
-												Stock: {{ $product->stock - $product->seuil_stock_alerte }}
-											</div>
-										</td>
-										<td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Precio
-											</div>
-											<div class="p-2 lg:text-right">
-												<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
-												<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
-											</div>
-										</td>
-										<!-- <td class="border border-gray-300 flex flex-row lg:table-cell">
-											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-												Cantidad
-											</div>
-											<div class="p-2 text-center">
-												<div class="w-full flex pb-2">
-													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-													<input type="text" name="cantidad" id="cantidad" class="w-20" />
-													<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+											$product_fields = $product->extrafields->toArray();
+										@endphp
+										<tr class="flex flex-col lg:table-row even:bg-gray-300">
+											<td class="border border-gray-300 flex flex-row lg:table-cell">
+												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+													Comparar
 												</div>
-												<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-													Agregar al <br />
-													Carrito <i class="fas fa-shopping-cart"></i>
-												</button>
-											</div>
-										</td> -->
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-
+												<div class="p-2 flex">
+													<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="w-12 ml-2 img-zoomable" />
+												</div>
+											</td>
+											<td class="border border-gray-300 flex flex-row lg:table-cell">
+												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+													Información
+												</div>
+												<div class="p-2">
+													<a href="{{ route('product', $product->ref) }}" class="text-cdsolec-blue-light font-bold">
+														{{ $product->label }}
+													</a>
+													<p>Ref: {{ $product->ref }}</p>
+													@if ($datasheet)
+														<p>
+															<a href="{{ $datasheet }}" target="_blank">
+																<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar Datasheet
+															</a>
+														</p>
+													@endif
+												</div>
+											</td>
+											<td class="border border-gray-300 flex flex-row lg:table-cell">
+												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+													Disponibilidad
+												</div>
+												<div class="p-2 lg:text-right">
+													Stock: {{ $product->stock - $product->seuil_stock_alerte }}
+												</div>
+											</td>
+											<td class="border border-gray-300 flex flex-row lg:table-cell">
+												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+													Precio
+												</div>
+												<div class="p-2 lg:text-right">
+													<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
+													<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
+												</div>
+											</td>
+											<td class="border border-gray-300 flex flex-row lg:table-cell">
+												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+													Cantidad
+												</div>
+												<div class="p-2 text-center">
+													<div class="w-full flex pb-2">
+														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
+														<input type="text" name="cantidad" id="cantidad" class="w-20" />
+														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+													</div>
+													<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+														Agregar <i class="fas fa-shopping-cart"></i>
+													</button>
+												</div>
+											</td>
+											@if ($extrafields->isNotEmpty())
+												@foreach ($extrafields as $extrafield)
+													@if (isset($attributes[$extrafield->name]))
+														<td class="border border-gray-300 flex flex-row lg:table-cell">
+															<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
+																{{ $attributes[$extrafield->name] }}
+															</div>
+															<div class="p-2 lg:text-right">
+																<p>{{ $product_fields[$extrafield->name] }}</p>
+															</div>
+														</td>
+													@endif
+												@endforeach
+											@endif
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
 						<div class="my-2 text-right">
 							{{ $products->links() }}
 						</div>
