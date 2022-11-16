@@ -119,15 +119,22 @@ class WelcomeController extends Controller
     $products->appends($params_filters);
 
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
-    $attributes = $category->attributes->toArray();
-
+    $attributes = [];
     $matriz = [];
-    if ($products->isNotEmpty()) {
-      foreach ($products as $product) {
-        $matriz[$product->rowid] = $product->extrafields->toArray();
+
+    if ($category->attributes) {
+      $attributes = $category->attributes->toArray();
+
+      if ($products->isNotEmpty()) {
+        foreach ($products as $product) {
+          if ($product->extrafields) {
+            $matriz[$product->rowid] = $product->extrafields->toArray();
+          }
+        }
       }
+
+      $matriz = collect($matriz);
     }
-    $matriz = collect($matriz);
 
     return view('web.products')->with('category', $category)
                                ->with('products', $products)
