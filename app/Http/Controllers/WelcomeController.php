@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
-use App\Models\{Content, Comment, Category, Product, Extrafield};
+use App\Models\{Content, Comment, Category, Product, Extrafield, Config};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ class WelcomeController extends Controller
    */
   public function welcome()
   {
-    $tasa_usd = 9;
+    $tasa_usd = Config::find(2)->value;
     $about = Content::find(1);
 
     $brands = DB::connection('mysqlerp')
@@ -75,7 +75,7 @@ class WelcomeController extends Controller
    */
   public function products(Request $request, ProductFilter $filters)
   {
-    $tasa_usd = 9;
+    $tasa_usd = Config::find(2)->value;
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
 
@@ -152,7 +152,7 @@ class WelcomeController extends Controller
    */
   public function product(string $ref)
   {
-    $tasa_usd = 9;
+    $tasa_usd = Config::find(2)->value;
     $product = Product::where('ref', '=', $ref)->first();
 
     if (app()->environment('production')) {
@@ -202,7 +202,7 @@ class WelcomeController extends Controller
 
         $subcategory = Category::find($max);
 
-        $attributes = $subcategory->attributes->toArray();
+        $attributes = optional($subcategory->attributes)->toArray();
       }
     }
 
