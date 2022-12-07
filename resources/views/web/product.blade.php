@@ -103,44 +103,47 @@
 				</div>
 				<div class="lg:col-span-2">
 					<p><strong>Especificaciones del Producto:</strong></p>
-					<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
-						<thead>
-							<tr class="bg-gray-300">
-								<th class="p-2 text-left">Atributo</th>
-								<th class="p-2 text-left">Valor</th>
-								<th class="p-2 text-center" style="width: 60px">Buscar</th>
-							</tr>
-						</thead>
-						@if ($extrafields->isNotEmpty())
-							@php
-								$product_fields = $product->extrafields->toArray();
-							@endphp
-							<tbody>
-								@foreach ($extrafields as $extrafield)
-									@if ($product_fields[$extrafield->name] != 'N/A')
-										<tr class="even:bg-gray-300">
-											<td class="p-2 text-left">
-												{{ (isset($attributes[$extrafield->name])) ? $attributes[$extrafield->name] : $extrafield->name }}
-											</td>
-											<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
-											<td class="p-2 text-center">
-												<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
-													<x-jet-checkbox id="field_{{ $extrafield->name }}" name="fields[]" />
-												</label>
-											</td>
-										</tr>
-									@endif
-								@endforeach
-								<tr>
-									<td colspan="3" class="p-2 text-center">
-										<button type="button" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-											Buscar <i class="fas fa-search"></i>
-										</button>
-									</td>
+					<form method="GET" action="{{ route('products') }}" >
+						@csrf
+						<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
+							<thead>
+								<tr class="bg-gray-300">
+									<th class="p-2 text-left">Atributo</th>
+									<th class="p-2 text-left">Valor</th>
+									<th class="p-2 text-center" style="width: 60px">Buscar</th>
 								</tr>
-							</tbody>
-						@endif
-					</table>
+							</thead>
+							@if ($extrafields->isNotEmpty())
+								@php
+									$product_fields = $product->extrafields->toArray();
+								@endphp
+								<tbody>
+									@foreach ($extrafields as $extrafield)
+										@if ($product_fields[$extrafield->name] != 'N/A')
+											<tr class="even:bg-gray-300">
+												<td class="p-2 text-left">
+													{{ (isset($attributes[$extrafield->name])) ? $attributes[$extrafield->name] : $extrafield->name }}
+												</td>
+												<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
+												<td class="p-2 text-center">
+													<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
+														<x-jet-checkbox id="field_{{ $extrafield->name }}" name="{{ $extrafield->name }}" value="{{ $product_fields[$extrafield->name] }}" />
+													</label>
+												</td>
+											</tr>
+										@endif
+									@endforeach
+									<tr>
+										<td colspan="3" class="p-2 text-center">
+											<x-jet-button type="submit">
+												Buscar <i class="fas fa-search"></i>
+											</x-jet-button>
+										</td>
+									</tr>
+								</tbody>
+							@endif
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>

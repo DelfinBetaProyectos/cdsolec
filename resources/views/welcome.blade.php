@@ -103,7 +103,7 @@
 								}
 							@endphp
 							<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg transition duration-1000 ease-out opacity-0 transform scale-50">
-								<a href="{{ route('products').'?brand='.$brand->rowid }}">
+								<a href="{{ route('products').'?at1='.$brand->nom }}">
 									<img src="{{ asset($image) }}" alt="{{ $brand->nom }}" title="{{ $brand->nom }}" />
 								</a>
 							</div>
@@ -163,8 +163,8 @@
 												Ref: {{ $product->ref }}
 											</span>
 										</div>
-										<div class="py-2 border-t border-gray-400 text-center">
-											<a href="{{ route('product', $product->ref) }}">
+										<div class="border-t border-gray-400 text-center">
+											<a href="{{ route('product', $product->ref) }}" class="py-2 inline-block w-full">
 												Detalles <i class="fas fa-long-arrow-alt-right"></i>
 											</a>
 										</div>

@@ -33,15 +33,15 @@
         <div class="mt-4">
           <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('auth.Gender') }}</div>
           <label for="male" class="inline-flex items-center cursor-pointer mb-2">
-            <input type="radio" id="male" name="gender" class="form-radio text-gray-800 w-5 h-5" value="M" />
+            <x-forms.radio id="male" name="gender" value="M" />
             <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('auth.Male') }}</span>
           </label>
           <label for="female" class="inline-flex items-center cursor-pointer mb-2">
-            <input type="radio" id="female" name="gender" class="form-radio text-gray-800 w-5 h-5" value="F" />
+            <x-forms.radio id="female" name="gender" value="F" />
             <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('auth.Female') }}</span>
           </label>
           <label for="other" class="inline-flex items-center cursor-pointer mb-2">
-            <input type="radio" id="other" name="gender" class="form-radio text-gray-800 w-5 h-5" value="O" />
+            <x-forms.radio id="other" name="gender" value="O" />
             <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('auth.Other') }}</span>
           </label>
           <x-jet-input-error for="gender" class="mt-2" />

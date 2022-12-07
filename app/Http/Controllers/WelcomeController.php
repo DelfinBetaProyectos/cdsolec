@@ -87,7 +87,7 @@ class WelcomeController extends Controller
                             },
                             'extrafields'
                           ])
-                          ->filterBy($filters, $request->only(['search']))
+                          ->filterBy($filters, $request->only(['search', 'at1', 'at2', 'at3', 'at4', 'at5', 'at6', 'at7', 'at8', 'at9', 'at10', 'at11', 'at12', 'at13', 'at14', 'at15', 'at16', 'at17', 'at18', 'at19', 'at20', 'at21', 'at22', 'at23', 'at24', 'at25', 'at26', 'at27', 'at28', 'at29', 'at30']))
                           ->where('tosell', '=', '1')
                           ->whereHas('prices', function ($query) {
                             $query->where('price_level', '=', '1');
@@ -102,7 +102,7 @@ class WelcomeController extends Controller
                             },
                             'extrafields'
                           ])
-                          ->filterBy($filters, $request->only(['search']))
+                          ->filterBy($filters, $request->only(['search', 'at1', 'at2', 'at3', 'at4', 'at5', 'at6', 'at7', 'at8', 'at9', 'at10', 'at11', 'at12', 'at13', 'at14', 'at15', 'at16', 'at17', 'at18', 'at19', 'at20', 'at21', 'at22', 'at23', 'at24', 'at25', 'at26', 'at27', 'at28', 'at29', 'at30']))
                           ->where('tosell', '=', '1')
                           ->whereHas('prices', function ($query) {
                             $query->where('price_level', '=', '1');
@@ -136,12 +136,18 @@ class WelcomeController extends Controller
       $matriz = collect($matriz);
     }
 
+    $url = $request->url();  // Without Query String
+    $url_full = $request->fullUrl();  // With Query String
+    $var_explode = explode('?', $url_full, 2);
+    $query_string = $var_explode[1];
+
     return view('web.products')->with('category', $category)
                                ->with('products', $products)
                                ->with('tasa_usd', $tasa_usd)
                                ->with('extrafields', $extrafields)
                                ->with('attributes', $attributes)
-                               ->with('matriz', $matriz);
+                               ->with('matriz', $matriz)
+                               ->with('query_string', $query_string);
   }
 
   /**

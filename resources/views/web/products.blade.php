@@ -154,7 +154,7 @@
 												<ul class="text-cdsolec-blue-light">
 													@foreach ($values as $value)
 														<li>
-															<a href="{{ route('products') }}" class="px-2 py-1 block hover:bg-cdsolec-green-light">
+															<a href="{{ route('products') }}?{{ $query_string }}&{{ $extrafield->name }}={{ $value[$extrafield->name] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light">
 																<span class="fas fa-angle-right mr-1"></span> {{ $value[$extrafield->name] }}
 															</a>
 														</li>
