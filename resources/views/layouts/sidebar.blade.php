@@ -7,7 +7,7 @@
   </div>
 
   <div class="hidden md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded border border-white md:border-none px-4">
-    @if (Auth::user()->isRol('admin'))
+    @if (Auth::user()->admin)
       <h6 class="md:min-w-full text-cdsolec-green-light text-xs uppercase font-bold block pt-1 pb-4 no-underline">
         Plataforma
       </h6>
@@ -31,7 +31,7 @@
       <hr class="my-4 md:min-w-full" />
     @endif
 
-    @if (Auth::user()->isRol('admin'))
+    @if (Auth::user()->admin)
       <h6 class="md:min-w-full text-cdsolec-green-light text-xs uppercase font-bold block pt-1 pb-4 no-underline">
         Configuración
       </h6>

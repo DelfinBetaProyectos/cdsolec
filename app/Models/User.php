@@ -5,100 +5,105 @@ namespace App\Models;
 use App\Queries\QueryFilter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
-use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable implements Auditable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use HasRolesAndAbilities;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-    use SoftDeletes;
-    use \OwenIt\Auditing\Auditable;
+  use HasApiTokens;
+  use HasFactory;
+  use HasProfilePhoto;
+  use Notifiable;
+  use TwoFactorAuthenticatable;
+  use \OwenIt\Auditing\Auditable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'identification',
-        'gender',
-        'phone'
-    ];
+  /**
+   * The database connection that should be used by the model.
+   *
+   * @var string
+   */
+  protected $connection = 'mysqlerp';
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
+  /**
+   * The table associated with the model.
+   *
+   * @var string
+   */
+  protected $table = 'llx_user';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  /**
+   * The primary key associated with the table.
+   *
+   * @var string
+   */
+  protected $primaryKey = 'rowid';
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+  /**
+   * Indicates if the model should be timestamped.
+   *
+   * @var bool
+   */
+  public $timestamps = false;
 
-    /**
-     * Get the user's full name.
-     * 
-     * @return string
-     */
-    public function getFullNameAttribute()
-    {
-        return "{$this->first_name} {$this->last_name}";
-    }
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'entity', 'ref_ext', 'ref_int', 'admin', 'employee', 'fk_establishment', 'datec', 'tms', 'fk_user_creat', 
+    'fk_user_modif', 'login', 'pass_encoding', 'pass', 'pass_crypted', 'pass_temp', 'api_key', 'gender', 'civility', 
+    'lastname', 'firstname', 'address', 'zip', 'town', 'fk_state', 'fk_country', 'birth', 'job', 'office_phone', 
+    'office_fax', 'user_mobile', 'personal_mobile', 'email', 'personal_email', 'signature', 'solcialnetworks', 
+    'fk_soc', 'fk_socpeople', 'fk_member', 'fk_user', 'fk_user_expense_validator', 'fk_user_holiday_validator', 
+    'idpers1', 'idpers2', 'idpers3', 'note_public', 'note', 'model_pdf', 'datelastlogin', 'datepreviouslogin', 
+    'datelastpassvalidation', 'datestartvalidity', 'dateendvalidity', 'iplastlogin', 'ippreviouslogin', 
+    'egroupware_id', 'ldap_sid', 'openid', 'statut', 'photo', 'lang', 'color', 'barcode', 'fk_barcode_type', 
+    'accountancy_code', 'nb_holiday', 'thm', 'tjm', 'salary', 'salaryextra', 'dateemployment', 'dateemploymentend', 
+    'weeklyhours', 'import_key', 'default_range', 'default_c_exp_tax_cat', 'fk_warehouse'
+  ];
 
-    /**
-     * Determinar si es Admin.
-     */
-    public function isRol($role)
-    {
-        $vocals = array('a','e','i','o','u');
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [
+    'pass_encoding', 
+    'pass', 
+    'pass_crypted', 
+    'pass_temp',
+  ];
 
-        if(in_array($role[0], $vocals)) {
-          return $this->isAn($role);
-        } else {
-          return $this->isA($role);
-        }
-    }
+  /**
+   * Get the user's password.
+   * 
+   * @return string
+   */
+  public function getAuthPassword()
+  {
+    return $this->pass_crypted;
+  }
 
-    /**
-     * Search Filters.
-     */
-    public function scopeFilterBy($query, QueryFilter $filters, array $data)
-    {
-        return $filters->applyTo($query, $data);
-    }
+  /**
+   * Get the user's full name.
+   * 
+   * @return string
+   */
+  public function getFullNameAttribute()
+  {
+    return "{$this->firstname} {$this->lastname}";
+  }
+
+  /**
+   * Search Filters.
+   */
+  public function scopeFilterBy($query, QueryFilter $filters, array $data)
+  {
+    return $filters->applyTo($query, $data);
+  }
 }
