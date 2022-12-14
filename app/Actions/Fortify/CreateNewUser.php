@@ -34,7 +34,7 @@ class CreateNewUser implements CreatesNewUsers
     $user = User::create([
       'datec' => date('Y-m-d H:i:s'),
       'login' => $input['email'],
-      'pass_crypted' => Hash::make($input['password']),  // bcrypt
+      'pass_crypted' => Hash::make($input['password']),
       'gender' => $input['gender'],
       'lastname' => $input['last_name'],
       'firstname' => $input['first_name'],

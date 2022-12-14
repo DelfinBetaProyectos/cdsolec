@@ -63,14 +63,16 @@
                 <i class="fas fa-angle-right mr-1"></i>
                 <a href="{{ route('cart') }}">Compra (0)</a>
               </li>
-              <li>
-                <i class="fas fa-angle-right mr-1"></i>
-                <a href="{{ route('register') }}">Registro</a>
-              </li>
-              <li>
-                <i class="fas fa-angle-right mr-1"></i>
-                <a href="{{ route('login') }}">Login</a>
-              </li>
+              @guest
+                <li>
+                  <i class="fas fa-angle-right mr-1"></i>
+                  <a href="{{ route('register') }}">Registro</a>
+                </li>
+                <li>
+                  <i class="fas fa-angle-right mr-1"></i>
+                  <a href="{{ route('login') }}">Login</a>
+                </li>
+              @endguest
             </ul>
           </div>
         </div>

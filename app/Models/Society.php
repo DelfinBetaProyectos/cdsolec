@@ -69,4 +69,12 @@ class Society extends Model
 
 		return $image;
 	}
+
+  /**
+   * Get the user that owns the society.
+   */
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'fk_soc', 'rowid');
+  }
 }
