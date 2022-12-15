@@ -7,7 +7,7 @@
   </div>
 
   <div class="hidden md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded border border-white md:border-none px-4">
-    @if (Auth::user()->isRol('admin'))
+    @if (Auth::user()->admin)
       <h6 class="md:min-w-full text-cdsolec-green-light text-xs uppercase font-bold block pt-1 pb-4 no-underline">
         Plataforma
       </h6>
@@ -22,16 +22,11 @@
             <i class="fas fa-envelope mr-2 text-sm"></i> Comentarios
           </a>
         </li>
-        <li class="items-center">
-          <a href="{{ route('users.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
-            <i class="fas fa-users mr-2 text-sm"></i> Usuarios
-          </a>
-        </li>
       </ul>
       <hr class="my-4 md:min-w-full" />
     @endif
 
-    @if (Auth::user()->isRol('admin'))
+    @if (Auth::user()->admin)
       <h6 class="md:min-w-full text-cdsolec-green-light text-xs uppercase font-bold block pt-1 pb-4 no-underline">
         Configuración
       </h6>
@@ -41,16 +36,6 @@
             <i class="fas fa-cogs mr-2 text-sm"></i> Configuraciones
           </a>
         </li>
-        {{-- <li class="items-center">
-          <a href="{{ route('brands.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
-            <i class="fas fa-copyright mr-2 text-sm"></i> Marcas
-          </a>
-        </li>
-        <li class="items-center">
-          <a href="{{ route('categories.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
-            <i class="fas fa-list-alt mr-2 text-sm"></i> Categorías
-          </a>
-        </li> --}}
       </ul>
       <hr class="my-4 md:min-w-full" />
     @endif

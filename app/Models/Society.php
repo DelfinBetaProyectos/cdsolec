@@ -42,7 +42,7 @@ class Society extends Model
    */
   protected $fillable = [
     'nom', 'name_alias', 'entity', 'ref_ext', 'ref_int', 'statut', 'parent', 'status', 'code_client', 
-    'code_fournisseur', 'code_compta', 'code_compta_fournisseur', 'addres', 'zip', 'town', 'fk_departament', 
+    'code_fournisseur', 'code_compta', 'code_compta_fournisseur', 'address', 'zip', 'town', 'fk_departament', 
     'fk_pays', 'fk_account', 'phone', 'fax', 'url', 'email', 'socialnetworks', 'skype', 'twitter', 'facebook', 
     'linkedin', 'instagram', 'snapchat', 'googleplus', 'youtube', 'whatsapp', 'fk_effectif', 'fk_typent', 
     'fk_forme_juridique', 'fk_currency', 'siren', 'siret', 'ape', 'idprof4', 'idprof5', 'idprof6', 'tva_intra', 
@@ -69,4 +69,12 @@ class Society extends Model
 
 		return $image;
 	}
+
+  /**
+   * Get the user that owns the society.
+   */
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'fk_soc', 'rowid');
+  }
 }

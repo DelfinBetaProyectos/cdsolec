@@ -17,20 +17,23 @@ class CheckRole
    */
   public function handle($request, Closure $next, ...$roles)
   {
-    $finded = false;
-    $total = count($roles);
-    $i = 0;
+    // $finded = false;
+    // $total = count($roles);
+    // $i = 0;
 
-    while(!$finded && ($i < $total)) {
-      if($request->user()->isRol($roles[$i])) {
-        $finded = true;
-      }
+    // while(!$finded && ($i < $total)) {
+    //   if($request->user()->isRol($roles[$i])) {
+    //     $finded = true;
+    //   }
 
-      $i++;
-    }
+    //   $i++;
+    // }
 
+    // if($finded) {
+    //   return $next($request);
+    // }
 
-    if($finded) {
+    if($request->user()->admin) {
       return $next($request);
     }
 

@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes PROVICIONALES
+| Web Routes
 |--------------------------------------------------------------------------
 */
 
@@ -34,4 +34,4 @@ Route::get('/products', [WelcomeController::class, 'products'])->name('products'
 Route::get('/product/{product}', [WelcomeController::class, 'product'])->name('product');
 Route::get('/cart', [WelcomeController::class, 'cart'])->name('cart');
 Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
-Route::post('contacto', [WelcomeController::class, 'comments_store'])->name('comments.store');
+Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');

@@ -25,11 +25,13 @@ class UserFilter extends QueryFilter
     }
     
     return $query->where(function ($query) use ($search) {
-      $query->where('first_name', 'like', "%{$search}%")
-            ->orWhere('last_name', 'like', "%{$search}%")
+      $query->where('login', 'like', "%{$search}%")
+            ->orWhere('lastname', 'like', "%{$search}%")
+            ->orWhere('firstname', 'like', "%{$search}%")
+            ->orWhere('user_mobile', 'like', "%{$search}%")
+            ->orWhere('personal_mobile', 'like', "%{$search}%")
             ->orWhere('email', 'like', "%{$search}%")
-            ->orWhere('identification', 'like', "%{$search}%")
-            ->orWhere('phone', 'like', "%{$search}%");
+            ->orWhere('personal_email', 'like', "%{$search}%");
     });
 	}
 
@@ -37,7 +39,7 @@ class UserFilter extends QueryFilter
   {
   	$date = Carbon::createFromFormat('d/m/Y', $date);
 
-    return $query->whereDate('created_at', '>=', $date);
+    return $query->whereDate('datec', '>=', $date);
   }
 
   public function to($query, $date)
@@ -48,6 +50,6 @@ class UserFilter extends QueryFilter
 
     $date = Carbon::createFromFormat('d/m/Y', $date);
 
-    return $query->whereDate('created_at', '<=', $date);
+    return $query->whereDate('datec', '<=', $date);
   }
 }

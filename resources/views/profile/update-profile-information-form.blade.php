@@ -53,16 +53,16 @@
 
     <!-- First Name -->
     <div class="col-span-6 sm:col-span-3">
-      <x-jet-label for="first_name" value="{{ __('session.First_Name') }}" />
-      <x-jet-input id="first_name" type="text" class="mt-1 block w-full" wire:model.defer="state.first_name" autocomplete="first_name" required />
-      <x-jet-input-error for="first_name" class="mt-2" />
+      <x-jet-label for="firstname" value="{{ __('session.First_Name') }}" />
+      <x-jet-input id="firstname" type="text" class="mt-1 block w-full" wire:model.defer="state.firstname" autocomplete="firstname" required />
+      <x-jet-input-error for="firstname" class="mt-2" />
     </div>
 
     <!-- Last Name -->
     <div class="col-span-6 sm:col-span-3">
-      <x-jet-label for="last_name" value="{{ __('session.Last_Name') }}" />
-      <x-jet-input id="last_name" type="text" class="mt-1 block w-full" wire:model.defer="state.last_name" required />
-      <x-jet-input-error for="last_name" class="mt-2" />
+      <x-jet-label for="lastname" value="{{ __('session.Last_Name') }}" />
+      <x-jet-input id="lastname" type="text" class="mt-1 block w-full" wire:model.defer="state.lastname" required />
+      <x-jet-input-error for="lastname" class="mt-2" />
     </div>
 
     <!-- Identification -->
@@ -76,15 +76,15 @@
     <div class="col-span-6 sm:col-span-3">
       <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('session.Gender') }}</div>
       <label for="male" class="inline-flex items-center cursor-pointer mb-2">
-        <input type="radio" id="male" name="gender" class="form-radio text-gray-800 w-5 h-5" value="M" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'M') ? 'checked' : '' }} />
+        <input type="radio" id="male" name="gender" class="w-5 h-5 border border-cdsolec-green-dark text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="M" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'M') ? 'checked' : '' }} />
         <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('session.Male') }}</span>
       </label>
       <label for="female" class="inline-flex items-center cursor-pointer mb-2">
-        <input type="radio" id="female" name="gender" class="form-radio text-gray-800 w-5 h-5" value="F" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'F') ? 'checked' : '' }} />
+        <input type="radio" id="female" name="gender" class="w-5 h-5 border border-cdsolec-green-dark text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="F" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'F') ? 'checked' : '' }} />
         <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('session.Female') }}</span>
       </label>
       <label for="other" class="inline-flex items-center cursor-pointer mb-2">
-        <input type="radio" id="other" name="gender" class="form-radio text-gray-800 w-5 h-5" value="O" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'O') ? 'checked' : '' }} />
+        <input type="radio" id="other" name="gender" class="w-5 h-5 border border-cdsolec-green-dark text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="O" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'O') ? 'checked' : '' }} />
         <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('session.Other') }}</span>
       </label>
       <x-jet-input-error for="gender" class="mt-2" />
@@ -99,9 +99,9 @@
 
     <!-- Phone -->
     <div class="col-span-6 sm:col-span-3">
-      <x-jet-label for="phone" value="{{ __('session.Phone') }}" />
-      <x-jet-input id="phone" type="text" class="mt-1 block w-full" wire:model.defer="state.phone" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
-      <x-jet-input-error for="phone" class="mt-2" />
+      <x-jet-label for="user_mobile" value="{{ __('session.Phone') }}" />
+      <x-jet-input id="user_mobile" type="text" class="mt-1 block w-full" wire:model.defer="state.user_mobile" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
+      <x-jet-input-error for="user_mobile" class="mt-2" />
     </div>
   </x-slot>
 
@@ -121,7 +121,7 @@
     (function() {
       'use strict';
 
-      let phone = document.getElementById('phone');
+      let phone = document.getElementById('user_mobile');
 
       function formatTlf(e) {
         if((this.value.length < 15) && ((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode > 95 && e.keyCode < 106))) {

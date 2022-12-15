@@ -4,7 +4,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16 md:h-32">
       <!-- Logo -->
-      <div class="flex flex-shrink-0 flex items-center justify-center mr-10">
+      <div class="flex flex-shrink-0 items-center justify-center mr-10">
         <a href="{{ route('welcome') }}">
           <img src="{{ asset('img/logos/CD-SOLEC_Horizontal.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class=" block md:hidden h-14" />
           <img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class="hidden md:block h-28" />
@@ -34,12 +34,19 @@
               <span class="px-2 text-white text-xs">0</span>
             </div>
           </x-jet-nav-link>
-          <x-jet-nav-link href="{{ route('register') }}">
-            <i class="fas fa-fw mr-1 fa-user"></i> Registro
-          </x-jet-nav-link>
-          <x-jet-nav-link href="{{ route('login') }}">
-            <i class="fas fa-fw mr-1 fa-lock"></i> Login
-          </x-jet-nav-link>
+          @auth
+            <x-jet-nav-link href="{{ route('dashboard') }}">
+              <i class="fas fa-fw mr-1 fa-user"></i> {{ Auth::user()->fullName }}
+            </x-jet-nav-link>
+          @endauth
+          @guest
+            <x-jet-nav-link href="{{ route('register') }}">
+              <i class="fas fa-fw mr-1 fa-user"></i> Registro
+            </x-jet-nav-link>
+            <x-jet-nav-link href="{{ route('login') }}">
+              <i class="fas fa-fw mr-1 fa-lock"></i> Login
+            </x-jet-nav-link>
+          @endguest
         </div>
         <!-- Navigation Links Menú -->
         <div class="h-16 space-x-4 flex flex-shrink-0">
@@ -188,12 +195,19 @@
           </div>
         </span>
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="{{ route('register') }}">
-        <i class="fas fa-fw mr-1 fa-user"></i> Registro
-      </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="{{ route('login') }}">
-        <i class="fas fa-fw mr-1 fa-lock"></i> Login
-      </x-jet-responsive-nav-link>
+      @auth
+        <x-jet-responsive-nav-link href="{{ route('dashboard') }}">
+          <i class="fas fa-fw mr-1 fa-user"></i> {{ Auth::user()->fullName }}
+        </x-jet-responsive-nav-link>
+      @endauth
+      @guest
+        <x-jet-responsive-nav-link href="{{ route('register') }}">
+          <i class="fas fa-fw mr-1 fa-user"></i> Registro
+        </x-jet-responsive-nav-link>
+        <x-jet-responsive-nav-link href="{{ route('login') }}">
+          <i class="fas fa-fw mr-1 fa-lock"></i> Login
+        </x-jet-responsive-nav-link>
+      @endguest
     </div>
   </div>
 </nav>
