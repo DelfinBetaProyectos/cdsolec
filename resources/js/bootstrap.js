@@ -26,3 +26,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+
+const flatpickr = require("flatpickr");
+
+window.$ = require('jquery');
+
+/**
+ * DOCS Splide 
+ * https://splidejs.com/
+ */
+window.Splide = require("@splidejs/splide");
+
+
+
+window.Zooming = require('zooming');

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\WelcomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/about', [WelcomeController::class, 'about'])->name('about');
+Route::get('/brands', [WelcomeController::class, 'brands'])->name('brands');
+Route::get('/products', [WelcomeController::class, 'products'])->name('products');
+Route::get('/product/{product}', [WelcomeController::class, 'product'])->name('product');
+Route::get('/cart', [WelcomeController::class, 'cart'])->name('cart');
+Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
+Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');
