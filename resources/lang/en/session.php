@@ -27,7 +27,7 @@ return [
   'First_Name'               => 'First Name',
   'Last_Name'                => 'Last Name',
   'Email'                    => 'Email',
-  'Identification'           => 'Identification',
+  'Identification'           => 'CI/RIF',
   'Gender'                   => 'Gender',
   'Male'                     => 'Male',
   'Female'                   => 'Female',

@@ -36,7 +36,7 @@ return [
   */
   'First_Name'         => 'Nombre',
   'Last_Name'          => 'Apellido',
-  'Identification'     => 'Identificación',
+  'Identification'     => 'CI/RIF',
   'Gender'             => 'Sexo',
   'Male'               => 'Masculino',
   'Female'             => 'Femenino',
