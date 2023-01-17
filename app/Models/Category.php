@@ -62,6 +62,14 @@ class Category extends Model
   }
 
   /**
+   * The societes that belong to the category.
+   */
+  public function societies()
+  {
+    return $this->belongsToMany(Society::class, 'llx_categorie_societe', 'fk_categorie', 'fk_soc');
+  }
+
+  /**
    * The products that belong to the category.
    */
   public function products()

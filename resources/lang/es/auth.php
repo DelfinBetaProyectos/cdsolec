@@ -41,6 +41,7 @@ return [
   'Male'               => 'Masculino',
   'Female'             => 'Femenino',
   'Other'              => 'Otro',
+  'Type'               => 'Tipo',
   'Phone'              => 'Teléfono',
   'Confirm_Password'   => 'Confirmar Contraseña',
   'Already_registered' => '¿Ya registrado? Inicia sesión',

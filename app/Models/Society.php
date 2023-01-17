@@ -77,4 +77,12 @@ class Society extends Model
   {
     return $this->belongsTo(User::class, 'fk_soc', 'rowid');
   }
+
+  /**
+   * The categories that belong to the society.
+   */
+  public function categories()
+  {
+    return $this->belongsToMany(Category::class, 'llx_categorie_societe', 'fk_soc', 'fk_categorie');
+  }
 }
