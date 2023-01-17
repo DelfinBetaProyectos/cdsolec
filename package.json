@@ -28,6 +28,7 @@
         "@splidejs/splide": "^2.4.21",
         "flatpickr": "^4.6.9",
         "jquery": "^3.6.0",
+        "tailgrids": "^2.0.1",
         "tinymce": "^5.9.2",
         "zooming": "^2.1.1"
     }

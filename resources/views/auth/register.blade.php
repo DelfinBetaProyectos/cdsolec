@@ -9,20 +9,26 @@
     <form method="POST" action="{{ route('register') }}">
       @csrf
 
+      <label for="themeSwitcherOne" class="themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-cdsolec-green-dark p-1">
+        <input type="checkbox" name="themeSwitcherOne" id="themeSwitcherOne" class="sr-only" />
+        <span class="light text-cdsolec-green-dark bg-cdsolec-green-light flex items-center space-x-[6px] rounded p-2 px-[18px] text-sm font-semibold">
+          Persona
+        </span>
+        <span class="dark text-white flex items-center space-x-[6px] rounded p-2 px-[18px] text-sm font-medium">
+          Empresa
+        </span>
+      </label>
+      
+
       <div class="grid gap-3 grid-cols-1 md:grid-cols-2">
         <div class="mt-4">
           <x-jet-label for="first_name" value="{{ __('auth.First_Name') }}" />
           <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4" id="field_lastname">
           <x-jet-label for="last_name" value="{{ __('auth.Last_Name') }}" />
-          <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required />
-        </div>
-
-        <div class="mt-4">
-          <x-jet-label for="email" value="{{ __('auth.Email') }}" />
-          <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+          <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" />
         </div>
 
         <div class="mt-4">
@@ -30,7 +36,7 @@
           <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" required />
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4" id="field_gender">
           <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('auth.Gender') }}</div>
           <label for="male" class="inline-flex items-center cursor-pointer mb-2">
             <x-forms.radio id="male" name="gender" value="M" />
@@ -48,8 +54,25 @@
         </div>
 
         <div class="mt-4">
+          <x-jet-label for="email" value="{{ __('auth.Email') }}" />
+          <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+        </div>
+
+        <div class="mt-4">
           <x-jet-label for="phone" value="{{ __('auth.Phone') }}" />
           <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
+        </div>
+
+        <div class="mt-4 md:col-span-2">
+          <x-jet-label for="type" value="{{ __('auth.Type') }}" />
+          <select name="type" id="type" class="block w-full border border-cdsolec-green-dark focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50 text-gray-800 rounded-md shadow">
+            <option value="">Seleccione</option>
+            @if ($types->isNotEmpty())
+              @foreach($types as $type)
+                <option value="{{ $type->rowid }}">{{ $type->label }}</option>
+              @endforeach
+            @endif
+          </select>
         </div>
 
         <div class="mt-4">
@@ -109,6 +132,13 @@
     }
 
     phone.addEventListener('keyup', formatTlf);
+
+    let switcher = document.getElementById('themeSwitcherOne');
+
+    switcher.addEventListener('click', function() {
+      document.getElementById('field_lastname').classList.toggle("hidden");
+      document.getElementById('field_gender').classList.toggle("hidden");
+    });
   })();
   </script>
 </x-guest-layout>

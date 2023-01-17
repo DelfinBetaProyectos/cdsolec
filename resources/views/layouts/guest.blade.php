@@ -14,6 +14,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ mix('css/cdsolec.css') }}" />
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>

@@ -41,6 +41,7 @@ return [
   'Male'               => 'Male',
   'Female'             => 'Female',
   'Other'              => 'Other',
+  'Type'               => 'Type',
   'Phone'              => 'Phone',
   'Confirm_Password'   => 'Confirm Password',
   'Already_registered' => 'Already registered?',
