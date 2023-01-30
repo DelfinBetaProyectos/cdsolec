@@ -37,6 +37,7 @@ return [
   'First_Name'         => 'Nombre',
   'Last_Name'          => 'Apellido',
   'Identification'     => 'CI/RIF',
+  'Company'            => 'Empresa',
   'Gender'             => 'Sexo',
   'Male'               => 'Masculino',
   'Female'             => 'Femenino',

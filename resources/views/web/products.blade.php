@@ -168,7 +168,7 @@
 						@endif
 					</div>
       	</div>
-      	<div class="relative md:col-span-3 lg:col-span-4">
+      	<div class="relative md:col-span-3 lg:col-span-4 sticky">
 					@if ($products->isNotEmpty())
 						<div class="my-2 rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap">
 							<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">

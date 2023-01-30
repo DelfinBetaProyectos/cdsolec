@@ -22,7 +22,8 @@ class CreateNewUser implements CreatesNewUsers
   {
     Validator::make($input, [
       'first_name' => ['required', 'string', 'max:255'],
-      'last_name' => ['nullable', 'string', 'max:255'],
+      'last_name' => ['required', 'string', 'max:255'],
+      'company' => ['nullable', 'string', 'max:255'],
       'email' => ['required', 'string', 'email', 'max:255', 'unique:mysqlerp.llx_user'],
       'password' => $this->passwordRules(),
       'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
@@ -44,8 +45,13 @@ class CreateNewUser implements CreatesNewUsers
       'email' => $input['email']
     ]);
 
+    $name_soc = $input['first_name'].' '.$input['last_name'];
+    if (isset($input['company'])) {
+      $name_soc .= ' ('.$input['company'].')';
+    }
+
     $society = Society::create([
-      'nom' => $input['first_name'].' '.$input['last_name'],
+      'nom' => $name_soc,
       'fk_pays' => 232,                     // 232 = Venezuela
       'phone' => $input['phone'],
       'email' => $input['email'],

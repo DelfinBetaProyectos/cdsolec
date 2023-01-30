@@ -9,17 +9,6 @@
     <form method="POST" action="{{ route('register') }}">
       @csrf
 
-      <label for="themeSwitcherOne" class="themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-cdsolec-green-dark p-1">
-        <input type="checkbox" name="themeSwitcherOne" id="themeSwitcherOne" class="sr-only" />
-        <span class="light text-cdsolec-green-dark bg-cdsolec-green-light flex items-center space-x-[6px] rounded p-2 px-[18px] text-sm font-semibold">
-          Persona
-        </span>
-        <span class="dark text-white flex items-center space-x-[6px] rounded p-2 px-[18px] text-sm font-medium">
-          Empresa
-        </span>
-      </label>
-      
-
       <div class="grid gap-3 grid-cols-1 md:grid-cols-2">
         <div class="mt-4">
           <x-jet-label for="first_name" value="{{ __('auth.First_Name') }}" />
@@ -28,7 +17,12 @@
 
         <div class="mt-4" id="field_lastname">
           <x-jet-label for="last_name" value="{{ __('auth.Last_Name') }}" />
-          <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" />
+          <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required />
+        </div>
+
+        <div class="mt-4">
+          <x-jet-label for="company" value="{{ __('auth.Company') }}" />
+          <x-jet-input id="company" class="block mt-1 w-full" type="text" name="company" :value="old('company')" />
         </div>
 
         <div class="mt-4">
@@ -36,7 +30,7 @@
           <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" required />
         </div>
 
-        <div class="mt-4" id="field_gender">
+        {{-- <div class="mt-4" id="field_gender">
           <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('auth.Gender') }}</div>
           <label for="male" class="inline-flex items-center cursor-pointer mb-2">
             <x-forms.radio id="male" name="gender" value="M" />
@@ -51,7 +45,7 @@
             <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('auth.Other') }}</span>
           </label>
           <x-jet-input-error for="gender" class="mt-2" />
-        </div>
+        </div> --}}
 
         <div class="mt-4">
           <x-jet-label for="email" value="{{ __('auth.Email') }}" />
@@ -59,7 +53,9 @@
         </div>
 
         <div class="mt-4">
-          <x-jet-label for="phone" value="{{ __('auth.Phone') }}" />
+          <label for="phone" class="block font-medium text-sm text-gray-700">
+            {{ __('auth.Phone') }} <span style="font-size: 0.7rem">Ejem: (412)-891-5299</span>
+          </label>
           <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
         </div>
 

@@ -139,7 +139,7 @@ class WelcomeController extends Controller
     $url = $request->url();  // Without Query String
     $url_full = $request->fullUrl();  // With Query String
     $var_explode = explode('?', $url_full, 2);
-    $query_string = $var_explode[1];
+    $query_string = $var_explode[1] ?? '';
 
     return view('web.products')->with('category', $category)
                                ->with('products', $products)
