@@ -233,7 +233,7 @@ const size = {
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    // content: ["./*.html", "./ecommerce/*.html", "./assets/**/*.js"],
+    mode: 'jit',
 
     purge: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',

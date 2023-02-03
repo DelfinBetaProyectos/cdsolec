@@ -168,11 +168,11 @@
 						@endif
 					</div>
       	</div>
-      	<div class="relative md:col-span-3 lg:col-span-4">
+      	<div class="relative md:col-span-3 lg:col-span-4 sticky">
 					@if ($products->isNotEmpty())
-						<div class="rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap relative h-[calc(100vh-10rem)] overflow-y-auto">
-							<table class="relative w-full rounded-lg border-collapse border border-gray-300">
-								<thead class="sticky top-0 bg-gray-300">
+						<div class="my-2 rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap">
+							<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
+								<thead class="bg-gray-300">
 									<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
 										<th class="py-3" style="min-width: 80px">&nbsp;</th>
 										<th class="py-3" style="min-width: 400px">Información</th>
@@ -220,7 +220,7 @@
 										<tr class="flex flex-col lg:table-row even:bg-gray-300">
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
 												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-													&nbsp;
+													Comparar
 												</div>
 												<div class="p-2 flex">
 													<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="w-12 ml-2 img-zoomable" />
@@ -295,7 +295,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="mt-4 text-right">
+						<div class="my-2 text-right">
 							{{ $products->links() }}
 						</div>
 					@else
