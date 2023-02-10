@@ -56,11 +56,11 @@
               </div>
             </form>
       		</div>
-      		<div class="accordion text-sm">
+      		<div class="accordion">
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-one" name="filters" value="{{ request()->category }}" class="absolute opacity-0" />
-							<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">
-								<div>Categorías</div> <i class="fas fa-fw fa-caret-down"></i>
+		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" />
+							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">
+								Categorías
 							</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($categories->isNotEmpty())
@@ -74,7 +74,7 @@
 												}
 											@endphp
 											<li>
-												<a href="{{ route('products') }}?category={{ $item->rowid }}&sector={{ request()->sector }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+												<a href="{{ route('products') }}?category={{ $item->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
 													{{ $item->label }}
 												</a>
 												@if (($item->rowid == $category->rowid) || 
@@ -83,7 +83,7 @@
 														<ul class="ml-2">
 															@foreach($item->subcategories as $child)
 																<li>
-																	<a href="{{ route('products') }}?category={{ $child->rowid }}&sector={{ request()->sector }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
+																	<a href="{{ route('products') }}?category={{ $child->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
 																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
 																	</a>
 																</li>
@@ -98,9 +98,9 @@
 							</div>
 						</div>
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-two" name="filters" value="{{ request()->sector }}" class="absolute opacity-0" />
-							<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
-								<div>Sectores de Interés</div> <i class="fas fa-fw fa-caret-down"></i>
+		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" />
+							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
+								Sectores de Interés
 							</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($sectors->isNotEmpty())
@@ -114,7 +114,7 @@
 												}
 											@endphp
 											<li>
-												<a href="{{ route('products') }}?sector={{ $item->rowid }}&category={{ request()->category }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+												<a href="{{ route('products') }}?category={{ $item->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
 													{{ $item->label }}
 												</a>
 												@if (($item->rowid == $category->rowid) || 
@@ -123,7 +123,7 @@
 														<ul class="ml-2">
 															@foreach($item->subcategories as $child)
 																<li>
-																	<a href="{{ route('products') }}?sector={{ $child->rowid }}&category={{ request()->category }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
+																	<a href="{{ route('products') }}?category={{ $child->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
 																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
 																	</a>
 																</li>
@@ -142,28 +142,21 @@
 								@if (isset($attributes[$extrafield->name]))
 									<div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
 										<input type="checkbox" id="tab-{{ $loop->iteration }}" name="filters" class="absolute opacity-0" checked />
-										<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
-											<div>{{ $attributes[$extrafield->name] }}</div> <i class="fas fa-fw fa-caret-down"></i>
+										<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
+											{{ $attributes[$extrafield->name] }}
 										</label>
 										<div class="tab-content overflow-hidden bg-gray-100">
 											@php
 												$unique = $matriz->unique($extrafield->name);
-												$values = $unique->sortBy($extrafield->name)->values()->all();
+												$values = $unique->values()->all();
 											@endphp
 											@if (count($values) > 0)
 												<ul class="text-cdsolec-blue-light">
 													@foreach ($values as $value)
-														@php
-															$checked = '';
-															if (isset($filters[$extrafield->name])) {
-																if (in_array($value[$extrafield->name], $filters[$extrafield->name])) {
-																	$checked = 'checked';
-																}
-															}
-														@endphp
-														<li class="px-2 py-1 hover:bg-cdsolec-green-light">
-															<input type="checkbox" data-filter="{{$extrafield->name}}" name="{{ $extrafield->name }}[]" onclick="handleCheck()" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $value[$extrafield->name] }}" {{ $checked }} />
-															{{ $value[$extrafield->name] }}
+														<li>
+															<a href="{{ route('products') }}?{{ $query_string }}&{{ $extrafield->name }}={{ $value[$extrafield->name] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light">
+																<span class="fas fa-angle-right mr-1"></span> {{ $value[$extrafield->name] }}
+															</a>
 														</li>
 													@endforeach
 												</ul>
@@ -175,11 +168,11 @@
 						@endif
 					</div>
       	</div>
-      	<div class="relative md:col-span-3 lg:col-span-4">
+      	<div class="relative md:col-span-3 lg:col-span-4 sticky">
 					@if ($products->isNotEmpty())
-						<div class="rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap relative h-[calc(100vh-10rem)] overflow-y-auto">
-							<table id="products" class="relative w-full rounded-lg border-collapse border border-gray-300">
-								<thead class="sticky top-0 bg-gray-300">
+						<div class="my-2 rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap">
+							<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
+								<thead class="bg-gray-300">
 									<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
 										<th class="py-3" style="min-width: 80px">&nbsp;</th>
 										<th class="py-3" style="min-width: 400px">Información</th>
@@ -227,7 +220,7 @@
 										<tr class="flex flex-col lg:table-row even:bg-gray-300">
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
 												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-													&nbsp;
+													Comparar
 												</div>
 												<div class="p-2 flex">
 													<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="w-12 ml-2 img-zoomable" />
@@ -302,7 +295,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="mt-4 text-right">
+						<div class="my-2 text-right">
 							{{ $products->links() }}
 						</div>
 					@else
@@ -317,32 +310,17 @@
 
 	@push('scripts')
 		<script>
-			function handleCheck() {
-				let category = document.getElementById('tab-one').value;
-				let sector = document.getElementById('tab-two').value;
-				let table = document.getElementById('products');
-				let tbody = table.getElementsByTagName('tbody')[0];
-				let myCheckFilters = document.querySelectorAll(".checkfilter:checked");
-				let querystring = '?category=' + category + '&sector=' + sector;
-				let dataArray = [];
-
-				myCheckFilters.forEach(item => {
-					querystring = querystring + '&' + encodeURIComponent(item.dataset.filter) + '[]=' + encodeURIComponent(item.value);
-				});
-
-				let url = '/products' + querystring;
-
-				location.href = url;
-				
-				// fetch(url)
-				// .then((response) => response.text())
-				// .then((data) => {
-				// 	tbody.innerHTML = data;
-				// 	history.pushState(null, 'Productos CDSOLEC', url);
-				// })
-				// .catch((error) => {
-				// 	console.error('Error:', error);
-				// });
+			let myFilters = document.getElementsByName('filters');
+			let setCheck;
+			for(let x = 0; x < myFilters.length; x++) {
+				myFilters[x].onclick = function() {
+					if(setCheck != this) {
+						setCheck = this;
+					} else {
+						this.checked = false;
+						setCheck = null;
+					}
+				};
 			}
 		</script>
 	@endpush
