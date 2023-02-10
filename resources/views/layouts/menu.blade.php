@@ -79,7 +79,7 @@
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
                         @if ($sectors->isNotEmpty())
                           @foreach($sectors as $item)
-                          <a href="{{ route('products').'?category='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <a href="{{ route('products').'?sector='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
                             {{ $item->label }}
                           </a>
