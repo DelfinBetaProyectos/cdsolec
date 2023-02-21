@@ -274,9 +274,9 @@
 												</div>
 												<div class="p-2 text-center">
 													<div class="w-full flex pb-2">
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-														<input type="text" name="cantidad" id="cantidad" class="w-20" />
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
+														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="decrement">-</button>
+														<input type="number" name="cantidad[]" id="cantidad{{ $product->rowid }}" class="w-20" />
+														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="increment">+</button>
 													</div>
 													<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
 														Agregar <i class="fas fa-shopping-cart"></i>
@@ -333,17 +333,44 @@
 				let url = '/products' + querystring;
 
 				location.href = url;
-				
-				// fetch(url)
-				// .then((response) => response.text())
-				// .then((data) => {
-				// 	tbody.innerHTML = data;
-				// 	history.pushState(null, 'Productos CDSOLEC', url);
-				// })
-				// .catch((error) => {
-				// 	console.error('Error:', error);
-				// });
 			}
+		</script>
+		<script>
+			function decrement(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value--;
+				target.value = value;
+			}
+
+			function increment(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value++;
+				target.value = value;
+			}
+
+			const decrementButtons = document.querySelectorAll(
+				`button[data-action="decrement"]`
+			);
+
+			const incrementButtons = document.querySelectorAll(
+				`button[data-action="increment"]`
+			);
+
+			decrementButtons.forEach(btn => {
+				btn.addEventListener("click", decrement);
+			});
+
+			incrementButtons.forEach(btn => {
+				btn.addEventListener("click", increment);
+			});
 		</script>
 	@endpush
 </x-web-layout>
