@@ -1872,6 +1872,10 @@ input:checked ~ .dot .active {
 	--tw-border-opacity: 1;
 	border-color: rgba(56, 161, 105, var(--tw-border-opacity));
 }
+.border-cdsolec-green-dark {
+	--tw-border-opacity: 1;
+	border-color: rgba(46, 155, 0, var(--tw-border-opacity));
+}
 .border-gray-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(203, 213, 224, var(--tw-border-opacity));
@@ -1879,10 +1883,6 @@ input:checked ~ .dot .active {
 .border-cdsolec-green-light {
 	--tw-border-opacity: 1;
 	border-color: rgba(141, 252, 0, var(--tw-border-opacity));
-}
-.border-cdsolec-green-dark {
-	--tw-border-opacity: 1;
-	border-color: rgba(46, 155, 0, var(--tw-border-opacity));
 }
 .border-white {
 	--tw-border-opacity: 1;
@@ -1956,13 +1956,13 @@ input:checked ~ .dot .active {
 	--tw-bg-opacity: 1;
 	background-color: rgba(49, 130, 206, var(--tw-bg-opacity));
 }
-.bg-cdsolec-green-light {
-	--tw-bg-opacity: 1;
-	background-color: rgba(141, 252, 0, var(--tw-bg-opacity));
-}
 .bg-green-600 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(56, 161, 105, var(--tw-bg-opacity));
+}
+.bg-cdsolec-green-light {
+	--tw-bg-opacity: 1;
+	background-color: rgba(141, 252, 0, var(--tw-bg-opacity));
 }
 .bg-gray-300 {
 	--tw-bg-opacity: 1;
@@ -2005,14 +2005,14 @@ input:checked ~ .dot .active {
 .p-6 {
 	padding: 1.5rem;
 }
+.p-3 {
+	padding: 0.75rem;
+}
 .p-8 {
 	padding: 2rem;
 }
 .p-4 {
 	padding: 1rem;
-}
-.p-3 {
-	padding: 0.75rem;
 }
 .p-1 {
 	padding: 0.25rem;
@@ -2277,6 +2277,10 @@ input:checked ~ .dot .active {
 	--tw-text-opacity: 1;
 	color: rgba(46, 155, 0, var(--tw-text-opacity));
 }
+.text-blue-800 {
+	--tw-text-opacity: 1;
+	color: rgba(44, 82, 130, var(--tw-text-opacity));
+}
 .text-gray-200 {
 	--tw-text-opacity: 1;
 	color: rgba(237, 242, 247, var(--tw-text-opacity));
@@ -2296,10 +2300,6 @@ input:checked ~ .dot .active {
 .text-blue-600 {
 	--tw-text-opacity: 1;
 	color: rgba(49, 130, 206, var(--tw-text-opacity));
-}
-.text-blue-800 {
-	--tw-text-opacity: 1;
-	color: rgba(44, 82, 130, var(--tw-text-opacity));
 }
 .text-red-800 {
 	--tw-text-opacity: 1;
@@ -2677,6 +2677,10 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 	--tw-bg-opacity: 1;
 	background-color: rgba(141, 252, 0, var(--tw-bg-opacity));
 }
+.hover\:bg-green-500:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(72, 187, 120, var(--tw-bg-opacity));
+}
 .hover\:bg-blue-500:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(66, 153, 225, var(--tw-bg-opacity));
@@ -2688,10 +2692,6 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 .hover\:bg-gray-300:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
-}
-.hover\:bg-green-500:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(72, 187, 120, var(--tw-bg-opacity));
 }
 .hover\:pl-2:hover {
 	padding-left: 0.5rem;
@@ -2932,6 +2932,10 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 
 	.sm\:ml-6 {
 		margin-left: 1.5rem;
+	}
+
+	.sm\:ml-5 {
+		margin-left: 1.25rem;
 	}
 
 	.sm\:block {

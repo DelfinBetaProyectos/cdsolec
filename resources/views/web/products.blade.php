@@ -1,4 +1,20 @@
 <x-web-layout title="Productos">
+	@push('styles')
+	<style>
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+			-moz-appearance: textfield;
+		}
+	</style>
+	@endpush
+
 	@section('background', asset('img/slide1.jpg'))
 
 	@section('content')
@@ -223,6 +239,8 @@
 											}
 
 											$product_fields = $product->extrafields->toArray();
+
+											$stock = $product->stock - $product->seuil_stock_alerte;
 										@endphp
 										<tr class="flex flex-col lg:table-row even:bg-gray-300">
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -256,7 +274,7 @@
 													Disponibilidad
 												</div>
 												<div class="p-2 lg:text-right">
-													Stock: {{ $product->stock - $product->seuil_stock_alerte }}
+													Stock: {{ $stock }}
 												</div>
 											</td>
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -273,14 +291,18 @@
 													Cantidad
 												</div>
 												<div class="p-2 text-center">
-													<div class="w-full flex pb-2">
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="decrement">-</button>
-														<input type="number" name="cantidad[]" id="cantidad{{ $product->rowid }}" class="w-20" />
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="increment">+</button>
-													</div>
-													<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-														Agregar <i class="fas fa-shopping-cart"></i>
-													</button>
+													<form action="{{ route('cart.index') }}" method="POST">
+														@csrf
+														<input type="hidden" name="product" value="{{ $product->rowid }}" />
+														<div class="w-full flex pb-2">
+															<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="decrement">-</button>
+															<input type="number" name="quantity" id="quantity{{ $product->rowid }}" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" value="0" class="w-16 text-right px-3" onchange="validateRange(this)" />
+															<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="increment">+</button>
+														</div>
+														<button type="submit" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+															Agregar <i class="fas fa-shopping-cart"></i>
+														</button>
+													</form>
 												</div>
 											</td>
 											@if ($extrafields->isNotEmpty())
@@ -343,6 +365,7 @@
 				const target = btn.nextElementSibling;
 				let value = Number(target.value);
 				value--;
+				if (value < 0) value = 0;
 				target.value = value;
 			}
 
@@ -353,7 +376,13 @@
 				const target = btn.nextElementSibling;
 				let value = Number(target.value);
 				value++;
+				if (value > target.max) value = Number(target.max);
 				target.value = value;
+			}
+
+			function validateRange(element) {
+				if (element.value < element.min) element.value = element.min;
+				if (element.value > element.max) element.value = element.max;
 			}
 
 			const decrementButtons = document.querySelectorAll(
