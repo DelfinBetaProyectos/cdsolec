@@ -36,4 +36,5 @@ Route::get('/product/{product}', [WelcomeController::class, 'product'])->name('p
 Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
 Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');
 
+Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::apiResource('cart', CartController::class);

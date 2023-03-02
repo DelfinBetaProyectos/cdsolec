@@ -1308,6 +1308,10 @@ input:checked ~ .dot .active {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+.mx-3 {
+	margin-left: 0.75rem;
+	margin-right: 0.75rem;
+}
 .my-1 {
 	margin-top: 0.25rem;
 	margin-bottom: 0.25rem;
@@ -1426,6 +1430,9 @@ input:checked ~ .dot .active {
 }
 .table {
 	display: table;
+}
+.table-row {
+	display: table-row;
 }
 .grid {
 	display: grid;
@@ -1900,6 +1907,14 @@ input:checked ~ .dot .active {
 	--tw-border-opacity: 1;
 	border-color: rgba(155, 44, 44, var(--tw-border-opacity));
 }
+.border-green-800 {
+	--tw-border-opacity: 1;
+	border-color: rgba(39, 103, 73, var(--tw-border-opacity));
+}
+.border-blue-800 {
+	--tw-border-opacity: 1;
+	border-color: rgba(44, 82, 130, var(--tw-border-opacity));
+}
 .bg-white {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -1979,6 +1994,14 @@ input:checked ~ .dot .active {
 .bg-red-300 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(254, 178, 178, var(--tw-bg-opacity));
+}
+.bg-red-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(245, 101, 101, var(--tw-bg-opacity));
+}
+.bg-blue-light {
+	--tw-bg-opacity: 1;
+	background-color: rgba(108, 178, 235, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
@@ -2693,6 +2716,10 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 	--tw-bg-opacity: 1;
 	background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
 }
+.hover\:bg-red-300:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(254, 178, 178, var(--tw-bg-opacity));
+}
 .hover\:pl-2:hover {
 	padding-left: 0.5rem;
 }
@@ -3176,6 +3203,10 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 		width: 20%;
 	}
 
+	.md\:w-40 {
+		width: 10rem;
+	}
+
 	.md\:min-w-full {
 		min-width: 100%;
 	}
@@ -3331,6 +3362,15 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 	.lg\:px-8 {
 		padding-left: 2rem;
 		padding-right: 2rem;
+	}
+
+	.lg\:py-4 {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+
+	.lg\:text-center {
+		text-align: center;
 	}
 
 	.lg\:text-right {
