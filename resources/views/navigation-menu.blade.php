@@ -1,11 +1,11 @@
 <nav x-data="{ open: false, openSide: true }" class="bg-cdsolec-green-light border-b border-gray-100">
   <!-- Primary Navigation Menu -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-2">
     <div class="flex justify-between h-16">
       <div class="flex">
         <!-- Logo -->
         <div class="flex-shrink-0 flex items-center">
-          <a href="{{ route('dashboard') }}" class="md:hidden">
+          <a href="{{ route('welcome') }}" class="md:hidden">
             <x-jet-application-mark class="block h-9 w-auto" />
           </a>
           <button @click="openSide = ! openSide" class="hidden md:inline-flex items-center justify-center px-3 py-2 rounded-md text-cdsolec-green-dark hover:text-cdsolec-green-light hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-cdsolec-green-light transition">
@@ -15,9 +15,24 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <div class="hidden space-x-4 sm:-my-px sm:ml-5 sm:flex">
           <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             {{ __('Dashboard') }}
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+            {{ __('Productos') }}
+          </x-jet-nav-link>
+          <x-jet-nav-link href="#" :active="request()->routeIs('#')">
+            {{ __('Soluciones') }}
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
+            {{ __('Fabricantes') }}
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+            {{ __('Nosotros') }}
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('comments.create') }}" :active="request()->routeIs('comments.create')">
+            {{ __('Contacto') }}
           </x-jet-nav-link>
         </div>
       </div>
@@ -141,8 +156,23 @@
   <!-- Responsive Navigation Menu -->
   <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
-      <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-        {{ __('session.Dashboard') }}
+    <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+        {{ __('Dashboard') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+        {{ __('Productos') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="#" :active="request()->routeIs('#')">
+        {{ __('Soluciones') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
+        {{ __('Fabricantes') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+        {{ __('Nosotros') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="{{ route('comments.create') }}" :active="request()->routeIs('comments.create')">
+        {{ __('Contacto') }}
       </x-jet-responsive-nav-link>
     </div>
 

@@ -61,7 +61,7 @@
             <ul>
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
-                <a href="{{ route('cart') }}">Compra (0)</a>
+                <a href="{{ route('cart.index') }}">Compra (0)</a>
               </li>
               @guest
                 <li>

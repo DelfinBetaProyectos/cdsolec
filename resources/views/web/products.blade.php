@@ -1,4 +1,20 @@
 <x-web-layout title="Productos">
+	@push('styles')
+	<style>
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+			-moz-appearance: textfield;
+		}
+	</style>
+	@endpush
+
 	@section('background', asset('img/slide1.jpg'))
 
 	@section('content')
@@ -177,6 +193,9 @@
       	</div>
       	<div class="relative md:col-span-3 lg:col-span-4">
 					@if ($products->isNotEmpty())
+						@php
+							$cart = session()->get('cart', []);
+						@endphp
 						<div class="rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap relative h-[calc(100vh-10rem)] overflow-y-auto">
 							<table id="products" class="relative w-full rounded-lg border-collapse border border-gray-300">
 								<thead class="sticky top-0 bg-gray-300">
@@ -223,6 +242,8 @@
 											}
 
 											$product_fields = $product->extrafields->toArray();
+
+											$stock = $product->stock - $product->seuil_stock_alerte;
 										@endphp
 										<tr class="flex flex-col lg:table-row even:bg-gray-300">
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -256,7 +277,7 @@
 													Disponibilidad
 												</div>
 												<div class="p-2 lg:text-right">
-													Stock: {{ $product->stock - $product->seuil_stock_alerte }}
+													Stock: {{ $stock }}
 												</div>
 											</td>
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -273,14 +294,28 @@
 													Cantidad
 												</div>
 												<div class="p-2 text-center">
-													<div class="w-full flex pb-2">
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-														<input type="text" name="cantidad" id="cantidad" class="w-20" />
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
-													</div>
-													<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-														Agregar <i class="fas fa-shopping-cart"></i>
-													</button>
+													@if ((count($cart) > 0) && isset($cart[$product->rowid]))
+														<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
+															@csrf
+															@method('DELETE')
+															<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
+																Eliminar <i class="fas fa-cart-arrow-down"></i>
+															</button>
+														</form>
+													@else
+														<form action="{{ route('cart.store') }}" method="POST">
+															@csrf
+															<input type="hidden" name="product" value="{{ $product->rowid }}" />
+															<div class="w-full flex pb-2">
+																<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="decrement">-</button>
+																<input type="number" name="quantity" id="quantity{{ $product->rowid }}" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" value="0" class="w-16 text-right px-3" onchange="validateRange(this)" />
+																<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="increment">+</button>
+															</div>
+															<button type="submit" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+																Agregar <i class="fas fa-shopping-cart"></i>
+															</button>
+														</form>
+													@endif
 												</div>
 											</td>
 											@if ($extrafields->isNotEmpty())
@@ -333,17 +368,46 @@
 				let url = '/products' + querystring;
 
 				location.href = url;
-				
-				// fetch(url)
-				// .then((response) => response.text())
-				// .then((data) => {
-				// 	tbody.innerHTML = data;
-				// 	history.pushState(null, 'Productos CDSOLEC', url);
-				// })
-				// .catch((error) => {
-				// 	console.error('Error:', error);
-				// });
 			}
+		</script>
+		<script>
+			function decrement(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value--;
+				if (value < 0) value = 0;
+				target.value = value;
+			}
+
+			function increment(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value++;
+				if (value > target.max) value = Number(target.max);
+				target.value = value;
+			}
+
+			function validateRange(element) {
+				if (element.value < element.min) element.value = element.min;
+				if (element.value > element.max) element.value = element.max;
+			}
+
+			const decrementButtons = document.querySelectorAll('button[data-action="decrement"]');
+			const incrementButtons = document.querySelectorAll('button[data-action="increment"]');
+
+			decrementButtons.forEach(btn => {
+				btn.addEventListener("click", decrement);
+			});
+
+			incrementButtons.forEach(btn => {
+				btn.addEventListener("click", increment);
+			});
 		</script>
 	@endpush
 </x-web-layout>

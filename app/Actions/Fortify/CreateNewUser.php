@@ -24,11 +24,10 @@ class CreateNewUser implements CreatesNewUsers
       'first_name' => ['required', 'string', 'max:255'],
       'last_name' => ['required', 'string', 'max:255'],
       'company' => ['nullable', 'string', 'max:255'],
-      'email' => ['required', 'string', 'email', 'max:255', 'unique:mysqlerp.llx_user'],
+      'email' => ['required', 'email', 'max:255', 'unique:mysqlerp.llx_user'],
       'password' => $this->passwordRules(),
       'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
       'identification' => ['required', 'string', 'unique:mysqlerp.llx_societe,siren'],
-      'gender' => ['nullable', 'in:M,F,O'],
       'phone' => ['nullable', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
       'type' => ['required', 'exists:mysqlerp.llx_categorie,rowid']
     ])->validate();

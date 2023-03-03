@@ -257,16 +257,6 @@ class WelcomeController extends Controller
   }
 
   /**
-   * Display Cart.
-   * 
-   * @return \Illuminate\Http\Response
-   */
-  public function cart()
-  {
-    return view('web.cart');
-  }
-
-  /**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response

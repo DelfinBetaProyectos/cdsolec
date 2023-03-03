@@ -1,4 +1,20 @@
 <x-web-layout title="Producto">
+	@push('styles')
+		<style>
+			/* Chrome, Safari, Edge, Opera */
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+			/* Firefox */
+			input[type=number] {
+				-moz-appearance: textfield;
+			}
+		</style>
+	@endpush
+
 	@section('background', asset('img/slide1.jpg'))
 
 	@section('content')
@@ -55,18 +71,34 @@
 					@endif
 				</div>
 				<div>
-					<div class="flex flex-col lg:flex-row justify-between">
-						<div class="flex p-1">
-							<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold">+</button>
-							<input type="text" id="cantidad" name="cantidad" value="1" class="w-20 my-1 text-right" />
-							<button type="button" class="px-5 py-2 my-1 border border-gray-500 font-semibold">-</button>
-						</div>
-						<div class="m-2">
-							<button type="button" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-								Agregar al Carrito <i class="fas fa-shopping-cart"></i>
+					@php
+						$stock = $product->stock - $product->seuil_stock_alerte;
+						$cart = session()->get('cart', []);
+					@endphp
+					@if ((count($cart) > 0) && isset($cart[$product->rowid]))
+						<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
+							@csrf
+							@method('DELETE')
+							<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
+								Eliminar <i class="fas fa-cart-arrow-down"></i>
 							</button>
-						</div>
-					</div>
+						</form>
+					@else
+						<form action="{{ route('cart.store') }}" method="POST" class="flex flex-col lg:flex-row justify-between">
+							@csrf
+							<input type="hidden" name="product" value="{{ $product->rowid }}" />
+							<div class="flex p-1">
+								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
+								<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
+								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
+							</div>
+							<div class="m-2">
+								<button type="submit" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+									Agregar al Carrito <i class="fas fa-shopping-cart"></i>
+								</button>
+							</div>
+						</form>
+					@endif
 					<p><strong>Precio</strong></p>
 					<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
 						<thead>
@@ -80,21 +112,21 @@
 						<tbody>
 							<tr class="bg-gray-300 border border-gray-300">
 								<td class="p-2 text-left">Bs</td>
-								<td class="p-2 text-right">{{ $quantity = 1 }}</td>
+								<td id="quantity_bs" class="p-2 text-right">{{ $quantity = 1 }}</td>
 								<td class="p-2 text-right">
 									{{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}
 								</td>
-								<td class="p-2 text-right text-cdsolec-green-dark font-semibold">
+								<td id="subtotal_bs" class="p-2 text-right text-cdsolec-green-dark font-semibold">
 									{{ number_format(($product->prices[0]->price * $tasa_usd * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 							<tr class="border border-gray-300">
 								<td class="p-2 text-left">$USD</td>
-								<td class="p-2 text-right">{{ $quantity = 1 }}</td>
+								<td id="quantity_usd" class="p-2 text-right">{{ $quantity = 1 }}</td>
 								<td class="p-2 text-right">
 									{{ number_format($product->prices[0]->price, 2, ',', '.') }}
 								</td>
-								<td class="p-2 text-right text-cdsolec-green-dark font-semibold">
+								<td id="subtotal_usd" class="p-2 text-right text-cdsolec-green-dark font-semibold">
 									{{ number_format(($product->prices[0]->price * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
@@ -148,4 +180,63 @@
 			</div>
 		</div>
 	@endsection
+
+	@push('scripts')
+		<script>
+			function decrement(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value--;
+				if (value < 0) value = 0;
+				target.value = value;
+
+				let price = Number(target.dataset.price);
+				let tasa = Number(target.dataset.tasa);
+
+				let subtotal_bs = new Intl.NumberFormat("es-ES").format(price * tasa * value);
+				let subtotal_usd = new Intl.NumberFormat("es-ES").format(price * value);
+
+				document.getElementById('quantity_bs').innerHTML = value;
+				document.getElementById('quantity_usd').innerHTML = value;
+				document.getElementById('subtotal_bs').innerHTML = subtotal_bs;
+				document.getElementById('subtotal_usd').innerHTML = subtotal_usd;
+			}
+
+			function increment(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value++;
+				if (value > target.max) value = Number(target.max);
+				target.value = value;
+
+				let price = Number(target.dataset.price);
+				let tasa = Number(target.dataset.tasa);
+
+				let subtotal_bs = new Intl.NumberFormat("es-ES").format(price * tasa * value);
+				let subtotal_usd = new Intl.NumberFormat("es-ES").format(price * value);
+
+				document.getElementById('quantity_bs').innerHTML = value;
+				document.getElementById('quantity_usd').innerHTML = value;
+				document.getElementById('subtotal_bs').innerHTML = subtotal_bs;
+				document.getElementById('subtotal_usd').innerHTML = subtotal_usd;
+			}
+
+			function validateRange(element) {
+				if (element.value < element.min) element.value = element.min;
+				if (element.value > element.max) element.value = element.max;
+			}
+
+			const decrementButton = document.querySelector('button[data-action="decrement"]');
+			const incrementButton = document.querySelector('button[data-action="increment"]');
+
+			decrementButton.addEventListener("click", decrement);
+			incrementButton.addEventListener("click", increment);
+		</script>
+	@endpush
 </x-web-layout>

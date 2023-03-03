@@ -23,6 +23,8 @@ mix.sass('resources/sass/fontawesome.scss', 'public/css');
 
 mix.styles(['resources/css/cdsolec.css'], 'public/css/cdsolec.css');
 
+mix.styles(['resources/css/dashboard.css'], 'public/css/dashboard.css');
+
 mix.styles(['resources/css/slider.css'], 'public/css/slider.css');
 
 mix.styles(['resources/css/megamenu.css'], 'public/css/megamenu.css');

@@ -1,12 +1,23 @@
 <nav class="bg-cdsolec-green-dark text-white shadow-xl z-10 md:w-1/4 lg:w-1/5">
   <!-- Logo -->
   <div class="hidden md:flex md:flex-shrink-0 md:justify-center bg-cdsolec-green-light py-3">
-    <a href="{{ route('dashboard') }}">
+    <a href="{{ route('welcome') }}">
       <x-jet-application-mark class="block h-10 w-auto" />
     </a>
   </div>
 
   <div class="hidden md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded border border-white md:border-none px-4">
+    <h6 class="md:min-w-full text-cdsolec-green-light text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+      Mis Compras
+    </h6>
+    <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+      <li class="items-center">
+        <a href="#" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
+          <i class="fas fa-file mr-2 text-sm"></i> Compras
+        </a>
+      </li>
+    </ul>
+    <hr class="my-4 md:min-w-full" />
     @if (Auth::user()->admin)
       <h6 class="md:min-w-full text-cdsolec-green-light text-xs uppercase font-bold block pt-1 pb-4 no-underline">
         Plataforma
