@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,8 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/dashboard', [WelcomeController::class, 'dashboard'])->name('dashboard');
 
 
 /*
@@ -36,5 +36,10 @@ Route::get('/product/{product}', [WelcomeController::class, 'product'])->name('p
 Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
 Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');
 
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout')    
+    ->middleware('auth:sanctum');
+
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::apiResource('cart', CartController::class);
+Route::resource('orders', OrderController::class)->parameters(['orders' => 'propal'])
+    ->middleware('auth:sanctum');
