@@ -3,14 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
-use App\Models\{Content, Comment, Category, Product, Extrafield, Setting};
+use App\Models\{Content, Comment, Category, Product, Extrafield, Setting, Propal};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class WelcomeController extends Controller
 {
+  /**
+   * Display Dashboard.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function dashboard()
+  {
+    $orders = Propal::where('fk_soc', Auth::user()->society->rowid)->count();
+
+    return view('dashboard')->with('orders', $orders);
+  }
+
   /**
    * Display Welcome.
    * 

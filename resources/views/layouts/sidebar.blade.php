@@ -12,7 +12,7 @@
     </h6>
     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
       <li class="items-center">
-        <a href="#" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
+        <a href="{{ route('orders.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
           <i class="fas fa-file mr-2 text-sm"></i> Compras
         </a>
       </li>

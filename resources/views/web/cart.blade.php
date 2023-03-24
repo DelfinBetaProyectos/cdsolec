@@ -30,9 +30,11 @@
 
 			@if (session()->has('cart'))
 				@php
+					$percent_iva = session('iva', 16);
 					$tasa_usd = session('tasa_usd', 1);
 					$cart = session('cart');
 					$total = ['bs' => 0, 'usd' => 0];
+					$iva = ['bs' => 0, 'usd' => 0];
 				@endphp
 
 				<input type="hidden" name="tasa_usd" id="tasa_usd" value="{{ $tasa_usd }}" />
@@ -129,6 +131,74 @@
 							<tr class="flex flex-col lg:table-row bg-gray-300">
 								<td colspan="3" class="flex flex-row lg:table-cell border-2">
 									<div class="w-32 md:w-40 px-3 py-2 bg-gray-500 text-white text-xs leading-4 font-bold uppercase tracking-wider table-row lg:hidden">
+										SubTotal
+									</div>
+									<div class="px-3 py-2 lg:text-right font-bold">
+										SubTotal
+									</div>
+								</td>
+								<td class="flex flex-row lg:table-cell border-2">
+									<div class="w-32 md:w-40 px-3 py-2 bg-gray-500 text-white text-xs leading-4 font-bold uppercase tracking-wider table-row lg:hidden">
+										SubTotal
+									</div>
+									<div class="px-3 py-2 lg:text-right font-bold">
+										<p>
+											Bs 
+											<span id="subtotal_bs">
+												{{ number_format($total['bs'], 2, ',', '.') }}
+											</span>
+										</p>
+										<p>
+											$USD 
+											<span id="subtotal_usd">
+												{{ number_format($total['usd'], 2, ',', '.') }}
+											</span>
+										</p>
+									</div>
+								</td>
+								<td class="flex flex-row lg:table-cell border-2">&nbsp;</td>
+							</tr>
+							@php
+								$iva['bs'] = ($total['bs'] * $percent_iva) / 100;
+								$iva['usd'] = ($total['usd'] * $percent_iva) / 100;
+							@endphp
+							<tr class="flex flex-col lg:table-row bg-gray-300">
+								<td colspan="3" class="flex flex-row lg:table-cell border-2">
+									<div class="w-32 md:w-40 px-3 py-2 bg-gray-500 text-white text-xs leading-4 font-bold uppercase tracking-wider table-row lg:hidden">
+										IVA
+									</div>
+									<div class="px-3 py-2 lg:text-right font-bold">
+										IVA
+									</div>
+								</td>
+								<td class="flex flex-row lg:table-cell border-2">
+									<div class="w-32 md:w-40 px-3 py-2 bg-gray-500 text-white text-xs leading-4 font-bold uppercase tracking-wider table-row lg:hidden">
+										IVA
+									</div>
+									<div class="px-3 py-2 lg:text-right font-bold">
+										<p>
+											Bs 
+											<span id="iva_bs">
+												{{ number_format($iva['bs'], 2, ',', '.') }}
+											</span>
+										</p>
+										<p>
+											$USD 
+											<span id="iva_usd">
+												{{ number_format($iva['usd'], 2, ',', '.') }}
+											</span>
+										</p>
+									</div>
+								</td>
+								<td class="flex flex-row lg:table-cell border-2">&nbsp;</td>
+							</tr>
+							@php
+								$total['bs'] = $total['bs'] + $iva['bs'];
+								$total['usd'] = $total['usd'] + $iva['usd'];
+							@endphp
+							<tr class="flex flex-col lg:table-row bg-gray-300">
+								<td colspan="3" class="flex flex-row lg:table-cell border-2">
+									<div class="w-32 md:w-40 px-3 py-2 bg-gray-500 text-white text-xs leading-4 font-bold uppercase tracking-wider table-row lg:hidden">
 										Total
 									</div>
 									<div class="px-3 py-2 lg:text-right font-bold">
@@ -167,7 +237,7 @@
 					<a href="{{ route('cart.clear') }}" class="bg-red-500 text-white rounded-lg px-3 py-2 mx-3">
 						<i class="fas fa-times text-white"></i> Cancelar Pedido
 					</a>
-					<form id="form-cart" name="form-cart" method="POST" action="#">
+					<form id="form-cart" name="form-cart" method="POST" action="{{ route('cart.checkout') }}">
 						@csrf
 						<button type="submit" class="bg-cdsolec-green-dark text-white rounded-lg px-3 py-2 hover:bg-cdsolec-green-light">
 							Comprar <i class="fas fa-chevron-circle-right"></i>
@@ -195,11 +265,11 @@
 				if (value < 0) value = 0;
 				target.value = value;
 
-				const tasa = Number(document.getElementById('tasa_usd').value);
+				const tasa_usd = Number(document.getElementById('tasa_usd').value);
 				let product = Number(target.dataset.product);
 				let price = Number(target.dataset.price);
 
-				let subtotal_bs = new Intl.NumberFormat("es-ES").format(price * tasa * value);
+				let subtotal_bs = new Intl.NumberFormat("es-ES").format(price * tasa_usd * value);
 				let subtotal_usd = new Intl.NumberFormat("es-ES").format(price * value);
 
 				const data = {};
@@ -220,6 +290,10 @@
 					console.log("Success:", data);
 					document.getElementById('subtotal_bs_' + product).innerHTML = subtotal_bs;
 					document.getElementById('subtotal_usd_' + product).innerHTML = subtotal_usd;
+					document.getElementById('subtotal_bs').innerHTML = data.subtotal_bs;
+					document.getElementById('subtotal_usd').innerHTML = data.subtotal_usd;
+					document.getElementById('iva_bs').innerHTML = data.iva_bs;
+					document.getElementById('iva_usd').innerHTML = data.iva_usd;
 					document.getElementById('total_bs').innerHTML = data.total_bs;
 					document.getElementById('total_usd').innerHTML = data.total_usd;
 				})
@@ -263,6 +337,10 @@
 					console.log("Success:", data);
 					document.getElementById('subtotal_bs_' + product).innerHTML = subtotal_bs;
 					document.getElementById('subtotal_usd_' + product).innerHTML = subtotal_usd;
+					document.getElementById('subtotal_bs').innerHTML = data.subtotal_bs;
+					document.getElementById('subtotal_usd').innerHTML = data.subtotal_usd;
+					document.getElementById('iva_bs').innerHTML = data.iva_bs;
+					document.getElementById('iva_usd').innerHTML = data.iva_usd;
 					document.getElementById('total_bs').innerHTML = data.total_bs;
 					document.getElementById('total_usd').innerHTML = data.total_usd;
 				})
