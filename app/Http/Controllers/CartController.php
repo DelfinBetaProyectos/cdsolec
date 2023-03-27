@@ -42,7 +42,9 @@ class CartController extends Controller
       $product = Product::findOrFail($data['product']);
       $stock = $product->stock - $product->seuil_stock_alerte;
 
-      $prices = $product->prices()->where('price_level', '=', '1')
+      if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
+      $prices = $product->prices()->where('price_level', '=', $price_level)
                                   ->orderBy('date_price', 'desc')
                                   ->first();
 
@@ -106,7 +108,9 @@ class CartController extends Controller
       $product = Product::findOrFail($id);
       $stock = $product->stock - $product->seuil_stock_alerte;
 
-      $prices = $product->prices()->where('price_level', '=', '1')
+      if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
+      $prices = $product->prices()->where('price_level', '=', $price_level)
                                   ->orderBy('date_price', 'desc')
                                   ->first();
 
