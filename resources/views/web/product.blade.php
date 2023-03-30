@@ -89,7 +89,7 @@
 							<input type="hidden" name="product" value="{{ $product->rowid }}" />
 							<div class="flex p-1">
 								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
-								<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
+								<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
 								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
 							</div>
 							<div class="m-2">
@@ -114,20 +114,20 @@
 								<td class="p-2 text-left">Bs</td>
 								<td id="quantity_bs" class="p-2 text-right">{{ $quantity = 1 }}</td>
 								<td class="p-2 text-right">
-									{{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}
+									{{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}
 								</td>
 								<td id="subtotal_bs" class="p-2 text-right text-cdsolec-green-dark font-semibold">
-									{{ number_format(($product->prices[0]->price * $tasa_usd * $quantity), 2, ',', '.') }}
+									{{ number_format(($product->prices[0]->price_discount * $tasa_usd * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 							<tr class="border border-gray-300">
 								<td class="p-2 text-left">$USD</td>
 								<td id="quantity_usd" class="p-2 text-right">{{ $quantity = 1 }}</td>
 								<td class="p-2 text-right">
-									{{ number_format($product->prices[0]->price, 2, ',', '.') }}
+									{{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}
 								</td>
 								<td id="subtotal_usd" class="p-2 text-right text-cdsolec-green-dark font-semibold">
-									{{ number_format(($product->prices[0]->price * $quantity), 2, ',', '.') }}
+									{{ number_format(($product->prices[0]->price_discount * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 						</tbody>

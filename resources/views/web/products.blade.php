@@ -285,8 +285,8 @@
 													Precio
 												</div>
 												<div class="p-2 lg:text-right">
-													<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
-													<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
+													<p>Bs {{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}</p>
+													<p>$USD {{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}</p>
 												</div>
 											</td>
 											<td class="border border-gray-300 flex flex-row lg:table-cell">

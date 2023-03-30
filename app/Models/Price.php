@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Price extends Model
 {
@@ -45,6 +46,22 @@ class Price extends Model
     'localtax2_tx', 'localtax2_type', 'fk_user_author', 'tosell', 'price_by_qty', 'fk_price_expression', 
     'import_key', 'fk_multicurrency', 'multicurrency_code', 'multicurrency_tx', 'multicurrency_price', 'multicurrency_price_ttc'
   ];
+
+  /**
+   * Get the Price with Discount.
+   * 
+   * @return string
+   */
+  public function getPriceDiscountAttribute()
+  {
+    if (Auth::check()) { $discount_rate = Auth::user()->society->remise_client; } else { $discount_rate = 0; }
+
+    $discount = ($this->price * $discount_rate) / 100;
+
+    $price_discount = $this->price - $discount;
+    
+    return $price_discount;
+  }
 
   /**
    * Get the product that owns the price.
