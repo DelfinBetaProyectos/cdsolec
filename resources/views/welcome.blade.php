@@ -156,8 +156,8 @@
 										<div class="text-center">
 											<h6 class="text-lg font-semibold">{{ $product->label }}</h6>
 											<div class="text-base font-bold text-cdsolec-green-dark">
-												<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
-												<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
+												<p>Bs {{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}</p>
+												<p>$USD {{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}</p>
 											</div>
 											<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">
 												Ref: {{ $product->ref }}

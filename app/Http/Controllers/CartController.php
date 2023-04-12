@@ -17,7 +17,36 @@ class CartController extends Controller
    */
   public function index(Request $request)
   {
-    return view('web.cart');
+    $iva = Setting::find(1)->value;
+    $tasa_usd = Setting::find(2)->value;
+
+    $cart = $request->session()->get('cart', []);
+    $mycart = [];
+
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
+    foreach ($cart as $item) {
+      $product = Product::findOrFail($item['product']);
+
+      $stock = $product->stock - $product->seuil_stock_alerte;
+
+      $prices = $product->prices()->where('price_level', '=', $price_level)
+                                  ->orderBy('date_price', 'desc')
+                                  ->first();
+
+      $mycart[$product->rowid] = [
+        'id' => $product->rowid,
+        'ref' => $product->ref,
+        'label' => $product->label,
+        'price' => $prices->price,
+        'stock' => $stock,
+        'quantity' => $item['quantity']
+      ];
+    }
+
+    return view('web.cart')->with('percent_iva', $iva)
+                           ->with('tasa_usd', $tasa_usd)
+                           ->with('cart', $mycart);
   }
 
   /**
@@ -34,27 +63,14 @@ class CartController extends Controller
     ]);
     
     try {
-      $iva = Setting::find(1)->value;
-      $tasa_usd = Setting::find(2)->value;
-      $request->session()->put('iva', $iva);
-      $request->session()->put('tasa_usd', $tasa_usd);
-
       $product = Product::findOrFail($data['product']);
       $stock = $product->stock - $product->seuil_stock_alerte;
-
-      $prices = $product->prices()->where('price_level', '=', '1')
-                                  ->orderBy('date_price', 'desc')
-                                  ->first();
 
       if (($data['quantity'] > 0) && ($data['quantity'] <= $stock)) {
         $cart = $request->session()->get('cart', []);
 
         $cart[$product->rowid] = [
-          'id' => $product->rowid,
-          'ref' => $product->ref,
-          'label' => $product->label,
-          'price' => $prices->price,
-          'stock' => $stock,
+          'product' => $product->rowid,
           'quantity' => $data['quantity']
         ];
 
@@ -101,24 +117,17 @@ class CartController extends Controller
     try {
       $percent_iva = Setting::find(1)->value;
       $tasa_usd = Setting::find(2)->value;
-      $request->session()->put('tasa_usd', $tasa_usd);
 
       $product = Product::findOrFail($id);
       $stock = $product->stock - $product->seuil_stock_alerte;
 
-      $prices = $product->prices()->where('price_level', '=', '1')
-                                  ->orderBy('date_price', 'desc')
-                                  ->first();
+      if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
       if (($data['quantity'] > 0) && ($data['quantity'] <= $stock)) {
         $cart = $request->session()->get('cart', []);
 
         $cart[$product->rowid] = [
-          'id' => $product->rowid,
-          'ref' => $product->ref,
-          'label' => $product->label,
-          'price' => $prices->price,
-          'stock' => $stock,
+          'product' => $product->rowid,
           'quantity' => $data['quantity']
         ];
 
@@ -127,8 +136,13 @@ class CartController extends Controller
         $subtotal_bs = 0;
         $subtotal_usd = 0;
         foreach ($cart as $item) {
-          $subtotal_bs += $item['price'] * $tasa_usd * $item['quantity'];
-          $subtotal_usd += $item['price'] * $item['quantity'];
+          $product = Product::findOrFail($item['product']);
+          $prices = $product->prices()->where('price_level', '=', $price_level)
+                                  ->orderBy('date_price', 'desc')
+                                  ->first();
+
+          $subtotal_bs += $prices->price * $tasa_usd * $item['quantity'];
+          $subtotal_usd += $prices->price * $item['quantity'];
         }
         $iva_bs = ($subtotal_bs * $percent_iva) / 100;
         $iva_usd = ($subtotal_usd * $percent_iva) / 100;
@@ -185,8 +199,6 @@ class CartController extends Controller
       $request->session()->put('cart', $cart);
     } else {  // si solo tiene uno eliminamos las variables de sesión q no voy a utilizar mas
       $request->session()->forget(['cart']);
-      $request->session()->forget(['iva']);
-      $request->session()->forget(['tasa_usd']);
     }
 
     return redirect()->route('cart.index');
@@ -201,8 +213,6 @@ class CartController extends Controller
   public function clear(Request $request)
   {
     $request->session()->forget(['cart']);
-    $request->session()->forget(['iva']);
-    $request->session()->forget(['tasa_usd']);
 
     return redirect()->route('cart.index');
   }
@@ -216,9 +226,10 @@ class CartController extends Controller
   public function checkout(Request $request)
   {
     $cart = $request->session()->get('cart', []);
-    $tasa_usd = $request->session()->get('tasa_usd', 1);
-    $percent_iva = $request->session()->get('iva', 0);
+    $percent_iva = Setting::find(1)->value;
+    $tasa_usd = Setting::find(2)->value;
 
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
     $user = User::find(Auth::user()->rowid);
 
     $query = Propal::select('ref')->orderBy('ref', 'desc')->first();
@@ -247,22 +258,30 @@ class CartController extends Controller
     $subtotal_bs = 0;
     $subtotal_usd = 0;
     foreach ($cart as $item) {
-      $subtotal_bs += $item['price'] * $tasa_usd * $item['quantity'];
-      $subtotal_usd += $item['price'] * $item['quantity'];
+      $product = Product::findOrFail($item['product']);
 
-      $total_ht = $item['price'] * $item['quantity'];
-      $tva_tx = ($item['price'] * $percent_iva) / 100;
+      $stock = $product->stock - $product->seuil_stock_alerte;
+
+      $prices = $product->prices()->where('price_level', '=', $price_level)
+                                  ->orderBy('date_price', 'desc')
+                                  ->first();
+
+      $subtotal_bs += $prices->price * $tasa_usd * $item['quantity'];
+      $subtotal_usd += $prices->price * $item['quantity'];
+
+      $total_ht = $prices->price * $item['quantity'];
+      $tva_tx = ($prices->price * $percent_iva) / 100;
       $total_tva = ($subtotal_usd * $percent_iva) / 100;
 
       $propal->propal_detail()->create([
-        'fk_product' => $item['id'],
-        'label' => $item['ref'],
-        'description' => $item['label'],
+        'fk_product' => $product->rowid,
+        'label' => $product->ref,
+        'description' => $product->label,
         'tva_tx' => $tva_tx,  // IVA del Producto
         'qty' => $item['quantity'],
         'remise_percent' => 0,  // Porcentaje Descuento al Producto
-        'price' => $item['price'],  // Precio del Producto con Descuento
-        'subprice' => $item['price'],  // Precio del Producto sin Descuento
+        'price' => $prices->price,  // Precio del Producto con Descuento
+        'subprice' => $prices->price,  // Precio del Producto sin Descuento
         'total_ht' => $total_ht,  // Precio total del Producto sin IVA (price*qty)
         'total_tva' => $total_tva,  // Monto total del IVA aplicado a ese Producto
         'total_ttc' => $total_ht + $total_tva,  // Precio total del Producto + IVA (total_ht+total_tva)
@@ -281,8 +300,6 @@ class CartController extends Controller
     ]);
 
     $request->session()->forget(['cart']);
-    $request->session()->forget(['iva']);
-    $request->session()->forget(['tasa_usd']);
 
     return redirect()->route('orders.show', $propal);
   }

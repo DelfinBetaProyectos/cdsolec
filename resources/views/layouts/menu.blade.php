@@ -31,7 +31,9 @@
           <x-jet-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart')" class="relative">
             <i class="fas fa-fw mr-1 fa-shopping-cart"></i> Compra
             <div class="absolute animate-bounce bg-cdsolec-green-dark rounded -right-5 lg:top-2 lg:-right-2">
-              <span class="px-2 text-white text-xs">0</span>
+              <span class="px-2 text-white text-xs">
+                {{ (session()->has('cart')) ? count(session('cart')) : 0 }}
+              </span>
             </div>
           </x-jet-nav-link>
           @auth

@@ -34,6 +34,8 @@ class WelcomeController extends Controller
     $tasa_usd = Setting::find(2)->value;
     $about = Content::find(1);
 
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
     $brands = DB::connection('mysqlerp')
                 ->table('llx_societe')
                 ->leftJoin('llx_categorie_fournisseur', 'llx_societe.rowid', '=', 'llx_categorie_fournisseur.fk_soc')
@@ -45,14 +47,14 @@ class WelcomeController extends Controller
                 ->get();
 
     $products = Product::query()->with([
-                  'prices' => function ($query) {
-                    $query->where('price_level', '=', '1')
+                  'prices' => function ($query) use ($price_level) {
+                    $query->where('price_level', '=', $price_level)
                           ->orderBy('date_price', 'desc');
                   }
                 ])
                 ->where('tosell', '=', '1')
-                ->whereHas('prices', function ($query) {
-                  $query->where('price_level', '=', '1');
+                ->whereHas('prices', function ($query) use ($price_level) {
+                  $query->where('price_level', '=', $price_level);
                 })
                 ->whereHas('categories', function ($query) {
                   $query->where('fk_categorie', '=', '807');
@@ -93,16 +95,18 @@ class WelcomeController extends Controller
     $sector_id = '';
     $filters = $request->except(['category', 'sector', 'page']);
 
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
     $products = Product::query()->with([
-                          'prices' => function ($query) {
-                            $query->where('price_level', '=', '1')
+                          'prices' => function ($query) use ($price_level) {
+                            $query->where('price_level', '=', $price_level)
                                   ->orderBy('date_price', 'desc');
                           },
                           'extrafields'
                         ])
                         ->where('tosell', '=', '1')
-                        ->whereHas('prices', function ($query) {
-                          $query->where('price_level', '=', '1');
+                        ->whereHas('prices', function ($query) use ($price_level) {
+                          $query->where('price_level', '=', $price_level);
                         });
 
     if ($category_id != '715') {
@@ -178,14 +182,17 @@ class WelcomeController extends Controller
   public function product(string $ref)
   {
     $tasa_usd = Setting::find(2)->value;
+
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
     $product = Product::with([
-                        'prices' => function ($query) {
-                          $query->where('price_level', '=', '1')
+                        'prices' => function ($query) use ($price_level) {
+                          $query->where('price_level', '=', $price_level)
                                 ->orderBy('date_price', 'desc');
                         }
                       ])
-                      ->whereHas('prices', function ($query) {
-                        $query->where('price_level', '=', '1');
+                      ->whereHas('prices', function ($query) use ($price_level) {
+                        $query->where('price_level', '=', $price_level);
                       })
                       ->where('ref', '=', $ref)
                       ->first();

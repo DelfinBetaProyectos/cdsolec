@@ -30,9 +30,6 @@
 
 			@if (session()->has('cart'))
 				@php
-					$percent_iva = session('iva', 16);
-					$tasa_usd = session('tasa_usd', 1);
-					$cart = session('cart');
 					$total = ['bs' => 0, 'usd' => 0];
 					$iva = ['bs' => 0, 'usd' => 0];
 				@endphp
