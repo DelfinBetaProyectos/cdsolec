@@ -82,7 +82,7 @@ class Category extends Model
    */
   public function attributes()
   {
-    $this->connection = DB::connection('mysqlerp_extras');
+    $this->connection = DB::connection('mysql');
     
     return $this->hasOne(Attribute::class, 'rowid_erp', 'rowid');
   }

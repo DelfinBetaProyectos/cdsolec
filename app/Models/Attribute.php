@@ -12,7 +12,7 @@ class Attribute extends Model
    *
    * @var string
    */
-  protected $connection = 'mysqlerp_extras';
+  protected $connection = 'mysql';
 
   /**
    * The table associated with the model.

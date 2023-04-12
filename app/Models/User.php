@@ -142,7 +142,7 @@ class User extends Authenticatable implements Auditable
    */
   public function getTypeAttribute()
   {
-    return $this->society->categories->first()->rowid;
+    return optional($this->society->categories->first())->rowid;
   }
 
   /**
