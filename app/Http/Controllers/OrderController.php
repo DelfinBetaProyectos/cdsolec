@@ -15,7 +15,10 @@ class OrderController extends Controller
    */
   public function index()
   {
-    //
+    $orders = Propal::query()->where('fk_soc', '=', Auth::user()->society->rowid)
+                             ->paginate();
+
+    return view('web.orders')->with('orders', $orders);
   }
 
   /**
@@ -48,7 +51,7 @@ class OrderController extends Controller
   public function show(Propal $propal)
   {
     if (Auth::user()->society->rowid == $propal->fk_soc) {
-      return view('web.checkout')->with('propal', $propal);
+      return view('web.order')->with('propal', $propal);
     } else {
       return redirect()->route('orders.index');
     }

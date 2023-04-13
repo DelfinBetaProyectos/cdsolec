@@ -252,7 +252,10 @@ class CartController extends Controller
       'total' => 0,     // Total + IVA
       'fk_multicurrency' => 1,
       'multicurrency_code' => 'USD',
-      'multicurrency_tx' => $tasa_usd  // Tasa del USD
+      'multicurrency_tx' => $tasa_usd,  // Tasa del USD
+      'multicurrency_total_ht' => 0,
+      'multicurrency_total_tva' => 0,
+      'multicurrency_total_ttc' => 0
     ]);
 
     $subtotal_bs = 0;
@@ -272,6 +275,7 @@ class CartController extends Controller
       $total_ht = $prices->price * $item['quantity'];
       $tva_tx = ($prices->price * $percent_iva) / 100;
       $total_tva = ($subtotal_usd * $percent_iva) / 100;
+      $total_ttc = $total_ht + $total_tva;
 
       $propal->propal_detail()->create([
         'fk_product' => $product->rowid,
@@ -284,8 +288,12 @@ class CartController extends Controller
         'subprice' => $prices->price,  // Precio del Producto sin Descuento
         'total_ht' => $total_ht,  // Precio total del Producto sin IVA (price*qty)
         'total_tva' => $total_tva,  // Monto total del IVA aplicado a ese Producto
-        'total_ttc' => $total_ht + $total_tva,  // Precio total del Producto + IVA (total_ht+total_tva)
+        'total_ttc' => $total_ttc,  // Precio total del Producto + IVA (total_ht+total_tva)
         'product_type' => 0, // 0 = Producto | 1 = Servicio
+        'multicurrency_subprice' => $prices->price,
+        'multicurrency_total_ht' => $total_ht,
+        'multicurrency_total_tva' => $total_tva,
+        'multicurrency_total_ttc' => $total_ttc
       ]);
     }
     $iva_bs = ($subtotal_bs * $percent_iva) / 100;
@@ -296,7 +304,10 @@ class CartController extends Controller
     $propal->update([
       'total_ht' => $subtotal_usd,  // Total sin IVA
       'tva' => $iva_usd,            // IVA
-      'total' => $total_usd         // Total + IVA
+      'total' => $total_usd,        // Total + IVA
+      'multicurrency_total_ht' => $subtotal_usd,
+      'multicurrency_total_tva' => $iva_usd,
+      'multicurrency_total_ttc' => $total_usd
     ]);
 
     $request->session()->forget(['cart']);

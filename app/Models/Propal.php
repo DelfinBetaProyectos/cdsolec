@@ -53,6 +53,39 @@ class Propal extends Model
   ];
 
   /**
+   * The attributes that should be cast.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'created_at' => 'datetime:Y-m-d',
+    'datec' => 'datetime:Y-m-d',
+    'datep' => 'datetime:Y-m-d',
+    'fin_validite' => 'datetime:Y-m-d',
+    'date_valid' => 'datetime:Y-m-d',
+    'date_cloture' => 'datetime:Y-m-d',
+  ];
+
+  /**
+   * Get the propal's status.
+   * 
+   * @return string
+   */
+  public function getStatusAttribute()
+  {
+    switch ($this->fk_statut) {
+      case 0: $status = 'Borrador'; break;
+      case 1: $status = 'Abierto'; break;
+      case 2: $status = 'Firmado (Aprobado)'; break;
+      case 3: $status = 'No Firmado (Rechazado)'; break;
+      case 4: $status = 'Facturado'; break;
+      default: $status = 'Borrador'; break;
+    }
+
+    return $status;
+  }
+
+  /**
    * Get the propal_detail for the propal.
    */
   public function propal_detail()
