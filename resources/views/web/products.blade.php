@@ -155,7 +155,7 @@
 						</div>
 						@if ($extrafields->isNotEmpty())
 							@foreach ($extrafields as $extrafield)
-								@if (isset($attributes[$extrafield->name]))
+								@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 									<div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
 										<input type="checkbox" id="tab-{{ $loop->iteration }}" name="filters" class="absolute opacity-0" checked />
 										<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
@@ -207,7 +207,7 @@
 										<th class="py-3" style="min-width: 140px">Cantidad</th>
 										@if ($extrafields->isNotEmpty())
 											@foreach ($extrafields as $extrafield)
-												@if (isset($attributes[$extrafield->name]))
+												@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 													<th class="py-3" style="min-width: 160px">{{ $attributes[$extrafield->name] }}</th>
 												@endif
 											@endforeach
@@ -320,7 +320,7 @@
 											</td>
 											@if ($extrafields->isNotEmpty())
 												@foreach ($extrafields as $extrafield)
-													@if (isset($attributes[$extrafield->name]))
+													@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 														<td class="border border-gray-300 flex flex-row lg:table-cell">
 															<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 																{{ $attributes[$extrafield->name] }}

@@ -273,8 +273,8 @@ class CartController extends Controller
       $subtotal_usd += $prices->price * $item['quantity'];
 
       $total_ht = $prices->price * $item['quantity'];
-      $tva_tx = ($prices->price * $percent_iva) / 100;
-      $total_tva = ($subtotal_usd * $percent_iva) / 100;
+      $tva_tx = $percent_iva;
+      $total_tva = ($prices->price * $item['quantity'] * $percent_iva) / 100;
       $total_ttc = $total_ht + $total_tva;
 
       $propal->propal_detail()->create([
