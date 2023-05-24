@@ -36,9 +36,9 @@
 
 									if (app()->environment('production')) {
 										$image = null;
-										if ($item->documents->isNotEmpty()) {
-											$documents = $item->documents;
-											$total = count($item->documents);
+										if ($item->product->documents->isNotEmpty()) {
+											$documents = $item->product->documents;
+											$total = count($item->product->documents);
 											$i = 0;
 											while (!$image && ($i < $total)) {
 												if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {

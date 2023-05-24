@@ -57,4 +57,12 @@ class PropalDetail extends Model
   {
     return $this->belongsTo(Propal::class, 'fk_propal', 'rowid');
   }
+  
+  /**
+   * Get the product that owns the propal_detail.
+   */
+  public function product()
+  {
+    return $this->belongsTo(Product::class, 'fk_product', 'rowid');
+  }
 }
