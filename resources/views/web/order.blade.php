@@ -42,7 +42,7 @@
 											$i = 0;
 											while (!$image && ($i < $total)) {
 												if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
-													$image = 'storage/produit/'.$item->ref.'/'.$documents[$i]->filename;
+													$image = 'storage/produit/'.$item->product->ref.'/'.$documents[$i]->filename;
 												}
 												$i++;
 											}
