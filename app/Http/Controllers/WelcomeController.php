@@ -93,7 +93,7 @@ class WelcomeController extends Controller
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
     $sector_id = '';
-    $filters = $request->except(['category', 'sector', 'page']);
+    $filters = $request->except(['category', 'sector', 'search', '_token', 'page']);
 
     if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
@@ -125,10 +125,10 @@ class WelcomeController extends Controller
     $productsMatriz = $products->get();
 
     if ($request->has('search')) {
-      $search = $request->has('search');
+      $search = $request->input('search');
       $products = $products->where(function ($query) use ($search) {
         $query->where('ref', 'like', "%{$search}%")
-              ->where('label', 'like', "%{$search}%")
+              ->orWhere('label', 'like', "%{$search}%")
               ->orWhere('description', 'like', "%{$search}%");
       });
     }
