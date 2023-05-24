@@ -33,6 +33,25 @@
 								@php
 									$price_bs = $item->price * $propal->multicurrency_tx;
 									$subtotal_bs = $item->total_ht * $propal->multicurrency_tx;
+
+									if (app()->environment('production')) {
+										$image = null;
+										if ($item->documents->isNotEmpty()) {
+											$documents = $item->documents;
+											$total = count($item->documents);
+											$i = 0;
+											while (!$image && ($i < $total)) {
+												if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+													$image = 'storage/produit/'.$item->ref.'/'.$documents[$i]->filename;
+												}
+												$i++;
+											}
+										}
+
+										if (!$image) { $image = 'img/favicon/apple-icon.png'; }
+									} else {
+										$image = 'img/favicon/apple-icon.png';
+									}
 								@endphp
 								<tr class="flex flex-col lg:table-row even:bg-gray-300">
 									<td class="flex flex-row lg:table-cell border-2">
@@ -41,7 +60,7 @@
 										</div>                         
 										<div class="px-3 py-2 lg:py-4 flex items-center">
 											<div class="flex-shrink-0 h-10 w-10 mr-4">
-												<img class="h-10 w-10 rounded-full" src="../img/favicon/apple-icon.png" alt="{{ $item->label }}" title="{{ $item->label }}" />
+												<img class="h-10 w-10 rounded-full" src="{{ asset($image) }}" alt="{{ $item->label }}" title="{{ $item->label }}" />
 											</div>
 											<div class="leading-5">
 												<p class="text-sm text-cdsolec-blue-light font-bold">{{ $item->description }}</p>
