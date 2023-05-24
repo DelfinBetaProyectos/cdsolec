@@ -34,8 +34,28 @@ class CartController extends Controller
                                   ->orderBy('date_price', 'desc')
                                   ->first();
 
+      if (app()->environment('production')) {
+        $image = null;
+        if ($product->documents->isNotEmpty()) {
+          $documents = $product->documents;
+          $total = count($product->documents);
+          $i = 0;
+          while (!$image && ($i < $total)) {
+            if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+              $image = 'storage/produit/'.$product->ref.'/'.$documents[$i]->filename;
+            }
+            $i++;
+          }
+        }
+
+        if (!$image) { $image = 'img/favicon/apple-icon.png'; }
+      } else {
+        $image = 'img/favicon/apple-icon.png';
+      }
+
       $mycart[$product->rowid] = [
         'id' => $product->rowid,
+        'image' => $image,
         'ref' => $product->ref,
         'label' => $product->label,
         'price' => $prices->price,

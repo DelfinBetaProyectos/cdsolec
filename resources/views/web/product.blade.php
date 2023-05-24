@@ -39,8 +39,9 @@
 						<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="h-60 w-60 rounded-lg" />
 					</div>
 					@if ($product->documents->isNotEmpty())
+						@php $documents = $product->documents->sortBy('position'); @endphp
 						<div class="grid grid-cols-1 lg:grid-cols-4 gap-2">
-							@foreach ($product->documents as $document)
+							@foreach ($documents as $document)
 								@php
 									if (app()->environment('production')) {
 										$image = '/storage/produit/'.$product->ref.'/'.$document->filename;

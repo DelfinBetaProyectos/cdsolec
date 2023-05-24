@@ -61,7 +61,7 @@
 										</div>                         
 										<div class="px-3 py-2 lg:py-4 flex items-center">
 											<div class="flex-shrink-0 h-10 w-10 mr-4">
-												<img class="h-10 w-10 rounded-full" src="img/favicon/apple-icon.png" alt="{{ $item['label'] }}" title="{{ $item['label'] }}" />
+												<img class="h-10 w-10 rounded-full" src="{{ asset($item['image']) }}" alt="{{ $item['label'] }}" title="{{ $item['label'] }}" />
 											</div>
 											<div class="leading-5">
 												<p class="text-sm text-cdsolec-blue-light font-bold">{{ $item['label'] }}</p>
