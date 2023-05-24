@@ -201,7 +201,7 @@ class WelcomeController extends Controller
       $image = null;
       $datasheet = null;
       if ($product->documents->isNotEmpty()) {
-        $documents = $product->documents;
+        $documents = $product->documents->sortBy('position');
         $total = count($product->documents);
         $i = 0;
         while ((!$datasheet || !$image) && ($i < $total)) {
