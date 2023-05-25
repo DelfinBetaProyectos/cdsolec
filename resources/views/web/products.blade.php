@@ -1,4 +1,20 @@
 <x-web-layout title="Productos">
+	@push('styles')
+	<style>
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+			-moz-appearance: textfield;
+		}
+	</style>
+	@endpush
+
 	@section('background', asset('img/slide1.jpg'))
 
 	@section('content')
@@ -56,11 +72,11 @@
               </div>
             </form>
       		</div>
-      		<div class="accordion">
+      		<div class="accordion text-sm">
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-one" name="filters" class="absolute opacity-0" />
-							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">
-								Categorías
+		          <input type="checkbox" id="tab-one" name="filters" value="{{ request()->category }}" class="absolute opacity-0" />
+							<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">
+								<div>Categorías</div> <i class="fas fa-fw fa-caret-down"></i>
 							</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($categories->isNotEmpty())
@@ -74,7 +90,7 @@
 												}
 											@endphp
 											<li>
-												<a href="{{ route('products') }}?category={{ $item->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+												<a href="{{ route('products') }}?category={{ $item->rowid }}&sector={{ request()->sector }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
 													{{ $item->label }}
 												</a>
 												@if (($item->rowid == $category->rowid) || 
@@ -83,7 +99,7 @@
 														<ul class="ml-2">
 															@foreach($item->subcategories as $child)
 																<li>
-																	<a href="{{ route('products') }}?category={{ $child->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
+																	<a href="{{ route('products') }}?category={{ $child->rowid }}&sector={{ request()->sector }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
 																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
 																	</a>
 																</li>
@@ -98,9 +114,9 @@
 							</div>
 						</div>
 		        <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-		          <input type="checkbox" id="tab-two" name="filters" class="absolute opacity-0" />
-							<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
-								Sectores de Interés
+		          <input type="checkbox" id="tab-two" name="filters" value="{{ request()->sector }}" class="absolute opacity-0" />
+							<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
+								<div>Sectores de Interés</div> <i class="fas fa-fw fa-caret-down"></i>
 							</label>
 							<div class="tab-content overflow-hidden bg-gray-100">
 								@if ($sectors->isNotEmpty())
@@ -114,7 +130,7 @@
 												}
 											@endphp
 											<li>
-												<a href="{{ route('products') }}?category={{ $item->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
+												<a href="{{ route('products') }}?sector={{ $item->rowid }}&category={{ request()->category }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ $bg }}">
 													{{ $item->label }}
 												</a>
 												@if (($item->rowid == $category->rowid) || 
@@ -123,7 +139,7 @@
 														<ul class="ml-2">
 															@foreach($item->subcategories as $child)
 																<li>
-																	<a href="{{ route('products') }}?category={{ $child->rowid }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
+																	<a href="{{ route('products') }}?sector={{ $child->rowid }}&category={{ request()->category }}" class="px-2 py-1 block hover:bg-cdsolec-green-light {{ ($child->rowid == $category->rowid) ? 'bg-cdsolec-green-light' : '' }}">
 																		<span class="fas fa-angle-right mr-1"></span> {{ $child->label }}
 																	</a>
 																</li>
@@ -139,24 +155,31 @@
 						</div>
 						@if ($extrafields->isNotEmpty())
 							@foreach ($extrafields as $extrafield)
-								@if (isset($attributes[$extrafield->name]))
+								@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 									<div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
 										<input type="checkbox" id="tab-{{ $loop->iteration }}" name="filters" class="absolute opacity-0" checked />
-										<label class="block p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
-											{{ $attributes[$extrafield->name] }}
+										<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
+											<div>{{ $attributes[$extrafield->name] }}</div> <i class="fas fa-fw fa-caret-down"></i>
 										</label>
 										<div class="tab-content overflow-hidden bg-gray-100">
 											@php
 												$unique = $matriz->unique($extrafield->name);
-												$values = $unique->values()->all();
+												$values = $unique->sortBy($extrafield->name)->values()->all();
 											@endphp
 											@if (count($values) > 0)
 												<ul class="text-cdsolec-blue-light">
 													@foreach ($values as $value)
-														<li>
-															<a href="{{ route('products') }}?{{ $query_string }}&{{ $extrafield->name }}={{ $value[$extrafield->name] }}" class="px-2 py-1 block hover:bg-cdsolec-green-light">
-																<span class="fas fa-angle-right mr-1"></span> {{ $value[$extrafield->name] }}
-															</a>
+														@php
+															$checked = '';
+															if (isset($filters[$extrafield->name])) {
+																if (in_array($value[$extrafield->name], $filters[$extrafield->name])) {
+																	$checked = 'checked';
+																}
+															}
+														@endphp
+														<li class="px-2 py-1 hover:bg-cdsolec-green-light">
+															<input type="checkbox" data-filter="{{$extrafield->name}}" name="{{ $extrafield->name }}[]" onclick="handleCheck()" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $value[$extrafield->name] }}" {{ $checked }} />
+															{{ $value[$extrafield->name] }}
 														</li>
 													@endforeach
 												</ul>
@@ -170,9 +193,12 @@
       	</div>
       	<div class="relative md:col-span-3 lg:col-span-4">
 					@if ($products->isNotEmpty())
-						<div class="my-2 rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap">
-							<table class="w-full rounded-lg overflow-hidden border-collapse border border-gray-300">
-								<thead class="bg-gray-300">
+						@php
+							$cart = session()->get('cart', []);
+						@endphp
+						<div class="rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap relative h-[calc(100vh-10rem)] overflow-y-auto">
+							<table id="products" class="relative w-full rounded-lg border-collapse border border-gray-300">
+								<thead class="sticky top-0 bg-gray-300">
 									<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
 										<th class="py-3" style="min-width: 80px">&nbsp;</th>
 										<th class="py-3" style="min-width: 400px">Información</th>
@@ -181,7 +207,7 @@
 										<th class="py-3" style="min-width: 140px">Cantidad</th>
 										@if ($extrafields->isNotEmpty())
 											@foreach ($extrafields as $extrafield)
-												@if (isset($attributes[$extrafield->name]))
+												@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 													<th class="py-3" style="min-width: 160px">{{ $attributes[$extrafield->name] }}</th>
 												@endif
 											@endforeach
@@ -216,11 +242,13 @@
 											}
 
 											$product_fields = $product->extrafields->toArray();
+
+											$stock = $product->stock - $product->seuil_stock_alerte;
 										@endphp
 										<tr class="flex flex-col lg:table-row even:bg-gray-300">
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
 												<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
-													Comparar
+													&nbsp;
 												</div>
 												<div class="p-2 flex">
 													<img src="{{ asset($image) }}" alt="{{ $product->label }}" title="{{ $product->label }}" class="w-12 ml-2 img-zoomable" />
@@ -249,7 +277,7 @@
 													Disponibilidad
 												</div>
 												<div class="p-2 lg:text-right">
-													Stock: {{ $product->stock - $product->seuil_stock_alerte }}
+													Stock: {{ $stock }}
 												</div>
 											</td>
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -257,8 +285,8 @@
 													Precio
 												</div>
 												<div class="p-2 lg:text-right">
-													<p>Bs {{ number_format(($product->prices[0]->price * $tasa_usd), 2, ',', '.') }}</p>
-													<p>$USD {{ number_format($product->prices[0]->price, 2, ',', '.') }}</p>
+													<p>Bs {{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}</p>
+													<p>$USD {{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}</p>
 												</div>
 											</td>
 											<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -266,19 +294,33 @@
 													Cantidad
 												</div>
 												<div class="p-2 text-center">
-													<div class="w-full flex pb-2">
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">+</button>
-														<input type="text" name="cantidad" id="cantidad" class="w-20" />
-														<button type="button" class="px-3 py-2 border border-gray-500 font-semibold">-</button>
-													</div>
-													<button type="button" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-														Agregar <i class="fas fa-shopping-cart"></i>
-													</button>
+													@if ((count($cart) > 0) && isset($cart[$product->rowid]))
+														<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
+															@csrf
+															@method('DELETE')
+															<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
+																Eliminar <i class="fas fa-cart-arrow-down"></i>
+															</button>
+														</form>
+													@else
+														<form action="{{ route('cart.store') }}" method="POST">
+															@csrf
+															<input type="hidden" name="product" value="{{ $product->rowid }}" />
+															<div class="w-full flex pb-2">
+																<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="decrement">-</button>
+																<input type="number" name="quantity" id="quantity{{ $product->rowid }}" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" value="0" class="w-16 text-right px-3" onchange="validateRange(this)" />
+																<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="increment">+</button>
+															</div>
+															<button type="submit" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+																Agregar <i class="fas fa-shopping-cart"></i>
+															</button>
+														</form>
+													@endif
 												</div>
 											</td>
 											@if ($extrafields->isNotEmpty())
 												@foreach ($extrafields as $extrafield)
-													@if (isset($attributes[$extrafield->name]))
+													@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 														<td class="border border-gray-300 flex flex-row lg:table-cell">
 															<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 																{{ $attributes[$extrafield->name] }}
@@ -295,7 +337,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="my-2 text-right">
+						<div class="mt-4 text-right">
 							{{ $products->links() }}
 						</div>
 					@else
@@ -310,18 +352,62 @@
 
 	@push('scripts')
 		<script>
-			let myFilters = document.getElementsByName('filters');
-			let setCheck;
-			for(let x = 0; x < myFilters.length; x++) {
-				myFilters[x].onclick = function() {
-					if(setCheck != this) {
-						setCheck = this;
-					} else {
-						this.checked = false;
-						setCheck = null;
-					}
-				};
+			function handleCheck() {
+				let category = document.getElementById('tab-one').value;
+				let sector = document.getElementById('tab-two').value;
+				let table = document.getElementById('products');
+				let tbody = table.getElementsByTagName('tbody')[0];
+				let myCheckFilters = document.querySelectorAll(".checkfilter:checked");
+				let querystring = '?category=' + category + '&sector=' + sector;
+				let dataArray = [];
+
+				myCheckFilters.forEach(item => {
+					querystring = querystring + '&' + encodeURIComponent(item.dataset.filter) + '[]=' + encodeURIComponent(item.value);
+				});
+
+				let url = '/products' + querystring;
+
+				location.href = url;
 			}
+		</script>
+		<script>
+			function decrement(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value--;
+				if (value < 0) value = 0;
+				target.value = value;
+			}
+
+			function increment(e) {
+				const btn = e.target.parentNode.parentElement.querySelector(
+					'button[data-action="decrement"]'
+				);
+				const target = btn.nextElementSibling;
+				let value = Number(target.value);
+				value++;
+				if (value > target.max) value = Number(target.max);
+				target.value = value;
+			}
+
+			function validateRange(element) {
+				if (element.value < element.min) element.value = element.min;
+				if (element.value > element.max) element.value = element.max;
+			}
+
+			const decrementButtons = document.querySelectorAll('button[data-action="decrement"]');
+			const incrementButtons = document.querySelectorAll('button[data-action="increment"]');
+
+			decrementButtons.forEach(btn => {
+				btn.addEventListener("click", decrement);
+			});
+
+			incrementButtons.forEach(btn => {
+				btn.addEventListener("click", increment);
+			});
 		</script>
 	@endpush
 </x-web-layout>

@@ -28,10 +28,12 @@
               </div>
             </form>
           </div>
-          <x-jet-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')" class="relative">
+          <x-jet-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart')" class="relative">
             <i class="fas fa-fw mr-1 fa-shopping-cart"></i> Compra
             <div class="absolute animate-bounce bg-cdsolec-green-dark rounded -right-5 lg:top-2 lg:-right-2">
-              <span class="px-2 text-white text-xs">0</span>
+              <span class="px-2 text-white text-xs">
+                {{ (session()->has('cart')) ? count(session('cart')) : 0 }}
+              </span>
             </div>
           </x-jet-nav-link>
           @auth
@@ -79,7 +81,7 @@
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
                         @if ($sectors->isNotEmpty())
                           @foreach($sectors as $item)
-                          <a href="{{ route('products').'?category='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
+                          <a href="{{ route('products').'?sector='.$item->rowid }}" class="block px-2 hover:bg-cdsolec-green-light">
                             <span class="fas fa-angle-right mr-1"></span>
                             {{ $item->label }}
                           </a>
@@ -187,7 +189,7 @@
 
     <!-- Navigation Links Right -->
     <div class="border-b border-cdsolec-green-dark">
-      <x-jet-responsive-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+      <x-jet-responsive-nav-link href="{{ route('cart.index') }}" :active="request()->routeIs('cart')">
         <i class="fas fa-fw mr-1 fa-shopping-cart"></i>
         <span class="relative">Compra
           <div class="absolute animate-bounce bg-cdsolec-green-dark rounded bottom-0 -right-8">

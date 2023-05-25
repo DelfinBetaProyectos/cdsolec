@@ -43,8 +43,8 @@ class Product extends Model
   protected $fillable = [
     'ref', 'entity', 'ref_ext', 'datec', 'tms', 'fk_parent', 'label', 'description', 'note_public', 'note', 
     'customcode', 'fk_country', 'fk_state', 'price', 'price_ttc', 'price_min', 'price_min_ttc', 'price_base_type', 
-    'cost_price', 'default_vat_code', 'tva_tx', 'recuperableonly', 'localtax1_tx', 'localtax1_type', 'localtax2_tx', 
-    'localtax2_type', 'fk_user_author', 'fk_user_modif', 'tosell', 'tobuy', 'onportal', 'tobatch', 
+    'cost_price', 'default_vat_code', 'tva_tx', 'recuperableonly', 'localtax1_tx', 'localtax1_type', 
+    'localtax2_tx', 'localtax2_type', 'fk_user_author', 'fk_user_modif', 'tosell', 'tobuy', 'onportal', 'tobatch', 
     'fk_product_type', 'duration', 'seuil_stock_alert', 'url', 'barcode', 'fk_barcode_type', 
     'accountancy_code_sell', 'accountancy_code_sell_intra', 'accountancy_code_sell_export', 'accountancy_code_buy', 
     'accountancy_code_buy_intra', 'accountancy_code_buy_export', 'partnumber', 'net_measure_units', 'weight', 

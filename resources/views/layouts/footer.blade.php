@@ -61,7 +61,7 @@
             <ul>
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
-                <a href="{{ route('cart') }}">Compra (0)</a>
+                <a href="{{ route('cart.index') }}">Compra (0)</a>
               </li>
               @guest
                 <li>
@@ -108,6 +108,8 @@
         <div class="grid gad-4 grid-cols-1 sm:grid-cols-2">
           <div class="text-sm">
             <p><a href="tel:+584128915299"><i class="fas fa-fw fa-phone mr-2"></i> (0412)-891.52.99</a></p>
+            <p><a href="https://wa.me/+584128915299" target="_blank"><i class="fab fa-fw fa-whatsapp mr-2"></i> (0412)-891.52.99</a></p>
+            <p><a href="mailto:ventas@cd-solec.com"><i class="fas fa-fw fa-envelope mr-2"></i> ventas@cd-solec.com</a></p>
           </div>
           <div>
             <form method="GET" action="{{ route('comments.create') }}">

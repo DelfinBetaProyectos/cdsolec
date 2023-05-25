@@ -2,7 +2,7 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\{User, Society};
+use App\Models\{Category, User, Society};
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -23,19 +23,20 @@ class CreateNewUser implements CreatesNewUsers
     Validator::make($input, [
       'first_name' => ['required', 'string', 'max:255'],
       'last_name' => ['required', 'string', 'max:255'],
-      'email' => ['required', 'string', 'email', 'max:255', 'unique:mysqlerp.llx_user'],
+      'company' => ['nullable', 'string', 'max:255'],
+      'email' => ['required', 'email', 'max:255', 'unique:mysqlerp.llx_user'],
       'password' => $this->passwordRules(),
       'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
       'identification' => ['required', 'string', 'unique:mysqlerp.llx_societe,siren'],
-      'gender' => ['required', 'in:M,F,O'],
-      'phone' => ['nullable', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i']
+      'phone' => ['nullable', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
+      'type' => ['required', 'exists:mysqlerp.llx_categorie,rowid']
     ])->validate();
 
     $user = User::create([
       'datec' => date('Y-m-d H:i:s'),
       'login' => $input['email'],
       'pass_crypted' => Hash::make($input['password']),
-      'gender' => $input['gender'],
+      'gender' => $input['gender'] ?? 'O',
       'lastname' => $input['last_name'],
       'firstname' => $input['first_name'],
       'fk_country' => 232,                  // 232 = Venezuela
@@ -43,8 +44,13 @@ class CreateNewUser implements CreatesNewUsers
       'email' => $input['email']
     ]);
 
+    $name_soc = $input['first_name'].' '.$input['last_name'];
+    if (isset($input['company'])) {
+      $name_soc .= ' ('.$input['company'].')';
+    }
+
     $society = Society::create([
-      'nom' => $input['first_name'].' '.$input['last_name'],
+      'nom' => $name_soc,
       'fk_pays' => 232,                     // 232 = Venezuela
       'phone' => $input['phone'],
       'email' => $input['email'],
@@ -61,6 +67,8 @@ class CreateNewUser implements CreatesNewUsers
 
     $user->fk_soc = $society->rowid;
     $user->save();
+
+    $society->categories()->attach($input['type']);
 
     return $user;
   }

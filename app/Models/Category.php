@@ -62,6 +62,14 @@ class Category extends Model
   }
 
   /**
+   * The societes that belong to the category.
+   */
+  public function societies()
+  {
+    return $this->belongsToMany(Society::class, 'llx_categorie_societe', 'fk_categorie', 'fk_soc');
+  }
+
+  /**
    * The products that belong to the category.
    */
   public function products()
@@ -74,7 +82,7 @@ class Category extends Model
    */
   public function attributes()
   {
-    $this->connection = DB::connection('mysqlerp_extras');
+    $this->connection = DB::connection('mysql');
     
     return $this->hasOne(Attribute::class, 'rowid_erp', 'rowid');
   }

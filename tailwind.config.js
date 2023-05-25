@@ -1,4 +1,4 @@
-const colors = {
+ const colors = {
   'gray-darkest': '#3d4852',
   'gray-darker': '#606f7b',
   'gray-dark': '#8795a1',
@@ -233,6 +233,8 @@ const size = {
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
+    mode: 'jit',
+
     purge: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -262,5 +264,5 @@ module.exports = {
         animation: ['responsive', 'motion-safe', 'motion-reduce'],
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require("tailgrids/plugin")],
 };

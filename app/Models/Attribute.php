@@ -12,7 +12,7 @@ class Attribute extends Model
    *
    * @var string
    */
-  protected $connection = 'mysqlerp_extras';
+  protected $connection = 'mysql';
 
   /**
    * The table associated with the model.
@@ -36,9 +36,11 @@ class Attribute extends Model
   protected $fillable = [
     'numcategoria', 'numsubcategoria', 'categoria', 'subcategoria', 'rowid_erp', 'referencia_cds', 
     'referencia_fabricante', 'nombre_producto', 'descripcion', 'recomendaciones', 'alto', 'ancho', 'profundidad', 
-    'peso', 'at1', 'at2', 'at3', 'at4', 'at5', 'at6', 'at7', 'at8', 'at9', 'at10', 'at11', 'at12', 'at13', 'at14', 
-    'at15', 'at16', 'at17', 'at18', 'at19', 'at20', 'at21', 'at22', 'at23', 'at24', 'at25', 'at26', 'at27', 'at28', 
-    'at29', 'at30', 'at31', 'at32', 'at33', 'at34', 'at35', 'at36', 'at37'
+    'peso', 'at1', 'at1f', 'at2', 'at2f', 'at3', 'at3f', 'at4', 'at4f', 'at5', 'at5f', 'at6', 'at6f', 'at7', 
+    'at7f', 'at8', 'at8f', 'at9', 'at9f', 'at10', 'at10f', 'at11', 'at11f', 'at12', 'at12f', 'at13', 'at13f', 
+    'at14', 'at14f', 'at15', 'at15f', 'at16', 'at16f', 'at17', 'at17f', 'at18', 'at18f', 'at19', 'at19f', 'at20', 
+    'at20f', 'at21', 'at21f', 'at22', 'at22f', 'at23', 'at23f', 'at24', 'at24f', 'at25', 'at25f', 'at26', 'at26f', 
+    'at27', 'at27f', 'at28', 'at28f', 'at29', 'at29f', 'at30', 'at30f', 'at31', 'at31f', 'at32', 'at32f', 'at33', 'at33f', 'at34', 'at34f', 'at35', 'at35f', 'at36', 'at36f', 'at37', 'at37f'
   ];
 
   /**

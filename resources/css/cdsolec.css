@@ -2,14 +2,14 @@
   background: linear-gradient(90deg, #2E9B00 30%, #8DFC00 70%);
 }
  
-/*********   Banners   ********/
+/*********** Banners **********/
 .banner {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/********* Accordion ********/
+/********** Accordion *********/
 .accordion {
     background-color: #FFFFFF;
 }
@@ -23,4 +23,16 @@
 
 .accordion .tab input:checked ~ .tab-content {
     max-height: 100%;
+}
+
+/*********** Switch ***********/
+.themeSwitcherTwo input:checked ~ .light {
+    background: transparent;
+    color: #FFFFFF;
+}
+
+.themeSwitcherTwo input:checked ~ .dark {
+    color: #2E9B00;
+    background: #8DFC00;
+    font-weight: 600;
 }

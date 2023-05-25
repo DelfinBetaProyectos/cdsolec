@@ -21,13 +21,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         Validator::make($input, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
+            'company' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('mysqlerp.llx_user')->ignore($user->rowid, 'rowid')],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-            // 'identification' => ['required', 'string', Rule::unique('mysqlerp.llx_societe', 'siren')->ignore($user->rowid)],
-            'gender' => ['required', 'in:M,F,O'],
-            'user_mobile' => ['required', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i']
+            'identification' => ['required', 'string'],
+            'phone' => ['nullable', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
+            'type' => ['required', 'exists:mysqlerp.llx_categorie,rowid']
         ])->validateWithBag('updateProfileInformation');
-
+            
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
         }
@@ -37,12 +38,25 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
-                'gender' => $input['gender'],
                 'lastname' => $input['lastname'],
                 'firstname' => $input['firstname'],
-                'user_mobile' => $input['user_mobile'],
+                'user_mobile' => $input['phone'] ?? '',
                 'email' => $input['email']
             ])->save();
+            
+            $name_soc = $input['firstname'].' '.$input['lastname'];
+            if (isset($input['company'])) {
+                $name_soc .= ' ('.$input['company'].')';
+            }
+            
+            $user->society->forceFill([
+                'nom' => $name_soc,
+                'phone' => $input['phone'] ?? '',
+                'email' => $input['email'],
+                'siren' => $input['identification'],  // RIF
+            ])->save();
+
+            $user->society->categories()->sync([$input['type']]);
         }
     }
 
@@ -56,12 +70,25 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     protected function updateVerifiedUser($user, array $input)
     {
         $user->forceFill([
-            'gender' => $input['gender'],
             'lastname' => $input['lastname'],
             'firstname' => $input['firstname'],
-            'user_mobile' => $input['user_mobile'],
+            'user_mobile' => $input['phone'] ?? '',
             'email' => $input['email']
         ])->save();
+
+        $name_soc = $input['firstname'].' '.$input['lastname'];
+        if (isset($input['company'])) {
+            $name_soc .= ' ('.$input['company'].')';
+        }
+
+        $user->society->forceFill([
+            'nom' => $name_soc,
+            'phone' => $input['phone'] ?? '',
+            'email' => $input['email'],
+            'siren' => $input['identification'],  // RIF
+        ])->save();
+
+        $user->society->categories()->sync([$input['type']]);
 
         $user->sendEmailVerificationNotification();
     }

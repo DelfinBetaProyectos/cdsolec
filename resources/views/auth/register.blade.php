@@ -15,14 +15,14 @@
           <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4" id="field_lastname">
           <x-jet-label for="last_name" value="{{ __('auth.Last_Name') }}" />
           <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required />
         </div>
 
         <div class="mt-4">
-          <x-jet-label for="email" value="{{ __('auth.Email') }}" />
-          <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+          <x-jet-label for="company" value="{{ __('auth.Company') }}" />
+          <x-jet-input id="company" class="block mt-1 w-full" type="text" name="company" :value="old('company')" />
         </div>
 
         <div class="mt-4">
@@ -30,7 +30,7 @@
           <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" required />
         </div>
 
-        <div class="mt-4">
+        {{-- <div class="mt-4" id="field_gender">
           <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('auth.Gender') }}</div>
           <label for="male" class="inline-flex items-center cursor-pointer mb-2">
             <x-forms.radio id="male" name="gender" value="M" />
@@ -45,11 +45,30 @@
             <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('auth.Other') }}</span>
           </label>
           <x-jet-input-error for="gender" class="mt-2" />
+        </div> --}}
+
+        <div class="mt-4">
+          <x-jet-label for="email" value="{{ __('auth.Email') }}" />
+          <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
         </div>
 
         <div class="mt-4">
-          <x-jet-label for="phone" value="{{ __('auth.Phone') }}" />
+          <label for="phone" class="block font-medium text-sm text-gray-700">
+            {{ __('auth.Phone') }} <span style="font-size: 0.7rem">Ejem: (412)-891-5299</span>
+          </label>
           <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
+        </div>
+
+        <div class="mt-4 md:col-span-2">
+          <x-jet-label for="type" value="{{ __('auth.Type') }}" />
+          <select name="type" id="type" class="block w-full border border-cdsolec-green-dark focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50 text-gray-800 rounded-md shadow">
+            <option value="">Seleccione</option>
+            @if ($types->isNotEmpty())
+              @foreach($types as $type)
+                <option value="{{ $type->rowid }}">{{ $type->label }}</option>
+              @endforeach
+            @endif
+          </select>
         </div>
 
         <div class="mt-4">
@@ -109,6 +128,13 @@
     }
 
     phone.addEventListener('keyup', formatTlf);
+
+    let switcher = document.getElementById('themeSwitcherOne');
+
+    switcher.addEventListener('click', function() {
+      document.getElementById('field_lastname').classList.toggle("hidden");
+      document.getElementById('field_gender').classList.toggle("hidden");
+    });
   })();
   </script>
 </x-guest-layout>

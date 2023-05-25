@@ -3,14 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
-use App\Models\{Content, Comment, Category, Product, Extrafield, Setting};
+use App\Models\{Content, Comment, Category, Product, Extrafield, Setting, Propal};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class WelcomeController extends Controller
 {
+  /**
+   * Display Dashboard.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function dashboard()
+  {
+    $orders = Propal::where('fk_soc', Auth::user()->society->rowid)->count();
+
+    return view('dashboard')->with('orders', $orders);
+  }
+
   /**
    * Display Welcome.
    * 
@@ -20,6 +33,8 @@ class WelcomeController extends Controller
   {
     $tasa_usd = Setting::find(2)->value;
     $about = Content::find(1);
+
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
     $brands = DB::connection('mysqlerp')
                 ->table('llx_societe')
@@ -32,14 +47,14 @@ class WelcomeController extends Controller
                 ->get();
 
     $products = Product::query()->with([
-                  'prices' => function ($query) {
-                    $query->where('price_level', '=', '1')
+                  'prices' => function ($query) use ($price_level) {
+                    $query->where('price_level', '=', $price_level)
                           ->orderBy('date_price', 'desc');
                   }
                 ])
                 ->where('tosell', '=', '1')
-                ->whereHas('prices', function ($query) {
-                  $query->where('price_level', '=', '1');
+                ->whereHas('prices', function ($query) use ($price_level) {
+                  $query->where('price_level', '=', $price_level);
                 })
                 ->whereHas('categories', function ($query) {
                   $query->where('fk_categorie', '=', '807');
@@ -70,54 +85,67 @@ class WelcomeController extends Controller
    * Display Products.
    * 
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Queries\ProductFilter   $filters
    * @return \Illuminate\Http\Response
    */
-  public function products(Request $request, ProductFilter $filters)
+  public function products(Request $request)
   {
     $tasa_usd = Setting::find(2)->value;
     $category_id = $request->input('category', '715');
     $category = Category::findOrFail($category_id);
+    $sector_id = '';
+    $filters = $request->except(['category', 'sector', 'search', '_token', 'page']);
 
-    if ($category_id == '715') {
-      $products = Product::query()->with([
-                            'prices' => function ($query) {
-                              $query->where('price_level', '=', '1')
-                                    ->orderBy('date_price', 'desc');
-                            },
-                            'extrafields'
-                          ])
-                          ->filterBy($filters, $request->only(['search', 'at1', 'at2', 'at3', 'at4', 'at5', 'at6', 'at7', 'at8', 'at9', 'at10', 'at11', 'at12', 'at13', 'at14', 'at15', 'at16', 'at17', 'at18', 'at19', 'at20', 'at21', 'at22', 'at23', 'at24', 'at25', 'at26', 'at27', 'at28', 'at29', 'at30']))
-                          ->where('tosell', '=', '1')
-                          ->whereHas('prices', function ($query) {
-                            $query->where('price_level', '=', '1');
-                          })
-                          ->orderBy('rowid', 'ASC')
-                          ->paginate(20);
-    } else {
-      $products = Product::query()->with([
-                            'prices' => function ($query) {
-                              $query->where('price_level', '=', '1')
-                                    ->orderBy('date_price', 'desc');
-                            },
-                            'extrafields'
-                          ])
-                          ->filterBy($filters, $request->only(['search', 'at1', 'at2', 'at3', 'at4', 'at5', 'at6', 'at7', 'at8', 'at9', 'at10', 'at11', 'at12', 'at13', 'at14', 'at15', 'at16', 'at17', 'at18', 'at19', 'at20', 'at21', 'at22', 'at23', 'at24', 'at25', 'at26', 'at27', 'at28', 'at29', 'at30']))
-                          ->where('tosell', '=', '1')
-                          ->whereHas('prices', function ($query) {
-                            $query->where('price_level', '=', '1');
-                          })
-                          ->whereHas('categories', function ($query) use ($category_id) {
-                            $query->where('fk_categorie', '=', $category_id);
-                          })
-                          ->orderBy('rowid', 'ASC')
-                          ->paginate(20);
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
+    $products = Product::query()->with([
+                          'prices' => function ($query) use ($price_level) {
+                            $query->where('price_level', '=', $price_level)
+                                  ->orderBy('date_price', 'desc');
+                          },
+                          'extrafields'
+                        ])
+                        ->where('tosell', '=', '1')
+                        ->whereHas('prices', function ($query) use ($price_level) {
+                          $query->where('price_level', '=', $price_level);
+                        });
+
+    if ($category_id != '715') {
+      $products = $products->whereHas('categories', function ($query) use ($category_id) {
+                              $query->where('fk_categorie', '=', $category_id);
+                            });
     }
 
-    $params_filters = $filters->valid();
-    $params_filters['category'] = $category_id;
-    $products->appends($params_filters);
+    if ($request->has('sector') && ($request->input('sector') != '')) {
+      $sector_id = $request->input('sector');
+      $products = $products->whereHas('categories', function ($query) use ($sector_id) {
+                              $query->where('fk_categorie', '=', $sector_id);
+                            });
+    }
 
+    $productsMatriz = $products->get();
+
+    if ($request->has('search')) {
+      $search = $request->input('search');
+      $products = $products->where(function ($query) use ($search) {
+        $query->where('ref', 'like', "%{$search}%")
+              ->orWhere('label', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%");
+      });
+    }
+
+    if (count($filters) > 0) {
+      foreach ($filters as $filter => $value) {
+        $products = $products->whereHas('extrafields', function ($query) use ($filter, $value) {
+          $query->whereIn($filter, $value);
+        });
+      }
+    }
+
+    $products = $products->orderBy('rowid', 'ASC')
+                         ->paginate(20);
+
+    $products->appends(request()->query());
+                         
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
     $attributes = [];
     $matriz = [];
@@ -125,8 +153,8 @@ class WelcomeController extends Controller
     if ($category->attributes) {
       $attributes = $category->attributes->toArray();
 
-      if ($products->isNotEmpty()) {
-        foreach ($products as $product) {
+      if ($productsMatriz->isNotEmpty()) {
+        foreach ($productsMatriz as $product) {
           if ($product->extrafields) {
             $matriz[$product->rowid] = $product->extrafields->toArray();
           }
@@ -136,18 +164,13 @@ class WelcomeController extends Controller
       $matriz = collect($matriz);
     }
 
-    $url = $request->url();  // Without Query String
-    $url_full = $request->fullUrl();  // With Query String
-    $var_explode = explode('?', $url_full, 2);
-    $query_string = $var_explode[1];
-
     return view('web.products')->with('category', $category)
                                ->with('products', $products)
+                               ->with('filters', $filters)
                                ->with('tasa_usd', $tasa_usd)
                                ->with('extrafields', $extrafields)
                                ->with('attributes', $attributes)
-                               ->with('matriz', $matriz)
-                               ->with('query_string', $query_string);
+                               ->with('matriz', $matriz);
   }
 
   /**
@@ -159,14 +182,17 @@ class WelcomeController extends Controller
   public function product(string $ref)
   {
     $tasa_usd = Setting::find(2)->value;
+
+    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+
     $product = Product::with([
-                        'prices' => function ($query) {
-                          $query->where('price_level', '=', '1')
+                        'prices' => function ($query) use ($price_level) {
+                          $query->where('price_level', '=', $price_level)
                                 ->orderBy('date_price', 'desc');
                         }
                       ])
-                      ->whereHas('prices', function ($query) {
-                        $query->where('price_level', '=', '1');
+                      ->whereHas('prices', function ($query) use ($price_level) {
+                        $query->where('price_level', '=', $price_level);
                       })
                       ->where('ref', '=', $ref)
                       ->first();
@@ -175,7 +201,7 @@ class WelcomeController extends Controller
       $image = null;
       $datasheet = null;
       if ($product->documents->isNotEmpty()) {
-        $documents = $product->documents;
+        $documents = $product->documents->sortBy('position');
         $total = count($product->documents);
         $i = 0;
         while ((!$datasheet || !$image) && ($i < $total)) {
@@ -248,16 +274,6 @@ class WelcomeController extends Controller
                 ->get();
 
     return view('web.brands')->with('brands', $brands);
-  }
-
-  /**
-   * Display Cart.
-   * 
-   * @return \Illuminate\Http\Response
-   */
-  public function cart()
-  {
-    return view('web.cart');
   }
 
   /**

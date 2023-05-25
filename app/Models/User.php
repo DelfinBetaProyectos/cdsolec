@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -80,6 +81,15 @@ class User extends Authenticatable implements Auditable
   ];
 
   /**
+   * The accessors to append to the model's array form.
+   *
+   * @var array
+   */
+  protected $appends = [
+    'identification', 'company', 'type'
+  ];
+
+  /**
    * Get the user's password.
    * 
    * @return string
@@ -100,10 +110,54 @@ class User extends Authenticatable implements Auditable
   }
 
   /**
+   * Get the user's identification.
+   * 
+   * @return string
+   */
+  public function getIdentificationAttribute()
+  {
+    return $this->society->siren;
+  }
+
+  /**
+   * Get the user's company.
+   * 
+   * @return string
+   */
+  public function getCompanyAttribute()
+  {
+    $contains = Str::contains($this->society->nom, ['(', ')']);
+
+    if ($contains) {
+      return Str::between($this->society->nom, '(', ')');
+    } 
+    
+    return '';
+  }
+
+  /**
+   * Get the user's type.
+   * 
+   * @return string
+   */
+  public function getTypeAttribute()
+  {
+    return optional($this->society->categories->first())->rowid;
+  }
+
+  /**
    * Search Filters.
    */
   public function scopeFilterBy($query, QueryFilter $filters, array $data)
   {
     return $filters->applyTo($query, $data);
+  }
+
+  /**
+   * Get the society that owns the user.
+   */
+  public function society()
+  {
+    return $this->belongsTo(Society::class, 'fk_soc', 'rowid');
   }
 }

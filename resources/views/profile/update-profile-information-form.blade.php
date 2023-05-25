@@ -65,29 +65,18 @@
       <x-jet-input-error for="lastname" class="mt-2" />
     </div>
 
+    <!-- Company -->
+    <div class="col-span-6 sm:col-span-3">
+      <x-jet-label for="company" value="{{ __('session.Company') }}" />
+      <x-jet-input id="company" type="text" class="mt-1 block w-full" wire:model.defer="state.company" autocomplete="company" />
+      <x-jet-input-error for="company" class="mt-2" />
+    </div>
+
     <!-- Identification -->
     <div class="col-span-6 sm:col-span-3">
       <x-jet-label for="identification" value="{{ __('session.Identification') }}" />
       <x-jet-input id="identification" type="text" class="mt-1 block w-full" wire:model.defer="state.identification" autocomplete="identification" />
       <x-jet-input-error for="identification" class="mt-2" />
-    </div>
-
-    <!-- Gender -->
-    <div class="col-span-6 sm:col-span-3">
-      <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('session.Gender') }}</div>
-      <label for="male" class="inline-flex items-center cursor-pointer mb-2">
-        <input type="radio" id="male" name="gender" class="w-5 h-5 border border-cdsolec-green-dark text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="M" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'M') ? 'checked' : '' }} />
-        <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('session.Male') }}</span>
-      </label>
-      <label for="female" class="inline-flex items-center cursor-pointer mb-2">
-        <input type="radio" id="female" name="gender" class="w-5 h-5 border border-cdsolec-green-dark text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="F" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'F') ? 'checked' : '' }} />
-        <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('session.Female') }}</span>
-      </label>
-      <label for="other" class="inline-flex items-center cursor-pointer mb-2">
-        <input type="radio" id="other" name="gender" class="w-5 h-5 border border-cdsolec-green-dark text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="O" wire:model.defer="state.gender" {{ (Auth::user()->gender == 'O') ? 'checked' : '' }} />
-        <span class="ml-2 text-sm font-semibold text-gray-800">{{ __('session.Other') }}</span>
-      </label>
-      <x-jet-input-error for="gender" class="mt-2" />
     </div>
 
     <!-- Email -->
@@ -99,9 +88,26 @@
 
     <!-- Phone -->
     <div class="col-span-6 sm:col-span-3">
-      <x-jet-label for="user_mobile" value="{{ __('session.Phone') }}" />
-      <x-jet-input id="user_mobile" type="text" class="mt-1 block w-full" wire:model.defer="state.user_mobile" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
-      <x-jet-input-error for="user_mobile" class="mt-2" />
+      <x-jet-label for="phone" value="{{ __('session.Phone') }}" />
+      <x-jet-input id="phone" type="text" class="mt-1 block w-full" wire:model.defer="state.phone" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
+      <x-jet-input-error for="phone" class="mt-2" />
+    </div>
+
+    <!-- Type -->
+    @php
+      $types = App\Models\Category::where('fk_parent', 825)->orderBy('rowid', 'asc')->get();
+      $mytype = auth()->user()->society->categories->first();
+    @endphp
+    <div class="col-span-6 sm:col-span-6">
+      <x-jet-label for="type" value="{{ __('session.Type') }}" />
+      <select name="type" id="type" class="block w-full border border-cdsolec-green-dark focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50 text-gray-800 rounded-md shadow" wire:model.defer="state.type" required>
+        <option value="">Seleccione</option>
+        @if ($types->isNotEmpty())
+          @foreach($types as $type)
+            <option value="{{ $type->rowid }}" {{ ($type->rowid == optional($mytype)->rowid) ? 'selected' : '' }}>{{ $type->label }}</option>
+          @endforeach
+        @endif
+      </select>
     </div>
   </x-slot>
 
@@ -121,7 +127,7 @@
     (function() {
       'use strict';
 
-      let phone = document.getElementById('user_mobile');
+      let phone = document.getElementById('phone');
 
       function formatTlf(e) {
         if((this.value.length < 15) && ((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode > 95 && e.keyCode < 106))) {

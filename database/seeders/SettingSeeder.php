@@ -15,6 +15,6 @@ class SettingSeeder extends Seeder
   public function run()
   {
     Setting::factory()->create(['name'=> 'IVA', 'value'=> '16' ]);
-    Setting::factory()->create(['name'=> 'Tasa del dolar', 'value'=> '3100000']);
+    Setting::factory()->create(['name'=> 'Tasa del dolar', 'value'=> '25']);
   }
 }
