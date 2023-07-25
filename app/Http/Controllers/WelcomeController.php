@@ -38,7 +38,7 @@ class WelcomeController extends Controller
     $tasa_usd = Setting::find(2)->value;
     $about = Content::find(1);
 
-    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+    if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
     $brands = DB::connection('mysqlerp')
                 ->table('llx_societe')
@@ -99,7 +99,7 @@ class WelcomeController extends Controller
     $sector_id = '';
     $filters = $request->except(['category', 'sector', 'search', '_token', 'page']);
 
-    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+    if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
     $products = Product::query()->with([
                           'prices' => function ($query) use ($price_level) {
@@ -187,7 +187,7 @@ class WelcomeController extends Controller
   {
     $tasa_usd = Setting::find(2)->value;
 
-    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+    if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
     $product = Product::with([
                         'prices' => function ($query) use ($price_level) {

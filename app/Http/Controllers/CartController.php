@@ -23,7 +23,7 @@ class CartController extends Controller
     $cart = $request->session()->get('cart', []);
     $mycart = [];
 
-    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+    if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
     foreach ($cart as $item) {
       $product = Product::findOrFail($item['product']);
@@ -141,7 +141,7 @@ class CartController extends Controller
       $product = Product::findOrFail($id);
       $stock = $product->stock - $product->seuil_stock_alerte;
 
-      if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+      if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
 
       if (($data['quantity'] > 0) && ($data['quantity'] <= $stock)) {
         $cart = $request->session()->get('cart', []);
@@ -249,7 +249,7 @@ class CartController extends Controller
     $percent_iva = Setting::find(1)->value;
     $tasa_usd = Setting::find(2)->value;
 
-    if (Auth::check()) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
+    if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
     $user = User::find(Auth::user()->rowid);
 
     $query = Propal::select('ref')->orderBy('ref', 'desc')->first();
