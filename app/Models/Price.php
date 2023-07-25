@@ -54,7 +54,7 @@ class Price extends Model
    */
   public function getPriceDiscountAttribute()
   {
-    if (Auth::check()) { $discount_rate = Auth::user()->society->remise_client; } else { $discount_rate = 0; }
+    if (Auth::check() && Auth::user()->society) { $discount_rate = Auth::user()->society->remise_client; } else { $discount_rate = 0; }
 
     $discount = ($this->price * $discount_rate) / 100;
 
