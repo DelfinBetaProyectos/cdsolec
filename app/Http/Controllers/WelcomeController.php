@@ -19,7 +19,11 @@ class WelcomeController extends Controller
    */
   public function dashboard()
   {
-    $orders = Propal::where('fk_soc', Auth::user()->society->rowid)->count();
+    if (Auth::user()->society) {
+      $orders = Propal::where('fk_soc', Auth::user()->society->rowid)->count();
+    } else {
+      $orders = 0;
+    }
 
     return view('dashboard')->with('orders', $orders);
   }
