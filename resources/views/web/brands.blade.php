@@ -18,7 +18,7 @@
 						}
 					@endphp
 					<div class="brand border border-cdsolec-green-dark shadow-lg overflow-hidden sm:rounded-lg {{ ($loop->index > 4) ? 'transition duration-1000 ease-out opacity-0 transform scale-50' : '' }}">
-						<a href="{{ route('products').'?at1='.$brand->nom }}">
+						<a href="{{ route('products').'?at1[]='.$brand->nom }}">
 							<img src="{{ asset($image) }}" alt="{{ $brand->nom }}" title="{{ $brand->nom }}" />
 						</a>
 					</div>
