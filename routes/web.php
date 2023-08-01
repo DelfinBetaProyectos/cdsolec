@@ -36,10 +36,12 @@ Route::get('/product/{product}', [WelcomeController::class, 'product'])->name('p
 Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
 Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');
 
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout')    
-    ->middleware('auth:sanctum');
-
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::apiResource('cart', CartController::class);
-Route::resource('orders', OrderController::class)->parameters(['orders' => 'propal'])
-    ->middleware('auth:sanctum');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/orders/{propal}/name', [OrderController::class, 'name'])->name('orders.name');
+
+    Route::resource('orders', OrderController::class)->parameters(['orders' => 'propal']);
+});

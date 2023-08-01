@@ -81,6 +81,22 @@ class OrderController extends Controller
   }
 
   /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Propal  $propal
+   * @return \Illuminate\Http\Response
+   */
+  public function name(Request $request, Propal $propal)
+  {
+    $data = $request->validate(['name' => 'required|string']);
+
+    $propal->update(['ref_client' => $data['name']]);
+
+    return redirect()->back()->with('success', 'Nombre guardado con éxito.');
+  }
+
+  /**
    * Remove the specified resource from storage.
    *
    * @param  \App\Models\Propal  $propal

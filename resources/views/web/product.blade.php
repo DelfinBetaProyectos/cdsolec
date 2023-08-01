@@ -152,7 +152,7 @@
 								@endphp
 								<tbody>
 									@foreach ($extrafields as $extrafield)
-										@if (($product_fields[$extrafield->name] != 'N/A')  && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
+										@if (isset($product_fields[$extrafield->name]) && ($product_fields[$extrafield->name] != null) && ($product_fields[$extrafield->name] != 'N/A'))
 											<tr class="even:bg-gray-300">
 												<td class="p-2 text-left">
 													{{ (isset($attributes[$extrafield->name])) ? $attributes[$extrafield->name] : $extrafield->name }}
