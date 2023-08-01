@@ -1,7 +1,7 @@
 <x-dashboard-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-      <i class="fas fa-shopping-cart"></i> Pedidos
+      <i class="fas fa-shopping-cart"></i> Compras
     </h2>
   </x-slot>
 
@@ -9,7 +9,7 @@
     <nav class="mb-3 px-3 py-2 rounded bg-gray-200 text-gray-600">
 			<ol class="flex flex-wrap">
 				<li><a href="{{ route('dashboard') }}" class="text-cdsolec-green-dark"><i class="fas fa-home"></i></a></li>
-				<li><span class="mx-2">/</span>Pedidos</li>
+				<li><span class="mx-2">/</span>Compras</li>
 			</ol>
 		</nav>
 
@@ -55,10 +55,13 @@
     <table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
 			<thead>
 				<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
-					<th style="width: 110px" class="px-3 py-3 font-medium text-center">
+					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 						REF
 					</th>
-					<th class="px-3 py-3 font-medium text-right">
+					<th class="px-3 py-3 font-medium text-left">
+						Nombre
+					</th>
+					<th style="width: 200px" class="px-3 py-3 font-medium text-right">
 						Total
 					</th>
 					<th style="width: 200px" class="px-3 py-3 font-medium text-center">
@@ -87,6 +90,14 @@
                 </div>
                 <div class="p-2 text-center text-sm font-bold">
                   {{ $order->ref }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Nombre
+                </div>
+                <div class="p-2">
+                  {{ $order->ref_client }}
                 </div>
               </td>
               <td class="flex flex-row lg:table-cell">

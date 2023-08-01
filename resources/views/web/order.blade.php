@@ -1,22 +1,43 @@
 <x-dashboard-layout>
-  <x-slot name="header">
-    <h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-      <i class="fas fa-shopping-cart"></i> Pedidos
-    </h2>
-  </x-slot>
+	<x-slot name="header">
+		<h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
+			<i class="fas fa-shopping-cart"></i> Compras
+		</h2>
+	</x-slot>
 
-  <div class="max-w-7xl mx-auto mb-14 mt-6 lg:mt-8 sm:px-6 lg:px-8">
+	<div class="max-w-7xl mx-auto mb-14 mt-6 lg:mt-8 sm:px-6 lg:px-8">
 		<nav class="mb-3 px-3 py-2 rounded bg-gray-200 text-gray-600">
 			<ol class="flex flex-wrap">
 				<li><a href="{{ route('dashboard') }}" class="text-cdsolec-green-dark"><i class="fas fa-home"></i></a></li>
-				<li><span class="mx-2">/</span><a href="{{ route('orders.index') }}" class="text-cdsolec-green-dark">Pedidos</a></li>
-				<li><span class="mx-2">/</span>Pedido</li>
+				<li><span class="mx-2">/</span><a href="{{ route('orders.index') }}" class="text-cdsolec-green-dark">Compras</a></li>
+				<li><span class="mx-2">/</span>Compra</li>
 			</ol>
 		</nav>
 
 		<div class="flex flex-wrap justify-center">
 			<div class="w-full shadow rounded-md overflow-hidden bg-white px-4 py-3 sm:px-6">
-				<h2 class="text-3xl leading-tight font-bold mt-4">Pedido {{ $propal->ref }}</h2>
+				<h2 class="text-3xl leading-tight font-bold mt-4">Compra {{ $propal->ref }}</h2>
+
+				<div id="message" class="my-3 px-3 py-2 rounded border border-green-600 bg-green-200 text-green-600 text-sm font-bold" {{ (!session()->has('success')) ? 'hidden' : '' }}>
+					{{ (session()->has('success')) ? session()->get('success') : '' }}
+				</div>
+
+				<div class="my-2 p-3 rounded-lg border bg-gray-300">
+					<form action="{{ route('orders.name', $propal) }}" method="POST">
+						@csrf
+						<div class="grid gap-2 md:grid-cols-4">
+							<div>								
+								<x-jet-label for="name" value="Nombre de tu carrito:" class="font-bold text-xl" />
+							</div>
+							<div class="col-span-2">
+								<x-jet-input type="text" id="name" name="name" value="{{ $propal->ref_client }}" placeholder="Nombre de tu carrito:" required />
+							</div>
+							<div>
+								<x-jet-button type="submit">Guardar</x-jet-button>
+							</div>
+						</div>
+					</form>
+				</div>
 
 				<div class="w-full py-3 mb-3" id="table">
 					<table class="my-2 w-full rounded-lg overflow-hidden bg-white border-collapse border border-green-800">
@@ -207,5 +228,5 @@
 				</div>
 			</div>
 		</div>
-  </div>
+	</div>
 </x-dashboard-layout>
