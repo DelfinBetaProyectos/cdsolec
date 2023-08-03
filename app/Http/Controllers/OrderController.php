@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\Propal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -105,5 +106,16 @@ class OrderController extends Controller
   public function destroy(Propal $propal)
   {
     //
+  }
+
+  /**
+   * Display Mail the specified resource.
+   *
+   * @param  \App\Models\Propal  $propal
+   * @return \Illuminate\Http\Response
+   */
+  public function mail(Propal $propal)
+  {
+    return new OrderMail($propal);
   }
 }
