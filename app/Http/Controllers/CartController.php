@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\{Product, Setting, Propal, User};
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -331,6 +333,8 @@ class CartController extends Controller
     ]);
 
     $request->session()->forget(['cart']);
+
+    Mail::to($user->email, 'Compra CD-SOLEC')->cc('ventas@cd-solec.com', 'Compra CD-SOLEC')->send(new OrderMail($propal));
 
     return redirect()->route('orders.show', $propal);
   }

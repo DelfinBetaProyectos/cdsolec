@@ -45,3 +45,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('orders', OrderController::class)->parameters(['orders' => 'propal']);
 });
+
+/* Mail Preview */
+Route::get('/mail/orders/{propal}', [OrderController::class, 'mail'])->name('orders.mail');
