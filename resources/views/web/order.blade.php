@@ -27,10 +27,10 @@
 						@csrf
 						<div class="grid gap-2 md:grid-cols-4">
 							<div>								
-								<x-jet-label for="name" value="Nombre de tu carrito:" class="font-bold text-xl" />
+								<x-jet-label for="name" value="Nombre del Proyecto:" class="font-bold text-xl" />
 							</div>
 							<div class="col-span-2">
-								<x-jet-input type="text" id="name" name="name" value="{{ $propal->ref_client }}" placeholder="Nombre de tu carrito:" required />
+								<x-jet-input type="text" id="name" name="name" value="{{ $propal->ref_client }}" placeholder="Nombre del proyecto:" required />
 							</div>
 							<div>
 								<x-jet-button type="submit">Guardar</x-jet-button>

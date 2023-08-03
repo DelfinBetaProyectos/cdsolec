@@ -59,7 +59,7 @@
 						REF
 					</th>
 					<th class="px-3 py-3 font-medium text-left">
-						Nombre
+						Nombre del Proyecto
 					</th>
 					<th style="width: 200px" class="px-3 py-3 font-medium text-right">
 						Total
