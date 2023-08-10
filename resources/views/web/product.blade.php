@@ -160,7 +160,7 @@
 												<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
 												<td class="p-2 text-center">
 													<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
-														<x-jet-checkbox id="field_{{ $extrafield->name }}" name="{{ $extrafield->name }}" value="{{ $product_fields[$extrafield->name] }}" />
+														<input type="checkbox" data-filter="{{ $extrafield->name }}" name="{{ $extrafield->name }}[]" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $product_fields[$extrafield->name] }}" />
 													</label>
 												</td>
 											</tr>
@@ -184,6 +184,20 @@
 
 	@push('scripts')
 		<script>
+			function handleCheck() {
+				let myCheckFilters = document.querySelectorAll(".checkfilter:checked");
+				let querystring = '?';
+				let dataArray = [];
+
+				myCheckFilters.forEach(item => {
+					querystring = querystring + '&' + encodeURIComponent(item.dataset.filter) + '[]=' + encodeURIComponent(item.value);
+				});
+
+				let url = '/products' + querystring;
+
+				location.href = url;
+			}
+
 			function decrement(e) {
 				const btn = e.target.parentNode.parentElement.querySelector(
 					'button[data-action="decrement"]'
