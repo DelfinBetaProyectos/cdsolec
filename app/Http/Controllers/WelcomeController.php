@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactMail;
+use App\Mail\{ContactMail, StockMail};
 use App\Models\{Content, Comment, Category, Product, Extrafield, Setting, Propal};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
@@ -259,6 +259,56 @@ class WelcomeController extends Controller
                               ->with('extrafields', $extrafields)
                               ->with('product_fields', $product_fields)
                               ->with('attributes', $attributes);
+  }
+
+  /**
+   * Form Stock Product.
+   * 
+   * @param  string  $ref
+   * @return \Illuminate\Http\Response
+   */
+  public function stock(string $ref)
+  {
+    $product = Product::where('ref', '=', $ref)->first();
+
+    return view('web.stock')->with('product', $product);
+  }
+
+  /**
+   * Mail Stock Product.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  string  $ref
+   * @return \Illuminate\Http\Response
+   */
+  public function stock_mail(Request $request, string $ref)
+  {
+    $request->validate([
+      'name' => ['required', 'string', 'min:3', 'max:255'],
+      'email' => ['required', 'string', 'email', 'max:255'],
+      'phone' => ['required', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
+      'message' => ['required', 'string', 'min:3', 'max:4294967200'],
+    ], [
+      'name.required' => 'Nombre es requerido',
+      'name.min' => 'El Nombre debe tener al menos 3 caracteres',
+      'name.max' => 'El Nombre debe tener maximo 255 caracteres',
+      'email.required' => 'Email es requerido',
+      'email.email' => 'Email inválido',
+      'email.max' => 'El Email debe tener maximo 255 caracteres',
+      'phone.required' => 'Teléfono es requerido',
+      'phone.regex' => 'Teléfono es inválido. Ejem.:(243)-234-5678',
+      'message.required' => 'Mensaje es requerido',
+      'message.min' => 'El Mensaje debe tener al menos 3 caracteres',
+      'message.max' => 'El Mensaje debe tener maximo 4294967200 caracteres',
+    ]);
+
+    $product = Product::where('ref', '=', $ref)->first();
+
+    $mail = new StockMail($request->name, $request->email, $request->phone, $request->message, $product->label, $product->ref);
+      
+    Mail::to('ventas@cd-solec.com', 'Consulta de Stock CD-SOLEC')->send($mail);
+
+    return redirect()->back()->with("message", "¡Gracias por su solicitud!, pronto será contactado");
   }
 
   /**

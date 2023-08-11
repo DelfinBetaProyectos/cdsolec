@@ -57,7 +57,7 @@ class CreateNewUser implements CreatesNewUsers
       'fk_typent' => 0,                     // Tipo de empresa
       'siren' => $input['identification'],  // RIF
       'client' => 2,                        // 2 = Cliente Potencial
-      'price_level' => 1,
+      'price_level' => 2,                   // Nivel de Precio inicial del Cliente (Lista de Precios 2)
       'datec' => date('Y-m-d H:i:s'),
       'fk_user_creat' => $user->rowid,
       'fk_user_modif' => $user->rowid,

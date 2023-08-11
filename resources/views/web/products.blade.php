@@ -181,7 +181,7 @@
 														}
 													@endphp
 													<li class="px-2 py-1 hover:bg-cdsolec-green-light">
-														<input type="checkbox" data-filter="{{$extrafield->name}}" name="{{ $extrafield->name }}[]" onclick="handleCheck()" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $value[$extrafield->name] }}" {{ $checked }} />
+														<input type="checkbox" data-filter="{{ $extrafield->name }}" name="{{ $extrafield->name }}[]" onclick="handleCheck()" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $value[$extrafield->name] }}" {{ $checked }} />
 														{{ $value[$extrafield->name] }}
 													</li>
 												@endforeach
@@ -280,7 +280,13 @@
 												Disponibilidad
 											</div>
 											<div class="p-2 lg:text-right">
-												Stock: {{ $stock }}
+												@if ($stock > 0)
+													Stock: {{ $stock }}
+												@else
+													<a href="{{ route('stock', $product->ref) }}" class="inline-block px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs text-center">
+														Consultar Disponibilidad
+													</a>
+												@endif
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">

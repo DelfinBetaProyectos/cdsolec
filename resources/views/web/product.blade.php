@@ -76,29 +76,35 @@
 						$stock = $product->stock - $product->seuil_stock_alerte;
 						$cart = session()->get('cart', []);
 					@endphp
-					@if ((count($cart) > 0) && isset($cart[$product->rowid]))
-						<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
-							@csrf
-							@method('DELETE')
-							<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
-								Eliminar <i class="fas fa-cart-arrow-down"></i>
-							</button>
-						</form>
-					@else
-						<form action="{{ route('cart.store') }}" method="POST" class="flex flex-col lg:flex-row justify-between">
-							@csrf
-							<input type="hidden" name="product" value="{{ $product->rowid }}" />
-							<div class="flex p-1">
-								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
-								<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
-								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
-							</div>
-							<div class="m-2">
-								<button type="submit" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-									Agregar al Carrito <i class="fas fa-shopping-cart"></i>
+					@if ($stock > 0)
+						@if ((count($cart) > 0) && isset($cart[$product->rowid]))
+							<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
+									Eliminar <i class="fas fa-cart-arrow-down"></i>
 								</button>
-							</div>
-						</form>
+							</form>
+						@else
+							<form action="{{ route('cart.store') }}" method="POST" class="flex flex-col lg:flex-row justify-between">
+								@csrf
+								<input type="hidden" name="product" value="{{ $product->rowid }}" />
+								<div class="flex p-1">
+									<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
+									<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
+									<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
+								</div>
+								<div class="m-2">
+									<button type="submit" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+										Agregar al Carrito <i class="fas fa-shopping-cart"></i>
+									</button>
+								</div>
+							</form>
+						@endif
+					@else
+						<a href="{{ route('stock', $product->ref) }}" class="inline-block my-1 px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs text-center">
+							Consultar Disponibilidad
+						</a>
 					@endif
 					<p><strong>Precio</strong></p>
 					<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
@@ -160,7 +166,7 @@
 												<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
 												<td class="p-2 text-center">
 													<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
-														<x-jet-checkbox id="field_{{ $extrafield->name }}" name="{{ $extrafield->name }}" value="{{ $product_fields[$extrafield->name] }}" />
+														<input type="checkbox" data-filter="{{ $extrafield->name }}" name="{{ $extrafield->name }}[]" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $product_fields[$extrafield->name] }}" />
 													</label>
 												</td>
 											</tr>
@@ -184,6 +190,20 @@
 
 	@push('scripts')
 		<script>
+			function handleCheck() {
+				let myCheckFilters = document.querySelectorAll(".checkfilter:checked");
+				let querystring = '?';
+				let dataArray = [];
+
+				myCheckFilters.forEach(item => {
+					querystring = querystring + '&' + encodeURIComponent(item.dataset.filter) + '[]=' + encodeURIComponent(item.value);
+				});
+
+				let url = '/products' + querystring;
+
+				location.href = url;
+			}
+
 			function decrement(e) {
 				const btn = e.target.parentNode.parentElement.querySelector(
 					'button[data-action="decrement"]'
