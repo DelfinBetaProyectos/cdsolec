@@ -280,7 +280,13 @@
 												Disponibilidad
 											</div>
 											<div class="p-2 lg:text-right">
-												Stock: {{ $stock }}
+												@if ($stock > 0)
+													Stock: {{ $stock }}
+												@else
+													<a href="{{ route('stock', $product->ref) }}" class="inline-block px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs text-center">
+														Consultar Disponibilidad
+													</a>
+												@endif
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
