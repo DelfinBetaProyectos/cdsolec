@@ -92,4 +92,12 @@ class Propal extends Model
   {
     return $this->hasMany(PropalDetail::class, 'fk_propal', 'rowid');
   }
+
+  /**
+   * The commandes that belong to the propal.
+   */
+  public function commandes()
+  {
+      return $this->belongsToMany(Commande::class, 'llx_element_element', 'fk_source', 'fk_target');
+  }
 }

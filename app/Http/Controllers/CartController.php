@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderMail;
-use App\Models\{Product, Setting, Propal, User};
+use App\Models\{Product, Setting, User, Propal, Commande, ElementElement};
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -260,6 +260,7 @@ class CartController extends Controller
     $correlative = str_pad($correlative, 4, '0', STR_PAD_LEFT);
     $ref = 'PR'.date('ym').'-'.$correlative;
 
+    /* Crear el Presupuesto */
     $propal = Propal::create([
       'ref' => $ref,
       'fk_soc' => $user->society->rowid,
@@ -268,7 +269,7 @@ class CartController extends Controller
       'date_valid' => Carbon::now(),
       'fk_user_author' => $user->rowid,
       'fk_user_valid' => $user->rowid,
-      'fk_statut' => 1,
+      'fk_statut' => 2,
       'total_ht' => 0,  // Total sin IVA
       'tva' => 0,       // IVA
       'total' => 0,     // Total + IVA
@@ -332,9 +333,66 @@ class CartController extends Controller
       'multicurrency_total_ttc' => $total_usd
     ]);
 
+    $query = Commande::select('ref')->orderBy('ref', 'desc')->first();
+    $last_ref = explode("-", $query);
+    $correlative = intval($last_ref[1]) + 1;
+    $correlative = str_pad($correlative, 4, '0', STR_PAD_LEFT);
+    $ref = 'CO'.date('ym').'-'.$correlative;
+
+    /* Crear el Pedido */
+    $commande = Commande::create([
+      'ref' => $ref,
+      'entity' => 1,
+      'fk_soc' => $user->society->rowid,
+      'date_creation' => Carbon::now(),
+      'date_valid' => Carbon::now(),
+      'date_cloture' => Carbon::now(),
+      'date_commande' => Carbon::now(),
+      'fk_user_author' => $user->rowid,
+      'fk_user_valid' => $user->rowid,
+      'fk_statut' => 1,
+      'total_ht' => $propal->total_ht,  // Total sin IVA
+      'tva' => $propal->tva,            // IVA
+      'total_ttc' => $propal->total,    // Total + IVA
+      'fk_multicurrency' => 1,
+      'multicurrency_code' => 'USD',
+      'multicurrency_tx' => $propal->multicurrency_tx,  // Tasa del USD
+      'multicurrency_total_ht' => $propal->multicurrency_total_ht,
+      'multicurrency_total_tva' => $propal->multicurrency_total_tva,
+      'multicurrency_total_ttc' => $propal->multicurrency_total_ttc,
+    ]);
+
+    foreach ($propal->propal_detail as $item) {
+      $commande->commande_detail()->create([
+        'fk_product' => $item->fk_product,
+        'label' => $item->label,
+        'description' => $item->description,
+        'tva_tx' => $item->tva_tx,  // IVA del Producto
+        'qty' => $item->qty,
+        'remise_percent' => $item->remise_percent,  // Porcentaje Descuento al Producto
+        'price' => $item->price, // Precio del Producto con Descuento
+        'subprice' => $item->subprice,  // Precio del Producto sin Descuento
+        'total_ht' => $item->total_ht,  // Precio total del Producto sin IVA (price*qty)
+        'total_tva' => $item->total_tva,  // Monto total del IVA aplicado a ese Producto
+        'total_ttc' => $item->total_ttc,  // Precio total del Producto + IVA (total_ht+total_tva)
+        'product_type' => $item->product_type,  // 0 = Producto | 1 = Servicio
+        'multicurrency_subprice' => $item->multicurrency_subprice,
+        'multicurrency_total_ht' => $item->multicurrency_total_ht,
+        'multicurrency_total_tva' => $item->multicurrency_total_tva,
+        'multicurrency_total_ttc' => $item->multicurrency_total_ttc
+      ]);
+    }
+
+    ElementElement::create([
+      'fk_source' => $propal->rowid,
+      'sourcetype' => 'propal',
+      'fk_target' => $commande->rowid,
+      'targettype' => 'commande'
+    ]);
+
     $request->session()->forget(['cart']);
 
-    Mail::to($user->email, 'Compra CD-SOLEC')->cc('ventas@cd-solec.com', 'Compra CD-SOLEC')->send(new OrderMail($propal));
+    Mail::to($user->email, 'Compra CD-SOLEC')->cc('ventas@cd-solec.com', 'Compra CD-SOLEC')->send(new OrderMail($commande));
 
     return redirect()->route('orders.show', $propal);
   }

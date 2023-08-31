@@ -16,21 +16,21 @@
 
 		<div class="flex flex-wrap justify-center">
 			<div class="w-full shadow rounded-md overflow-hidden bg-white px-4 py-3 sm:px-6">
-				<h2 class="text-3xl leading-tight font-bold mt-4">Compra {{ $propal->ref }}</h2>
+				<h2 class="text-3xl leading-tight font-bold mt-4">Compra {{ $commande->ref }}</h2>
 
 				<div id="message" class="my-3 px-3 py-2 rounded border border-green-600 bg-green-200 text-green-600 text-sm font-bold" {{ (!session()->has('success')) ? 'hidden' : '' }}>
 					{{ (session()->has('success')) ? session()->get('success') : '' }}
 				</div>
 
 				<div class="my-2 p-3 rounded-lg border bg-gray-300">
-					<form action="{{ route('orders.name', $propal) }}" method="POST">
+					<form action="{{ route('orders.name', $commande) }}" method="POST">
 						@csrf
 						<div class="grid gap-2 md:grid-cols-4">
 							<div>								
 								<x-jet-label for="name" value="Nombre del Proyecto:" class="font-bold text-xl" />
 							</div>
 							<div class="col-span-2">
-								<x-jet-input type="text" id="name" name="name" value="{{ $propal->ref_client }}" placeholder="Nombre del proyecto:" required />
+								<x-jet-input type="text" id="name" name="name" value="{{ $commande->ref_client }}" placeholder="Nombre del proyecto:" required />
 							</div>
 							<div>
 								<x-jet-button type="submit">Guardar</x-jet-button>
@@ -50,10 +50,10 @@
 							</tr>
 						</thead>
 						<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-							@foreach($propal->propal_detail as $item)
+							@foreach($commande->commande_detail as $item)
 								@php
-									$price_bs = $item->price * $propal->multicurrency_tx;
-									$subtotal_bs = $item->total_ht * $propal->multicurrency_tx;
+									$price_bs = $item->price * $commande->multicurrency_tx;
+									$subtotal_bs = $item->total_ht * $commande->multicurrency_tx;
 
 									if (app()->environment('production')) {
 										$image = null;
@@ -128,7 +128,7 @@
 								</tr>
 							@endforeach
 							@php
-								$total_bs = $propal->total_ht * $propal->multicurrency_tx;
+								$total_bs = $commande->total_ht * $commande->multicurrency_tx;
 							@endphp
 							<tr class="flex flex-col lg:table-row bg-gray-300">
 								<td colspan="3" class="flex flex-row lg:table-cell border-2">
@@ -153,14 +153,14 @@
 										<p>
 											$USD 
 											<span id="subtotal_usd">
-												{{ number_format($propal->total_ht, 2, ',', '.') }}
+												{{ number_format($commande->total_ht, 2, ',', '.') }}
 											</span>
 										</p>
 									</div>
 								</td>
 							</tr>
 							@php
-								$iva_bs = $propal->tva * $propal->multicurrency_tx;
+								$iva_bs = $commande->tva * $commande->multicurrency_tx;
 							@endphp
 							<tr class="flex flex-col lg:table-row bg-gray-300">
 								<td colspan="3" class="flex flex-row lg:table-cell border-2">
@@ -185,7 +185,7 @@
 										<p>
 											$USD 
 											<span id="iva_usd">
-												{{ number_format($propal->tva, 2, ',', '.') }}
+												{{ number_format($commande->tva, 2, ',', '.') }}
 											</span>
 										</p>
 									</div>
@@ -217,7 +217,7 @@
 										<p>
 											$USD 
 											<span id="total_usd">
-												{{ number_format($propal->total, 2, ',', '.') }}
+												{{ number_format($commande->total_ttc, 2, ',', '.') }}
 											</span>
 										</p>
 									</div>

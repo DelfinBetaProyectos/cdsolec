@@ -106,7 +106,7 @@
                 </div>
                 <div class="p-2 lg:text-right font-bold">
                   <p>Bs {{ number_format($total_bs, 2, ',', '.') }}</p>
-                  <p>$USD {{ number_format($order->total, 2, ',', '.') }}</p>
+                  <p>$USD {{ number_format($order->total_ttc, 2, ',', '.') }}</p>
                 </div>
               </td>
               <td class="flex flex-row lg:table-cell">
@@ -122,7 +122,7 @@
                   Fecha
                 </div>
                 <div class="p-2 text-center">
-                  {{ $order->datec->format('d/m/Y') }}
+                  {{ $order->date_creation->format('d/m/Y') }}
                 </div>
               </td>
               <td class="flex flex-row lg:table-cell">
@@ -138,7 +138,7 @@
             </tr>
           @endforeach
         </tbody>
-			@endif
+      @endif
 		</table>
 
 		{{ $orders->links() }}

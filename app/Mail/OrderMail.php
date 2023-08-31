@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Propal;
+use App\Models\Commande;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -15,19 +15,19 @@ class OrderMail extends Mailable
     /**
      * The message instance.
      *
-     * @var \App\Models\Propal
+     * @var \App\Models\Commande
      */
-    public $propal;
+    public $commande;
 
     /**
      * Create a new message instance.
      *
-     * @var \App\Models\Propal
+     * @var \App\Models\Commande
      * @return void
      */
-    public function __construct(Propal $propal)
+    public function __construct(Commande $commande)
     {
-        $this->propal = $propal;
+        $this->commande = $commande;
     }
 
     /**
