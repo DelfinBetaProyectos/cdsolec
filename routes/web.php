@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +44,12 @@ Route::apiResource('cart', CartController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-    Route::post('/orders/{propal}/name', [OrderController::class, 'name'])->name('orders.name');
+    Route::post('/orders/{commande}/name', [OrderController::class, 'name'])->name('orders.name');
 
-    Route::resource('orders', OrderController::class)->parameters(['orders' => 'propal']);
+    Route::resource('orders', OrderController::class)->parameters(['orders' => 'commande']);
+
+    Route::resource('orders.payments', PaymentController::class)->shallow()->parameters(['orders' => 'commande']);
 });
 
 /* Mail Preview */
-Route::get('/mail/orders/{propal}', [OrderController::class, 'mail'])->name('orders.mail');
+Route::get('/mail/orders/{commande}', [OrderController::class, 'mail'])->name('orders.mail');

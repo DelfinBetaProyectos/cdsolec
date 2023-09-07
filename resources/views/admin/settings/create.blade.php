@@ -18,18 +18,15 @@
 			<div class="w-full lg:w-3/4 shadow rounded-md overflow-hidden bg-white">
 				<div class="mx-4 mt-5 text-sm text-red-800 p-2 rounded bg-red-300 border border-red-800 
 				{{ ($errors->any()) ? 'block' : 'hidden' }}">
-				<x-jet-validation-errors class="mb-4" />
-			</div>
+					<x-jet-validation-errors class="mb-4" />
+				</div>
 			
-			<form id="form" name="form" method="POST" action="{{ route('settings.store') }}" enctype="multipart/form-data">          
-				@csrf
+				<form id="form" name="form" method="POST" action="{{ route('settings.store') }}" enctype="multipart/form-data">          
+					@csrf
 
-				@include("admin.settings.form")
-
-			</form>
-
+					@include("admin.settings.form")
+				</form>
+			</div>
 		</div>
-
 	</div>
-
 </x-dashboard-layout>
