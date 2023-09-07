@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/orders/{commande}/name', [OrderController::class, 'name'])->name('orders.name');
 
     Route::resource('orders', OrderController::class)->parameters(['orders' => 'commande']);
+
+    Route::resource('orders.payments', PaymentController::class)->shallow()->parameters(['orders' => 'commande']);
 });
 
 /* Mail Preview */

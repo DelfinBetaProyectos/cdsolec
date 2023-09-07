@@ -226,6 +226,56 @@
 						</tbody>
 					</table>
 				</div>
+
+				<div class="my-2 p-3 rounded-lg border bg-gray-300">
+					<div class="p-3 flex justify-between">
+						<div>
+							<p class="font-bold">Factura: {{ ($facture) ? $facture->ref : '' }}</p>
+						</div>
+						<div>
+							<a href="{{ route('orders.payments.create', $commande) }}" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-cdsolec-green-dark hover:bg-cdsolec-green-light tracking-wider rounded-md transition">
+								<i class="fas fa-dollar-sign"></i> Agregar Pago
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<table class="my-2 w-full rounded-lg overflow-hidden bg-white border-collapse border border-green-800">
+					<thead class="border bg-gray-300">
+						<tr class="hidden lg:table-row text-sm leading-4 tracking-wider">
+							<th class="px-3 py-4 border-2 text-center">Código</th>
+							<th class="px-3 py-4 border-2 text-center" style="width: 220px">Referencia</th>
+							<th class="px-3 py-4 border-2 text-center" style="width: 200px">Tipo</th>
+							<th class="px-3 py-4 border-2 text-center" style="width: 120px">Fecha</th>
+							<th class="px-3 py-4 border-2 text-center" style="width: 220px">Monto $USD</th>
+						</tr>
+					</thead>
+					@if ($facture)
+						@if ($facture->paiements->isNotEmpty())
+							@php
+								$total = 0;
+							@endphp
+							<tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
+								@foreach ($facture->paiements as $paiement)
+									@php
+										$total += $paiement->amount;
+									@endphp
+									<tr>
+										<td>{{ $paiement->ref }}</td>
+										<td>{{ $paiement->num_paiement }}</td>
+										<td>{{ $paiement->type->libelle }}</td>
+										<td>{{ $paiement->datec->format('d/m/Y') }}</td>
+										<td class="text-right">{{ number_format($paiement->amount, 2, ',', '.') }}</td>
+									</tr>
+								@endforeach
+								<tr class="border bg-gray-300">
+									<td colspan="4" class="text-right font-bold">Total $USD:</td>
+									<td class="text-right font-bold">{{ number_format($total, 2, ',', '.') }}</td>
+								</tr>
+							</tbody>
+						@endif
+					@endif
+				</table>
 			</div>
 		</div>
 	</div>

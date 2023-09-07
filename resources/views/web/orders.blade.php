@@ -130,6 +130,9 @@
                   Opciones
                 </div>
                 <div class="p-2 text-center">
+                  <a href="{{ route('orders.payments.create', $order) }}" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
+                    <i class="fas fa-dollar-sign"></i>
+                  </a>
                   <a href="{{ route('orders.show', $order) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
                     <i class="fas fa-sm fa-file"></i>
                   </a>

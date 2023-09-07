@@ -313,6 +313,8 @@ class CartController extends Controller
         'total_tva' => $total_tva,  // Monto total del IVA aplicado a ese Producto
         'total_ttc' => $total_ttc,  // Precio total del Producto + IVA (total_ht+total_tva)
         'product_type' => 0, // 0 = Producto | 1 = Servicio
+        'fk_multicurrency' => 1,
+        'multicurrency_code' => 'USD',
         'multicurrency_subprice' => $prices->price,
         'multicurrency_total_ht' => $total_ht,
         'multicurrency_total_tva' => $total_tva,
@@ -376,6 +378,8 @@ class CartController extends Controller
         'total_tva' => $item->total_tva,  // Monto total del IVA aplicado a ese Producto
         'total_ttc' => $item->total_ttc,  // Precio total del Producto + IVA (total_ht+total_tva)
         'product_type' => $item->product_type,  // 0 = Producto | 1 = Servicio
+        'fk_multicurrency' => 1,
+        'multicurrency_code' => 'USD',
         'multicurrency_subprice' => $item->multicurrency_subprice,
         'multicurrency_total_ht' => $item->multicurrency_total_ht,
         'multicurrency_total_tva' => $item->multicurrency_total_tva,
@@ -394,6 +398,6 @@ class CartController extends Controller
 
     Mail::to($user->email, 'Compra CD-SOLEC')->cc('ventas@cd-solec.com', 'Compra CD-SOLEC')->send(new OrderMail($commande));
 
-    return redirect()->route('orders.show', $propal);
+    return redirect()->route('orders.show', $commande);
   }
 }

@@ -52,7 +52,9 @@ class OrderController extends Controller
   public function show(Commande $commande)
   {
     if (Auth::user()->society->rowid == $commande->fk_soc) {
-      return view('web.order')->with('commande', $commande);
+      $facture = $commande->factures()->first();
+
+      return view('web.order')->with('commande', $commande)->with('facture', $facture);
     } else {
       return redirect()->route('orders.index');
     }
