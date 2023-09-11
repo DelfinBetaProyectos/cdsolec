@@ -63,8 +63,8 @@
 											<div class="flex-shrink-0 h-10 w-10 mr-4">
 												<img class="h-10 w-10 rounded-full" src="{{ asset($item['image']) }}" alt="{{ $item['label'] }}" title="{{ $item['label'] }}" />
 											</div>
-											<div class="leading-5">
-												<p class="text-sm text-cdsolec-blue-light font-bold">{{ $item['label'] }}</p>
+											<div class="leading-5 font-bold">
+												<p class="text-sm text-cdsolec-blue-light">{{ $item['label'] }}</p>
 												<p>Ref: {{ $item['ref'] }}</p>
 											</div>
 										</div>
@@ -87,7 +87,7 @@
 										</div>
 										<div class="px-3 py-2 lg:py-4 lg:text-right">
 											<p>Bs {{ number_format($item['price'] * $tasa_usd, 2, ',', '.') }}</p>
-											<p>$USD {{ number_format($item['price'], 2, ',', '.') }}</p>
+											<p class="font-bold">$USD {{ number_format($item['price'], 2, ',', '.') }}</p>
 										</div>
 									</td>
 									<td class="flex flex-row lg:table-cell border-2 text-center">
@@ -101,7 +101,7 @@
 													{{ number_format($subtotal['bs'], 2, ',', '.') }}
 												</span>
 											</p>
-											<p>
+											<p class="font-bold">
 												$USD 
 												<span id="subtotal_usd_{{ $item['id'] }}">
 													{{ number_format($subtotal['usd'], 2, ',', '.') }}
