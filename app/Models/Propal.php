@@ -98,6 +98,8 @@ class Propal extends Model
    */
   public function commandes()
   {
-    return $this->belongsToMany(Commande::class, 'llx_element_element', 'fk_source', 'fk_target');
+    return $this->belongsToMany(Commande::class, 'llx_element_element', 'fk_source', 'fk_target')
+                ->where('sourcetype', 'propal')
+                ->where('targettype', 'commande');
   }
 }

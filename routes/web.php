@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\PaymentController;
 
 /*
@@ -45,8 +46,10 @@ Route::apiResource('cart', CartController::class);
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('/orders/{commande}/name', [OrderController::class, 'name'])->name('orders.name');
+    Route::post('/budgets/{propal}/name', [BudgetController::class, 'name'])->name('budgets.name');
 
     Route::resource('orders', OrderController::class)->parameters(['orders' => 'commande']);
+    Route::resource('budgets', BudgetController::class)->parameters(['budgets' => 'propal']);
 
     Route::resource('orders.payments', PaymentController::class)->shallow()->parameters(['orders' => 'commande']);
 });

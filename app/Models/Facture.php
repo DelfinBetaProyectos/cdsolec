@@ -80,7 +80,9 @@ class Facture extends Model
    */
   public function commandes()
   {
-    return $this->belongsToMany(Commande::class, 'llx_element_element', 'fk_target', 'fk_source');
+    return $this->belongsToMany(Commande::class, 'llx_element_element', 'fk_target', 'fk_source')
+                ->where('sourcetype', 'commande')
+                ->where('targettype', 'facture');
   }
 
   /**
@@ -88,7 +90,9 @@ class Facture extends Model
    */
   public function propals()
   {
-    return $this->belongsToMany(Propal::class, 'llx_element_element', 'fk_target', 'fk_source');
+    return $this->belongsToMany(Propal::class, 'llx_element_element', 'fk_target', 'fk_source')
+                ->where('sourcetype', 'propal')
+                ->where('targettype', 'facture');
   }
 
   /**
