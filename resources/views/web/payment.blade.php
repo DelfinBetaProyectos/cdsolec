@@ -56,7 +56,7 @@
 									<option value="">Seleccione</option>
 									@if ($accounts->isNotEmpty())
 										@foreach ($accounts as $account)
-											<option value="{{ $account->rowid }}">{{ $account->bank }}</option>
+											<option value="{{ $account->rowid }}">{{ $account->label }}</option>
 										@endforeach
 									@endif
 								</select>

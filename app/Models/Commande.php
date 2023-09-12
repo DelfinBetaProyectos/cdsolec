@@ -94,7 +94,9 @@ class Commande extends Model
    */
   public function propals()
   {
-    return $this->belongsToMany(Propal::class, 'llx_element_element', 'fk_target', 'fk_source');
+    return $this->belongsToMany(Propal::class, 'llx_element_element', 'fk_target', 'fk_source')
+                ->where('sourcetype', 'propal')
+                ->where('targettype', 'commande');
   }
 
   /**
@@ -102,6 +104,8 @@ class Commande extends Model
    */
   public function factures()
   {
-    return $this->belongsToMany(Facture::class, 'llx_element_element', 'fk_source', 'fk_target');
+    return $this->belongsToMany(Facture::class, 'llx_element_element', 'fk_source', 'fk_target')
+                ->where('sourcetype', 'commande')
+                ->where('targettype', 'facture');
   }
 }

@@ -34,8 +34,8 @@
 										<div class="flex-shrink-0 h-10 w-10 mr-4">
 											<img class="h-10 w-10 rounded-full" src="../img/favicon/apple-icon.png" alt="{{ $item->label }}" title="{{ $item->label }}" />
 										</div>
-										<div class="leading-5">
-											<p class="text-sm text-cdsolec-blue-light font-bold">{{ $item->description }}</p>
+										<div class="leading-5 font-bold">
+											<p class="text-sm text-cdsolec-blue-light">{{ $item->description }}</p>
 											<p>Ref: {{ $item->label }}</p>
 										</div>
 									</div>
@@ -54,7 +54,7 @@
 									</div>
 									<div class="px-3 py-2 lg:py-4 lg:text-right">
 										<p>Bs {{ number_format($price_bs, 2, ',', '.') }}</p>
-										<p>$USD {{ number_format($item->price, 2, ',', '.') }}</p>
+										<p class="font-bold">$USD {{ number_format($item->price, 2, ',', '.') }}</p>
 									</div>
 								</td>
 								<td class="flex flex-row lg:table-cell border-2 text-center">
@@ -68,7 +68,7 @@
 												{{ number_format($subtotal_bs, 2, ',', '.') }}
 											</span>
 										</p>
-										<p>
+										<p class="font-bold">
 											$USD 
 											<span id="subtotal_usd_{{ $item['id'] }}">
 												{{ number_format($item->total_ht, 2, ',', '.') }}
