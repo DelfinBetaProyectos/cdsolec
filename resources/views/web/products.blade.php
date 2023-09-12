@@ -279,12 +279,12 @@
 											<div class="p-2 w-32 lg:hidden bg-gray-300 text-sm leading-4 tracking-wider font-bold">
 												Disponibilidad
 											</div>
-											<div class="p-2 lg:text-right">
+											<div class="p-2 lg:text-center">
 												@if ($stock > 0)
 													Stock: {{ $stock }}
 												@else
-													<a href="{{ route('stock', $product->ref) }}" class="inline-block px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs text-center">
-														Consultar Disponibilidad
+													<a href="{{ route('stock', $product->ref) }}" class="inline-block px-2 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-center" style="font-size: 0.7rem">
+														Consultar
 													</a>
 												@endif
 											</div>
