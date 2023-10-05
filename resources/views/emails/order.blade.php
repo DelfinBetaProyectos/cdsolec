@@ -24,7 +24,7 @@ $iva_bs = $commande->tva * $commande->multicurrency_tx;
 @php
 $total_bs = $total_bs + $iva_bs;
 @endphp
-|          |          |                 **Total** | **Bs {{ number_format($total_bs, 2, ',', '.') }}<br />$USD {{ number_format($commande->total, 2, ',', '.') }}** |
+|          |          |                 **Total** | **Bs {{ number_format($total_bs, 2, ',', '.') }}<br />$USD {{ number_format($commande->total_ttc, 2, ',', '.') }}** |
 @endcomponent
 
 **{{ config('app.name') }}**
