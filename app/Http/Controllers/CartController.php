@@ -265,6 +265,7 @@ class CartController extends Controller
       'ref' => $ref,
       'fk_soc' => $user->society->rowid,
       'datec' => Carbon::now(),
+      'datep' => Carbon::now(),
       'fin_validite' => Carbon::now()->addDays(15),
       'date_valid' => Carbon::now(),
       'fk_user_author' => $user->rowid,
