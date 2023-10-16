@@ -45,7 +45,7 @@
 				activeTab: 0,
 				tabs: [
 						"Categorías",
-						"Sectores de Interés",
+						// "Sectores de Interés",
 				]
 			};
 		};

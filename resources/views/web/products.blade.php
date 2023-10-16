@@ -116,7 +116,7 @@
 							@endif
 						</div>
 					</div>
-					<div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
+					<!-- <div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
 						<input type="checkbox" id="tab-two" name="filters" value="{{ request()->sector }}" class="absolute opacity-0" />
 						<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
 							<div>Sectores de Interés</div> <i class="fas fa-fw fa-caret-down"></i>
@@ -155,7 +155,7 @@
 								</ul>
 							@endif
 						</div>
-					</div>
+					</div> -->
 					@if ($extrafields->isNotEmpty())
 						@foreach ($extrafields as $extrafield)
 							@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
@@ -262,6 +262,7 @@
 												Información
 											</div>
 											<div class="p-2">
+												<p>{{ $product_fields['at1'] }}</p>
 												<a href="{{ route('product', $product->ref) }}" class="text-cdsolec-blue-light font-bold">
 													{{ $product->label }}
 												</a>
