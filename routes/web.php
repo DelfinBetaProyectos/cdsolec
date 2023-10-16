@@ -33,6 +33,9 @@ Route::middleware(['auth:sanctum', 'verified'])
 
 Route::get('/about', [WelcomeController::class, 'about'])->name('about');
 Route::get('/brands', [WelcomeController::class, 'brands'])->name('brands');
+Route::get('/solutions', [WelcomeController::class, 'solutions'])->name('solutions');
+Route::get('/conditions', [WelcomeController::class, 'conditions'])->name('conditions');
+Route::get('/policy', [WelcomeController::class, 'policy'])->name('policy');
 Route::get('/products', [WelcomeController::class, 'products'])->name('products');
 Route::get('/product/{product}', [WelcomeController::class, 'product'])->name('product');
 Route::get('/product/{product}/stock', [WelcomeController::class, 'stock'])->name('stock');

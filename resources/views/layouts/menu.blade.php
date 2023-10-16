@@ -77,7 +77,7 @@
                         @endif
                       </div>
                     </div>
-                    <div x-show="activeTab===1">
+                    <!-- <div x-show="activeTab===1">
                       <div class="flex flex-col flex-wrap h-64 overflow-x-auto">
                         @if ($sectors->isNotEmpty())
                           @foreach($sectors as $item)
@@ -88,13 +88,13 @@
                           @endforeach
                         @endif
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <x-jet-nav-link href="#">
+          <x-jet-nav-link href="{{ route('solutions') }}" :active="request()->routeIs('solutions')">
             Soluciones
           </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">

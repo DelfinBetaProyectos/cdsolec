@@ -86,6 +86,42 @@ class WelcomeController extends Controller
   }
 
   /**
+   * Display Solutions.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function solutions()
+  {
+    $solutions = Content::find(4);
+
+    return view('web.solutions')->with('solutions', $solutions);
+  }
+
+  /**
+   * Display Conditions.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function conditions()
+  {
+    $conditions = Content::find(5);
+
+    return view('web.conditions')->with('conditions', $conditions);
+  }
+
+  /**
+   * Display Policy.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function policy()
+  {
+    $policy = Content::find(6);
+
+    return view('web.policy')->with('policy', $policy);
+  }
+
+  /**
    * Display Products.
    * 
    * @param  \Illuminate\Http\Request  $request
