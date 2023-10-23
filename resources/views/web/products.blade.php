@@ -364,11 +364,12 @@
 		<script>
 			function handleCheck() {
 				let category = document.getElementById('tab-one').value;
-				let sector = document.getElementById('tab-two').value;
+				// let sector = document.getElementById('tab-two').value;
 				let table = document.getElementById('products');
 				// let tbody = table.getElementsByTagName('tbody')[0];
 				let myCheckFilters = document.querySelectorAll(".checkfilter:checked");
-				let querystring = '?category=' + category + '&sector=' + sector;
+				// let querystring = '?category=' + category + '&sector=' + sector;
+				let querystring = '?category=' + category;
 				let dataArray = [];
 
 				myCheckFilters.forEach(item => {
