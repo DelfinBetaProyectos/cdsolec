@@ -60,6 +60,12 @@
 				</div>
 				<div>
 					<h2 class="text-cdsolec-green-dark font-semibold text-lg py-1">{{ $product->label }}</h2>
+					@if ($extrafields->isNotEmpty())
+						@php
+							$product_fields = $product->extrafields->toArray();
+						@endphp
+						<h3 class="font-semibold">{{ $product_fields['at1'] }}</h3>
+					@endif
 					<h3 class="uppercase font-semibold tracking-widest">Ref: {{ $product->ref }}</h3>
 					<h4 class="font-bold">Descripción</h4>
 					{!! $product->description !!}

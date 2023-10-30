@@ -262,10 +262,10 @@
 												Información
 											</div>
 											<div class="p-2">
-												<p>{{ $product_fields['at1'] }}</p>
 												<a href="{{ route('product', $product->ref) }}" class="text-cdsolec-blue-light font-bold">
 													{{ $product->label }}
 												</a>
+												<p>{{ $product_fields['at1'] }}</p>
 												<p class="font-bold">Ref: {{ $product->ref }}</p>
 												@if ($datasheet)
 													<p>
