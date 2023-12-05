@@ -92,18 +92,18 @@
         <hr class="my-2">
         <ul class="mt-2 flex flex-row list-none items-center">
           <li>
-            <a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+            <a href="https://wa.me/+584128915299" target="_blank" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
               <i class="fab fa-whatsapp leading-lg"></i>
             </a>
           </li>
           <li>
-            <a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
-              <i class="fab fa-twitter leading-lg"></i>
+            <a href="https://www.instagram.com/cdsolec/" target="_blank" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+              <i class="fab fa-instagram leading-lg"></i>
             </a>
           </li>
           <li>
-            <a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
-              <i class="fab fa-instagram leading-lg"></i>
+            <a href="https://www.youtube.com/channel/UCixT72Hh42vepJ6hFX-rDLw" target="_blank" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+              <i class="fab fa-youtube leading-lg"></i>
             </a>
           </li>
         </ul>
