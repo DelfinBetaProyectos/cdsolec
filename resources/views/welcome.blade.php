@@ -148,6 +148,12 @@
 										} else {
 											$image = 'img/favicon/apple-icon.png';
 										}
+
+										$price_original = $product->prices->where('price_level', 1)->first();
+										$price_client = $product->prices->where('price_level', $price_level)->first();
+										if ($price_client == null) {
+											$price_client = $price_original;
+										}
 									@endphp
 									<li class="splide__slide border border-gray-400 rounded-xl grid grid-cols-1 gap-2 content-between">
 										<div class="p-2">
@@ -156,8 +162,9 @@
 										<div class="text-center">
 											<h6 class="text-lg font-semibold">{{ $product->label }}</h6>
 											<div class="text-base font-bold text-cdsolec-green-dark">
-												<p>Bs {{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}</p>
-												<p>$USD {{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}</p>
+												<p class="line-through text-red-600">$USD {{ number_format($price_original->price_discount, 2, ',', '.') }}</p>
+												<p>$USD {{ number_format($price_client->price_discount, 2, ',', '.') }}</p>
+												<p>Bs {{ number_format(($price_client->price_discount * $tasa_usd), 2, ',', '.') }}</p>
 											</div>
 											<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">
 												Ref: {{ $product->ref }}

@@ -1,4 +1,4 @@
-<x-web-layout title="Nosotros">
+<x-web-layout title="Soluciones">
 	@section('background', asset('img/slide1.jpg'))
 
 	@section('content')

@@ -23,13 +23,13 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 311:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_627__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_627__) => {
 
 // ESM COMPAT FLAG
-__nested_webpack_require_627__.r(__webpack_exports__);
+__nested_webpack_require_627__.r(__nested_webpack_exports__);
 
 // EXPORTS
-__nested_webpack_require_627__.d(__webpack_exports__, {
+__nested_webpack_require_627__.d(__nested_webpack_exports__, {
   "default": () => /* binding */ module_Splide
 });
 
@@ -8867,7 +8867,7 @@ module.exports = function transformData(data, headers, fns) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
@@ -9932,7 +9932,6 @@ module.exports = {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 /***/ }),
@@ -9944,6 +9943,7 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -9952,13 +9952,17 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
+
 // import Echo from 'laravel-echo';
+
 // window.Pusher = require('pusher-js');
+
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
 //     key: process.env.MIX_PUSHER_APP_KEY,
@@ -9967,13 +9971,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 var flatpickr = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/esm/index.js");
-
 window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
 /**
  * DOCS Splide 
  * https://splidejs.com/
  */
-
 window.Splide = __webpack_require__(/*! @splidejs/splide */ "./node_modules/@splidejs/splide/dist/js/splide.esm.js");
 window.Zooming = __webpack_require__(/*! zooming */ "./node_modules/zooming/build/zooming.module.js");
 
@@ -11987,8 +11990,8 @@ if (typeof window !== "undefined") {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "english": () => (/* binding */ english),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   english: () => (/* binding */ english)
 /* harmony export */ });
 const english = {
     weekdays: {
@@ -12075,8 +12078,8 @@ const english = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "HOOKS": () => (/* binding */ HOOKS),
-/* harmony export */   "defaults": () => (/* binding */ defaults)
+/* harmony export */   HOOKS: () => (/* binding */ HOOKS),
+/* harmony export */   defaults: () => (/* binding */ defaults)
 /* harmony export */ });
 const HOOKS = [
     "onChange",
@@ -12172,13 +12175,13 @@ const defaults = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createDateFormatter": () => (/* binding */ createDateFormatter),
-/* harmony export */   "createDateParser": () => (/* binding */ createDateParser),
-/* harmony export */   "compareDates": () => (/* binding */ compareDates),
-/* harmony export */   "compareTimes": () => (/* binding */ compareTimes),
-/* harmony export */   "isBetween": () => (/* binding */ isBetween),
-/* harmony export */   "duration": () => (/* binding */ duration),
-/* harmony export */   "getDefaultHours": () => (/* binding */ getDefaultHours)
+/* harmony export */   compareDates: () => (/* binding */ compareDates),
+/* harmony export */   compareTimes: () => (/* binding */ compareTimes),
+/* harmony export */   createDateFormatter: () => (/* binding */ createDateFormatter),
+/* harmony export */   createDateParser: () => (/* binding */ createDateParser),
+/* harmony export */   duration: () => (/* binding */ duration),
+/* harmony export */   getDefaultHours: () => (/* binding */ getDefaultHours),
+/* harmony export */   isBetween: () => (/* binding */ isBetween)
 /* harmony export */ });
 /* harmony import */ var _formatting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formatting */ "./node_modules/flatpickr/dist/esm/utils/formatting.js");
 /* harmony import */ var _types_options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/options */ "./node_modules/flatpickr/dist/esm/types/options.js");
@@ -12318,12 +12321,12 @@ function getDefaultHours(config) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "toggleClass": () => (/* binding */ toggleClass),
-/* harmony export */   "createElement": () => (/* binding */ createElement),
-/* harmony export */   "clearNode": () => (/* binding */ clearNode),
-/* harmony export */   "findParent": () => (/* binding */ findParent),
-/* harmony export */   "createNumberInput": () => (/* binding */ createNumberInput),
-/* harmony export */   "getEventTarget": () => (/* binding */ getEventTarget)
+/* harmony export */   clearNode: () => (/* binding */ clearNode),
+/* harmony export */   createElement: () => (/* binding */ createElement),
+/* harmony export */   createNumberInput: () => (/* binding */ createNumberInput),
+/* harmony export */   findParent: () => (/* binding */ findParent),
+/* harmony export */   getEventTarget: () => (/* binding */ getEventTarget),
+/* harmony export */   toggleClass: () => (/* binding */ toggleClass)
 /* harmony export */ });
 function toggleClass(elem, className, bool) {
     if (bool === true)
@@ -12392,10 +12395,10 @@ function getEventTarget(event) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "monthToStr": () => (/* binding */ monthToStr),
-/* harmony export */   "revFormat": () => (/* binding */ revFormat),
-/* harmony export */   "tokenRegex": () => (/* binding */ tokenRegex),
-/* harmony export */   "formats": () => (/* binding */ formats)
+/* harmony export */   formats: () => (/* binding */ formats),
+/* harmony export */   monthToStr: () => (/* binding */ monthToStr),
+/* harmony export */   revFormat: () => (/* binding */ revFormat),
+/* harmony export */   tokenRegex: () => (/* binding */ tokenRegex)
 /* harmony export */ });
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./node_modules/flatpickr/dist/esm/utils/index.js");
 
@@ -12543,10 +12546,10 @@ const formats = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "pad": () => (/* binding */ pad),
-/* harmony export */   "int": () => (/* binding */ int),
-/* harmony export */   "debounce": () => (/* binding */ debounce),
-/* harmony export */   "arrayify": () => (/* binding */ arrayify)
+/* harmony export */   arrayify: () => (/* binding */ arrayify),
+/* harmony export */   debounce: () => (/* binding */ debounce),
+/* harmony export */   int: () => (/* binding */ int),
+/* harmony export */   pad: () => (/* binding */ pad)
 /* harmony export */ });
 const pad = (number, length = 2) => `000${number}`.slice(length * -1);
 const int = (bool) => (bool === true ? 1 : 0);
@@ -42076,7 +42079,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
 /******/ 					installedChunks[chunkId][0]();
 /******/ 				}
-/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 				installedChunks[chunkId] = 0;
 /******/ 			}
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}

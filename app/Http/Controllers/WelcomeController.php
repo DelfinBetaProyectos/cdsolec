@@ -53,12 +53,14 @@ class WelcomeController extends Controller
     $products = Product::query()->with([
                   'prices' => function ($query) use ($price_level) {
                     $query->where('price_level', '=', $price_level)
+                          ->orWhere('price_level', '=', 1)
                           ->orderBy('date_price', 'desc');
                   }
                 ])
                 ->where('tosell', '=', '1')
                 ->whereHas('prices', function ($query) use ($price_level) {
-                  $query->where('price_level', '=', $price_level);
+                  $query->where('price_level', '=', $price_level)
+                        ->orWhere('price_level', '=', 1);
                 })
                 ->whereHas('categories', function ($query) {
                   $query->where('fk_categorie', '=', '807');
@@ -70,7 +72,8 @@ class WelcomeController extends Controller
     return view('welcome')->with('about', $about)
                           ->with('brands', $brands)
                           ->with('products', $products)
-                          ->with('tasa_usd', $tasa_usd);
+                          ->with('tasa_usd', $tasa_usd)
+                          ->with('price_level', $price_level);
   }
 
   /**
@@ -140,13 +143,15 @@ class WelcomeController extends Controller
     $products = Product::query()->with([
                           'prices' => function ($query) use ($price_level) {
                             $query->where('price_level', '=', $price_level)
+                                  ->orWhere('price_level', '=', 1)
                                   ->orderBy('date_price', 'desc');
                           },
                           'extrafields'
                         ])
                         ->where('tosell', '=', '1')
                         ->whereHas('prices', function ($query) use ($price_level) {
-                          $query->where('price_level', '=', $price_level);
+                          $query->where('price_level', '=', $price_level)
+                                ->orWhere('price_level', '=', 1);
                         });
 
     if ($category_id != '715') {
@@ -162,7 +167,7 @@ class WelcomeController extends Controller
                             });
     }
 
-    $productsMatriz = $products->get();
+    $productsMatriz = $products;
 
     if ($request->has('search')) {
       $search = $request->input('search');
@@ -181,11 +186,11 @@ class WelcomeController extends Controller
       }
     }
 
-    $products = $products->orderBy('rowid', 'ASC')
-                         ->paginate(20);
+    $products = $products->orderBy('rowid', 'ASC')->paginate(20);
 
     $products->appends(request()->query());
-                         
+
+    $productsMatriz = $productsMatriz->get();
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
     $attributes = [];
     $matriz = [];
@@ -208,6 +213,7 @@ class WelcomeController extends Controller
                                ->with('products', $products)
                                ->with('filters', $filters)
                                ->with('tasa_usd', $tasa_usd)
+                               ->with('price_level', $price_level)
                                ->with('extrafields', $extrafields)
                                ->with('attributes', $attributes)
                                ->with('matriz', $matriz);
@@ -228,11 +234,13 @@ class WelcomeController extends Controller
     $product = Product::with([
                         'prices' => function ($query) use ($price_level) {
                           $query->where('price_level', '=', $price_level)
+                                ->orWhere('price_level', '=', 1)
                                 ->orderBy('date_price', 'desc');
                         }
                       ])
                       ->whereHas('prices', function ($query) use ($price_level) {
-                        $query->where('price_level', '=', $price_level);
+                        $query->where('price_level', '=', $price_level)
+                              ->orWhere('price_level', '=', 1);
                       })
                       ->where('ref', '=', $ref)
                       ->first();
@@ -292,6 +300,7 @@ class WelcomeController extends Controller
                               ->with('image', $image)
                               ->with('datasheet', $datasheet)
                               ->with('tasa_usd', $tasa_usd)
+                              ->with('price_level', $price_level)
                               ->with('extrafields', $extrafields)
                               ->with('product_fields', $product_fields)
                               ->with('attributes', $attributes);
