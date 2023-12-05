@@ -76,6 +76,11 @@
 							</a>
 						</p>
 					@endif
+					@if ($product->url)
+						<p>
+							<a href="{{ $product->url }}" target="_blank" class="text-blue-600">Ver Video</a>
+						</p>
+					@endif
 				</div>
 				<div>
 					@php
