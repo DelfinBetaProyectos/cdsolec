@@ -80,7 +80,7 @@
 						{!! $about->description !!}
 					</div>
 					<div class="md:w-1/5 text-center mx-4 pt-1">
-						<img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" />
+						<img src="{{ asset('img/logos/CD-SOLEC_Lema.png') }}" alt="CD-SOLEC" title="CD-SOLEC" />
 					</div>
 				</div>
 			</div>

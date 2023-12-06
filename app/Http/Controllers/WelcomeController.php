@@ -97,7 +97,9 @@ class WelcomeController extends Controller
   {
     $solutions = Content::find(4);
 
-    return view('web.solutions')->with('solutions', $solutions);
+    $category = Category::findOrFail(905);
+
+    return view('web.solutions')->with('solutions', $solutions)->with('category', $category);
   }
 
   /**

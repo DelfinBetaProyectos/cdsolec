@@ -7,7 +7,7 @@
       <div class="flex flex-shrink-0 items-center justify-center mr-10">
         <a href="{{ route('welcome') }}">
           <img src="{{ asset('img/logos/CD-SOLEC_Horizontal.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class=" block md:hidden h-14" />
-          <img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class="hidden md:block h-28" />
+          <img src="{{ asset('img/logos/CD-SOLEC_Lema.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class="hidden md:block h-28" />
         </a>
       </div>
       <!-- Navigation -->
