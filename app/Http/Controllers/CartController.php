@@ -32,9 +32,11 @@ class CartController extends Controller
 
       $stock = $product->stock - $product->seuil_stock_alerte;
 
-      $prices = $product->prices()->where('price_level', '=', $price_level)
-                                  ->orderBy('date_price', 'desc')
-                                  ->first();
+      $price_original = $product->prices()->where('price_level', '=', 1)->orderBy('date_price', 'desc')->first();
+      $price_client = $product->prices()->where('price_level', '=', $price_level)->orderBy('date_price', 'desc')->first();
+      if ($price_client == null) {
+        $price_client = $price_original;
+      }
 
       if (app()->environment('production')) {
         $image = null;
@@ -60,7 +62,7 @@ class CartController extends Controller
         'image' => $image,
         'ref' => $product->ref,
         'label' => $product->label,
-        'price' => $prices->price,
+        'price' => $price_client->price_discount,
         'stock' => $stock,
         'quantity' => $item['quantity']
       ];
@@ -159,12 +161,15 @@ class CartController extends Controller
         $subtotal_usd = 0;
         foreach ($cart as $item) {
           $product = Product::findOrFail($item['product']);
-          $prices = $product->prices()->where('price_level', '=', $price_level)
-                                  ->orderBy('date_price', 'desc')
-                                  ->first();
 
-          $subtotal_bs += $prices->price * $tasa_usd * $item['quantity'];
-          $subtotal_usd += $prices->price * $item['quantity'];
+          $price_original = $product->prices()->where('price_level', '=', 1)->orderBy('date_price', 'desc')->first();
+          $price_client = $product->prices()->where('price_level', '=', $price_level)->orderBy('date_price', 'desc')->first();
+          if ($price_client == null) {
+            $price_client = $price_original;
+          }
+
+          $subtotal_bs += $price_client->price_discount * $tasa_usd * $item['quantity'];
+          $subtotal_usd += $price_client->price_discount * $item['quantity'];
         }
         $iva_bs = ($subtotal_bs * $percent_iva) / 100;
         $iva_usd = ($subtotal_usd * $percent_iva) / 100;
@@ -289,34 +294,36 @@ class CartController extends Controller
 
       $stock = $product->stock - $product->seuil_stock_alerte;
 
-      $prices = $product->prices()->where('price_level', '=', $price_level)
-                                  ->orderBy('date_price', 'desc')
-                                  ->first();
+      $price_original = $product->prices()->where('price_level', '=', 1)->orderBy('date_price', 'desc')->first();
+      $price_client = $product->prices()->where('price_level', '=', $price_level)->orderBy('date_price', 'desc')->first();
+      if ($price_client == null) {
+        $price_client = $price_original;
+      }
 
-      $subtotal_bs += $prices->price * $tasa_usd * $item['quantity'];
-      $subtotal_usd += $prices->price * $item['quantity'];
+      $subtotal_bs += $price_client->price_discount * $tasa_usd * $item['quantity'];
+      $subtotal_usd += $price_client->price_discount * $item['quantity'];
 
-      $total_ht = $prices->price * $item['quantity'];
+      $total_ht = $price_client->price_discount * $item['quantity'];
       $tva_tx = $percent_iva;
-      $total_tva = ($prices->price * $item['quantity'] * $percent_iva) / 100;
+      $total_tva = ($price_client->price_discount * $item['quantity'] * $percent_iva) / 100;
       $total_ttc = $total_ht + $total_tva;
 
       $propal->propal_detail()->create([
         'fk_product' => $product->rowid,
         'label' => $product->ref,
         'description' => $product->label,
-        'tva_tx' => $tva_tx,  // IVA del Producto
+        'tva_tx' => $tva_tx,                           // IVA del Producto
         'qty' => $item['quantity'],
-        'remise_percent' => 0,  // Porcentaje Descuento al Producto
-        'price' => $prices->price,  // Precio del Producto con Descuento
-        'subprice' => $prices->price,  // Precio del Producto sin Descuento
-        'total_ht' => $total_ht,  // Precio total del Producto sin IVA (price*qty)
-        'total_tva' => $total_tva,  // Monto total del IVA aplicado a ese Producto
-        'total_ttc' => $total_ttc,  // Precio total del Producto + IVA (total_ht+total_tva)
-        'product_type' => 0, // 0 = Producto | 1 = Servicio
+        'remise_percent' => 0,                         // Porcentaje Descuento al Producto
+        'price' => $price_client->price_discount,      // Precio del Producto con Descuento
+        'subprice' => $price_client->price_discount,   // Precio del Producto sin Descuento
+        'total_ht' => $total_ht,                       // Precio total del Producto sin IVA (price*qty)
+        'total_tva' => $total_tva,                     // Monto total del IVA aplicado a ese Producto
+        'total_ttc' => $total_ttc,                     // Precio total del Producto + IVA (total_ht+total_tva)
+        'product_type' => 0,                           // 0 = Producto | 1 = Servicio
         'fk_multicurrency' => 1,
         'multicurrency_code' => 'USD',
-        'multicurrency_subprice' => $prices->price,
+        'multicurrency_subprice' => $price_client->price_discount,
         'multicurrency_total_ht' => $total_ht,
         'multicurrency_total_tva' => $total_tva,
         'multicurrency_total_ttc' => $total_ttc
@@ -397,7 +404,7 @@ class CartController extends Controller
 
     $request->session()->forget(['cart']);
 
-    Mail::to($user->email, 'Compra CD-SOLEC')->cc('ventas@cd-solec.com', 'Compra CD-SOLEC')->send(new OrderMail($commande));
+    // Mail::to($user->email, 'Compra CD-SOLEC')->cc('ventas@cd-solec.com', 'Compra CD-SOLEC')->send(new OrderMail($commande));
 
     return redirect()->route('orders.show', $commande);
   }

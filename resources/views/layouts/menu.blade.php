@@ -7,7 +7,7 @@
       <div class="flex flex-shrink-0 items-center justify-center mr-10">
         <a href="{{ route('welcome') }}">
           <img src="{{ asset('img/logos/CD-SOLEC_Horizontal.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class=" block md:hidden h-14" />
-          <img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class="hidden md:block h-28" />
+          <img src="{{ asset('img/logos/CD-SOLEC_Lema.png') }}" alt="CD-SOLEC" title="CD-SOLEC" class="hidden md:block h-28" />
         </a>
       </div>
       <!-- Navigation -->
@@ -100,14 +100,17 @@
           <x-jet-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
             Fabricantes
           </x-jet-nav-link>
-          <x-jet-nav-link href="#">
-            Pedido Rápido
-          </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
             Nosotros
           </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('comments.create') }}" :active="request()->routeIs('comments.create')">
             Contacto
+          </x-jet-nav-link>
+          <x-jet-nav-link href="https://www.youtube.com/channel/UCixT72Hh42vepJ6hFX-rDLw" target="_blank">
+            YouTube
+          </x-jet-nav-link>
+          <x-jet-nav-link href="https://blog.cd-solec.com/" target="_blank">
+            Blog
           </x-jet-nav-link>
         </div>
       </div>
@@ -176,14 +179,17 @@
       <x-jet-responsive-nav-link href="{{ route('brands') }}" :active="request()->routeIs('brands')">
         Fabricantes
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="#">
-        Pedido Rápido
-      </x-jet-responsive-nav-link>
       <x-jet-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
         Nosotros
       </x-jet-responsive-nav-link>
       <x-jet-responsive-nav-link href="{{ route('comments.create') }}" :active="request()->routeIs('comments.create')">
         Contacto
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="https://www.youtube.com/channel/UCixT72Hh42vepJ6hFX-rDLw" target="_blank">
+        YouTube
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="https://blog.cd-solec.com/" target="_blank">
+        Blog
       </x-jet-responsive-nav-link>
     </div>
 

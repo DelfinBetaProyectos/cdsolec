@@ -60,6 +60,12 @@
 				</div>
 				<div>
 					<h2 class="text-cdsolec-green-dark font-semibold text-lg py-1">{{ $product->label }}</h2>
+					@if ($extrafields->isNotEmpty())
+						@php
+							$product_fields = $product->extrafields->toArray();
+						@endphp
+						<h3 class="font-semibold">{{ $product_fields['at1'] }}</h3>
+					@endif
 					<h3 class="uppercase font-semibold tracking-widest">Ref: {{ $product->ref }}</h3>
 					<h4 class="font-bold">Descripción</h4>
 					{!! $product->description !!}
@@ -70,10 +76,22 @@
 							</a>
 						</p>
 					@endif
+					@if ($product->url)
+						<p>
+							<a href="{{ $product->url }}" target="_blank" class="text-blue-600">Ver Video</a>
+						</p>
+					@endif
 				</div>
 				<div>
 					@php
 						$stock = $product->stock - $product->seuil_stock_alerte;
+
+						$price_original = $product->prices->where('price_level', 1)->first();
+						$price_client = $product->prices->where('price_level', $price_level)->first();
+						if ($price_client == null) {
+							$price_client = $price_original;
+						}
+
 						$cart = session()->get('cart', []);
 					@endphp
 					@if ($stock > 0)
@@ -91,7 +109,7 @@
 								<input type="hidden" name="product" value="{{ $product->rowid }}" />
 								<div class="flex p-1">
 									<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
-									<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
+									<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $price_client->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
 									<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
 								</div>
 								<div class="m-2">
@@ -118,23 +136,33 @@
 						</thead>
 						<tbody>
 							<tr class="bg-gray-300 border border-gray-300">
-								<td class="p-2 text-left">Bs</td>
-								<td id="quantity_bs" class="p-2 text-right">{{ $quantity = 1 }}</td>
-								<td class="p-2 text-right">
-									{{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}
+								<td class="line-through text-red-600 p-2 text-left">$USD</td>
+								<td class="line-through text-red-600 p-2 text-right">{{ $quantity = 1 }}</td>
+								<td class="line-through text-red-600 p-2 text-right">
+									{{ number_format($price_original->price_discount, 2, ',', '.') }}
 								</td>
-								<td id="subtotal_bs" class="p-2 text-right text-cdsolec-green-dark font-semibold">
-									{{ number_format(($product->prices[0]->price_discount * $tasa_usd * $quantity), 2, ',', '.') }}
+								<td class="line-through text-red-600 p-2 text-right font-semibold">
+									{{ number_format(($price_original->price_discount * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 							<tr class="border border-gray-300">
 								<td class="p-2 text-left">$USD</td>
 								<td id="quantity_usd" class="p-2 text-right">{{ $quantity = 1 }}</td>
 								<td class="p-2 text-right">
-									{{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}
+									{{ number_format($price_client->price_discount, 2, ',', '.') }}
 								</td>
 								<td id="subtotal_usd" class="p-2 text-right text-cdsolec-green-dark font-semibold">
-									{{ number_format(($product->prices[0]->price_discount * $quantity), 2, ',', '.') }}
+									{{ number_format(($price_client->price_discount * $quantity), 2, ',', '.') }}
+								</td>
+							</tr>
+							<tr class="bg-gray-300 border border-gray-300">
+								<td class="p-2 text-left">Bs</td>
+								<td id="quantity_bs" class="p-2 text-right">{{ $quantity = 1 }}</td>
+								<td class="p-2 text-right">
+									{{ number_format(($price_client->price_discount * $tasa_usd), 2, ',', '.') }}
+								</td>
+								<td id="subtotal_bs" class="p-2 text-right text-cdsolec-green-dark font-semibold">
+									{{ number_format(($price_client->price_discount * $tasa_usd * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 						</tbody>

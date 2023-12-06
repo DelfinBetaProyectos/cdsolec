@@ -81,7 +81,7 @@
 						<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-one">
 							<div>Categorías</div> <i class="fas fa-fw fa-caret-down"></i>
 						</label>
-						<div class="tab-content overflow-hidden bg-gray-100">
+						<div class="tab-content overflow-hidden bg-gray-100 h-60 overflow-y-scroll">
 							@if ($categories->isNotEmpty())
 								<ul class="text-cdsolec-blue-light">
 									@foreach($categories as $item)
@@ -121,7 +121,7 @@
 						<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-two">
 							<div>Sectores de Interés</div> <i class="fas fa-fw fa-caret-down"></i>
 						</label>
-						<div class="tab-content overflow-hidden bg-gray-100">
+						<div class="tab-content overflow-hidden bg-gray-100 h-60 overflow-y-scroll">
 							@if ($sectors->isNotEmpty())
 								<ul class="text-cdsolec-blue-light">
 									@foreach($sectors as $item)
@@ -160,11 +160,11 @@
 						@foreach ($extrafields as $extrafield)
 							@if (isset($attributes[$extrafield->name]) && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
 								<div class="tab w-full overflow-hidden border-t mb-3 rounded-md shadow-md">
-									<input type="checkbox" id="tab-{{ $loop->iteration }}" name="filters" class="absolute opacity-0" checked />
+									<input type="checkbox" id="tab-{{ $loop->iteration }}" name="filters" class="absolute opacity-0" />
 									<label class="flex justify-between items-center p-2 cursor-pointer bg-gray-300 text-cdsolec-blue-light" for="tab-{{ $loop->iteration }}">
 										<div>{{ $attributes[$extrafield->name] }}</div> <i class="fas fa-fw fa-caret-down"></i>
 									</label>
-									<div class="tab-content overflow-hidden bg-gray-100">
+									<div class="tab-content overflow-hidden bg-gray-100 h-60 overflow-y-scroll">
 										@php
 											$unique = $matriz->unique($extrafield->name);
 											$values = $unique->sortBy($extrafield->name)->values()->all();
@@ -247,6 +247,12 @@
 										$product_fields = $product->extrafields->toArray();
 
 										$stock = $product->stock - $product->seuil_stock_alerte;
+
+										$price_original = $product->prices->where('price_level', 1)->first();
+										$price_client = $product->prices->where('price_level', $price_level)->first();
+										if ($price_client == null) {
+											$price_client = $price_original;
+										}
 									@endphp
 									<tr class="flex flex-col lg:table-row even:bg-gray-300">
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
@@ -262,10 +268,10 @@
 												Información
 											</div>
 											<div class="p-2">
-												<p>{{ $product_fields['at1'] }}</p>
 												<a href="{{ route('product', $product->ref) }}" class="text-cdsolec-blue-light font-bold">
 													{{ $product->label }}
 												</a>
+												<p>{{ $product_fields['at1'] }}</p>
 												<p class="font-bold">Ref: {{ $product->ref }}</p>
 												@if ($datasheet)
 													<p>
@@ -295,8 +301,9 @@
 												Precio
 											</div>
 											<div class="p-2 lg:text-right">
-												<p>Bs {{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}</p>
-												<p class="font-bold">$USD {{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}</p>
+												<p class="line-through text-red-600">$USD {{ number_format($price_original->price_discount, 2, ',', '.') }}</p>
+												<p class="font-bold">$USD {{ number_format($price_client->price_discount, 2, ',', '.') }}</p>
+												<p>Bs {{ number_format(($price_client->price_discount * $tasa_usd), 2, ',', '.') }}</p>
 											</div>
 										</td>
 										<td class="border border-gray-300 flex flex-row lg:table-cell">
