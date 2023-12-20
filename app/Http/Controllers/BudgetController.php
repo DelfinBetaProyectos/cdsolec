@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Propal;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class BudgetController extends Controller
     $budgets = Propal::query()->where('fk_soc', '=', Auth::user()->society->rowid)
                                ->paginate();
 
-    return view('web.budgets')->with('budgets', $budgets);
+    return view('web.budgets.index')->with('budgets', $budgets);
   }
 
   /**
@@ -53,9 +54,29 @@ class BudgetController extends Controller
     if (Auth::user()->society->rowid == $propal->fk_soc) {
       $commande = $propal->commandes()->first();
 
-      return view('web.budget')->with('propal', $propal)->with('commande', $commande);
+      return view('web.budgets.show')->with('propal', $propal)->with('commande', $commande);
     } else {
       return redirect()->route('budgets.index');
+    }
+  }
+
+  /**
+   * PDF.
+   *
+   * @param  \App\Models\Propal  $propal
+   * @return \Illuminate\Http\Response
+   */
+  public function pdf(Propal $propal)
+  {
+    if (Auth::user()->society->rowid == $propal->fk_soc) {
+      $data = [
+        'propal' => $propal
+      ];
+
+      $pdf = Pdf::loadView('web.budgets.pdf', $data);
+      $filename = 'CDSOLEC-'.$propal->ref.'.pdf';
+
+      return $pdf->stream($filename);
     }
   }
 

@@ -49,7 +49,9 @@ Route::apiResource('cart', CartController::class);
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('/orders/{commande}/name', [OrderController::class, 'name'])->name('orders.name');
+    Route::get('/orders/{commande}/pdf', [OrderController::class, 'pdf'])->name('orders.pdf');
     Route::post('/budgets/{propal}/name', [BudgetController::class, 'name'])->name('budgets.name');
+    Route::get('/budgets/{propal}/pdf', [BudgetController::class, 'pdf'])->name('budgets.pdf');
 
     Route::resource('orders', OrderController::class)->parameters(['orders' => 'commande']);
     Route::resource('budgets', BudgetController::class)->parameters(['budgets' => 'propal']);

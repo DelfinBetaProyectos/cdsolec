@@ -16,7 +16,16 @@
 
 		<div class="flex flex-wrap justify-center">
 			<div class="w-full shadow rounded-md overflow-hidden bg-white px-4 py-3 sm:px-6">
-				<h2 class="text-3xl leading-tight font-bold mt-4">Pedido {{ $commande->ref }}</h2>
+				<div class="grid gap-2 md:grid-cols-4 items-end">
+					<div class="col-span-3">
+						<h2 class="text-3xl leading-tight font-bold mt-4">Pedido {{ $commande->ref }}</h2>
+					</div>
+					<div class="justify-self-end pb-2">
+						<a href="{{ route('orders.pdf', $commande) }}" target="_blank" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
+							<i class="fas fa-file-pdf"></i> Imprimir PDF
+						</a>
+					</div>
+				</div>
 
 				<div id="message" class="my-3 px-3 py-2 rounded border border-green-600 bg-green-200 text-green-600 text-sm font-bold" {{ (!session()->has('success')) ? 'hidden' : '' }}>
 					{{ (session()->has('success')) ? session()->get('success') : '' }}
