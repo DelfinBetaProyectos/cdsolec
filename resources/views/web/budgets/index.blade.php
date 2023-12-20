@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="p-2 lg:text-right font-bold">
                                     <p>Bs {{ number_format($total_bs, 2, ',', '.') }}</p>
-                                    <p>$USD {{ number_format($budget->total_ttc, 2, ',', '.') }}</p>
+                                    <p>$USD {{ number_format($budget->total, 2, ',', '.') }}</p>
                                 </div>
                             </td>
                             <td class="flex flex-row lg:table-cell">
@@ -130,7 +130,10 @@
                                     Opciones
                                 </div>
                                 <div class="p-2 text-center">
-                                    <a href="{{ route('budgets.show', $budget) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
+                                    <a href="{{ route('budgets.pdf', $budget) }}" target="_blank" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
+                                        <i class="fas fa-sm fa-file-pdf"></i>
+                                    </a>
+                                    <a href="{{ route('budgets.show', $budget) }}" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
                                         <i class="fas fa-sm fa-file"></i>
                                     </a>
                                 </div>

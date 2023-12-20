@@ -90,6 +90,14 @@ class Commande extends Model
   }
 
   /**
+   * The society that belong to the commande.
+   */
+  public function society()
+  {
+    return $this->belongsTo(Society::class, 'fk_soc', 'rowid');
+  }
+
+  /**
    * The propals that belong to the commande.
    */
   public function propals()

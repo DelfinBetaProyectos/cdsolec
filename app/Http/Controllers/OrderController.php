@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderMail;
 use App\Models\Commande;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
     $orders = Commande::query()->where('fk_soc', '=', Auth::user()->society->rowid)
                                ->paginate();
 
-    return view('web.orders')->with('orders', $orders);
+    return view('web.orders.index')->with('orders', $orders);
   }
 
   /**
@@ -54,9 +55,29 @@ class OrderController extends Controller
     if (Auth::user()->society->rowid == $commande->fk_soc) {
       $facture = $commande->factures()->first();
 
-      return view('web.order')->with('commande', $commande)->with('facture', $facture);
+      return view('web.orders.show')->with('commande', $commande)->with('facture', $facture);
     } else {
       return redirect()->route('orders.index');
+    }
+  }
+
+  /**
+   * PDF.
+   *
+   * @param  \App\Models\Commande  $commande
+   * @return \Illuminate\Http\Response
+   */
+  public function pdf(Commande $commande)
+  {
+    if (Auth::user()->society->rowid == $commande->fk_soc) {
+      $data = [
+        'commande' => $commande
+      ];
+
+      $pdf = Pdf::loadView('web.orders.pdf', $data);
+      $filename = 'CDSOLEC-'.$commande->ref.'.pdf';
+
+      return $pdf->stream($filename);
     }
   }
 
