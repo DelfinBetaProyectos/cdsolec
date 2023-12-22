@@ -183,6 +183,8 @@
 				@endif
 			</div>
 		</section>
+
+		<livewire:welcome-modal />
 	</main>
 
 	<!-- Footer -->
