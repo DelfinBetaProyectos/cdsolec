@@ -184,7 +184,7 @@
 			</div>
 		</section>
 
-		<livewire:welcome-modal />
+		<!-- <livewire:welcome-modal /> -->
 	</main>
 
 	<!-- Footer -->
