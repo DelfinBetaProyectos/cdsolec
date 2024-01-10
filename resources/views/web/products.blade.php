@@ -198,6 +198,7 @@
 				@if ($products->isNotEmpty())
 					@php
 						$cart = session()->get('cart', []);
+						$basket = session()->get('basket', []);
 					@endphp
 					<div class="rounded-lg bg-gray-300 overflow-x-auto flex flex-wrap relative h-[calc(100vh-10rem)] overflow-y-auto">
 						<table id="products" class="relative w-full rounded-lg border-collapse border border-gray-300">
@@ -290,9 +291,27 @@
 												@if ($stock > 0)
 													Stock: {{ $stock }}
 												@else
-													<a href="{{ route('stock', $product->ref) }}" class="inline-block px-2 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-center" style="font-size: 0.7rem">
+													<!-- <a href="{{ route('stock', $product->ref) }}" class="inline-block px-2 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-center" style="font-size: 0.7rem">
 														Consultar
-													</a>
+													</a> -->
+													@if ((count($basket) > 0) && isset($basket[$product->rowid]))
+														<form method="POST" action="{{ route('basket.destroy', $product->rowid) }}">
+															@csrf
+															@method('DELETE')
+															<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
+																Eliminar <i class="fas fa-basket-arrow-down"></i>
+															</button>
+														</form>
+													@else
+														<form method="POST" action="{{ route('basket.store') }}">
+															@csrf
+															<input type="hidden" name="product" value="{{ $product->rowid }}" />
+															<input type="hidden" name="quantity" value="1" />
+															<button type="submit" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+																Consultar
+															</button>
+														</form>
+													@endif
 												@endif
 											</div>
 										</td>
@@ -312,7 +331,7 @@
 											</div>
 											<div class="p-2 text-center">
 												@if ((count($cart) > 0) && isset($cart[$product->rowid]))
-													<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
+													<form method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
 														@csrf
 														@method('DELETE')
 														<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
@@ -320,7 +339,7 @@
 														</button>
 													</form>
 												@else
-													<form action="{{ route('cart.store') }}" method="POST">
+													<form method="POST" action="{{ route('cart.store') }}">
 														@csrf
 														<input type="hidden" name="product" value="{{ $product->rowid }}" />
 														<div class="w-full flex pb-2">
