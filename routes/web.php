@@ -43,6 +43,7 @@ Route::post('/product/{product}/stock', [WelcomeController::class, 'stock_mail']
 Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
 Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');
 
+Route::get('/cart/reload/{type}/{id}', [CartController::class, 'reload'])->name('cart.reload');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::apiResource('cart', CartController::class);
 
