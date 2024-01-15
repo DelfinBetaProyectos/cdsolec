@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-			<i class="fas fa-shopping-cart"></i> Presupuestos
+			<i class="fas fa-shopping-basket"></i> Presupuestos
 		</h2>
 	</x-slot>
 

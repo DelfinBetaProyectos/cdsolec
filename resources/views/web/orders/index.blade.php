@@ -70,7 +70,7 @@
 					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 						Fecha
 					</th>
-					<th style="width: 160px" class="px-3 py-3 font-medium text-center">
+					<th style="width: 200px" class="px-3 py-3 font-medium text-center">
 						Opciones
 					</th>
 				</tr>
@@ -130,6 +130,9 @@
                   Opciones
                 </div>
                 <div class="p-2 text-center">
+                  <a href="{{ route('cart.reload', ['type' => 'order', 'id' => $order->rowid]) }}" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-yellow-600 hover:bg-yellow-500 tracking-wider rounded-md transition">
+                    <i class="fas fa-sm fa-shopping-cart"></i>
+                  </a>
                   <a href="{{ route('orders.pdf', $order) }}" target="_blank" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
                     <i class="fas fa-sm fa-file-pdf"></i>
                   </a>

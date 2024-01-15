@@ -408,4 +408,47 @@ class CartController extends Controller
 
     return redirect()->route('orders.show', $commande);
   }
+
+  /**
+   * Reload Cart.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function reload(Request $request, string $type, int $id)
+  {
+    if ($type == 'budget') {
+      $propal = Propal::find($id);
+      $cart = [];
+
+      foreach ($propal->propal_detail as $item) {
+        $cart[$item->fk_product] = [
+          'product' => $item->fk_product,
+          'quantity' => $item->qty
+        ];
+      }
+
+      $request->session()->put('cart', $cart);
+
+      return redirect()->route('cart.index');
+    }
+
+    if ($type == 'order') {
+      $commande = Commande::find($id);
+      $cart = [];
+
+      foreach ($commande->commande_detail as $item) {
+        $cart[$item->fk_product] = [
+          'product' => $item->fk_product,
+          'quantity' => $item->qty
+        ];
+      }
+
+      $request->session()->put('cart', $cart);
+
+      return redirect()->route('cart.index');
+    }
+
+    return redirect()->back();
+  }
 }

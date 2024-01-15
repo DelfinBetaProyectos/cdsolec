@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BudgetController;
@@ -43,10 +44,15 @@ Route::post('/product/{product}/stock', [WelcomeController::class, 'stock_mail']
 Route::get('/contact', [WelcomeController::class, 'comments_create'])->name('comments.create');
 Route::post('/contact', [WelcomeController::class, 'comments_store'])->name('comments.store');
 
+Route::get('/cart/reload/{type}/{id}', [CartController::class, 'reload'])->name('cart.reload');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::apiResource('cart', CartController::class);
 
+Route::get('/basket/clear', [BasketController::class, 'clear'])->name('basket.clear');
+Route::apiResource('basket', BasketController::class);
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::post('/basket/checkout', [BasketController::class, 'checkout'])->name('basket.checkout');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('/orders/{commande}/name', [OrderController::class, 'name'])->name('orders.name');
     Route::get('/orders/{commande}/pdf', [OrderController::class, 'pdf'])->name('orders.pdf');

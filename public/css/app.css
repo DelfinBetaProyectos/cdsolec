@@ -1999,6 +1999,10 @@ input:checked ~ .dot .active {
 	--tw-bg-opacity: 1;
 	background-color: rgba(203, 213, 224, var(--tw-bg-opacity));
 }
+.bg-yellow-600 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(214, 158, 46, var(--tw-bg-opacity));
+}
 .bg-red-500 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(245, 101, 101, var(--tw-bg-opacity));
@@ -2723,6 +2727,10 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 .hover\:bg-gray-300:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
+}
+.hover\:bg-yellow-500:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(236, 201, 75, var(--tw-bg-opacity));
 }
 .hover\:bg-red-300:hover {
 	--tw-bg-opacity: 1;

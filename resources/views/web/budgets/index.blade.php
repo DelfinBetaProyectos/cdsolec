@@ -1,7 +1,7 @@
 <x-dashboard-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-cdsolec-green-dark leading-tight uppercase">
-      <i class="fas fa-shopping-cart"></i> Presupuestos
+      <i class="fas fa-shopping-basket"></i> Presupuestos
     </h2>
   </x-slot>
 
@@ -70,7 +70,7 @@
 					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 						Fecha
 					</th>
-					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
+					<th style="width: 180px" class="px-3 py-3 font-medium text-center">
 						Opciones
 					</th>
 				</tr>
@@ -130,7 +130,10 @@
                                     Opciones
                                 </div>
                                 <div class="p-2 text-center">
-                                    <a href="{{ route('budgets.pdf', $budget) }}" target="_blank" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
+                                    <a href="{{ route('cart.reload', ['type' => 'budget', 'id' => $budget->rowid]) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-yellow-600 hover:bg-yellow-500 tracking-wider rounded-md transition">
+                                        <i class="fas fa-sm fa-shopping-cart"></i>
+                                    </a>
+                                    <a href="{{ route('budgets.pdf', $budget) }}" target="_blank" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
                                         <i class="fas fa-sm fa-file-pdf"></i>
                                     </a>
                                     <a href="{{ route('budgets.show', $budget) }}" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
