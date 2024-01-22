@@ -206,7 +206,7 @@ class BasketController extends Controller
       'date_valid' => Carbon::now(),
       'fk_user_author' => $user->rowid,
       'fk_user_valid' => $user->rowid,
-      'fk_statut' => 2,
+      'fk_statut' => 1,
       'total_ht' => 0,  // Total sin IVA
       'tva' => 0,       // IVA
       'total' => 0,     // Total + IVA
