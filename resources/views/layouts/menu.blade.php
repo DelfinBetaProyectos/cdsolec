@@ -119,8 +119,8 @@
           <x-jet-nav-link href="https://www.youtube.com/channel/UCixT72Hh42vepJ6hFX-rDLw" target="_blank">
             YouTube
           </x-jet-nav-link>
-          <x-jet-nav-link href="https://blog.cd-solec.com/" target="_blank">
-            Blog
+          <x-jet-nav-link href="{{ route('quotation.index') }}" :active="request()->routeIs('quotation.index')">
+            Cotizar
           </x-jet-nav-link>
         </div>
       </div>
@@ -198,8 +198,8 @@
       <x-jet-responsive-nav-link href="https://www.youtube.com/channel/UCixT72Hh42vepJ6hFX-rDLw" target="_blank">
         YouTube
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="https://blog.cd-solec.com/" target="_blank">
-        Blog
+      <x-jet-responsive-nav-link href="{{ route('quotation.index') }}" :active="request()->routeIs('quotation.index')">
+        Cotizar
       </x-jet-responsive-nav-link>
     </div>
 

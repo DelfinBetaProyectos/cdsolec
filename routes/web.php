@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\QuotationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,10 @@ Route::apiResource('cart', CartController::class);
 Route::get('/basket/clear', [BasketController::class, 'clear'])->name('basket.clear');
 Route::apiResource('basket', BasketController::class);
 
+Route::get('/quotation', [QuotationController::class, 'index'])->name('quotation.index');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::post('/quotation/checkout', [QuotationController::class, 'checkout'])->name('quotation.checkout');
     Route::post('/basket/checkout', [BasketController::class, 'checkout'])->name('basket.checkout');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
     Route::post('/orders/{commande}/name', [OrderController::class, 'name'])->name('orders.name');
