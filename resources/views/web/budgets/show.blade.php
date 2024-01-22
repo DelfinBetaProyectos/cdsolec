@@ -66,15 +66,17 @@
 
 									if (app()->environment('production')) {
 										$image = null;
-										if ($item->product->documents->isNotEmpty()) {
-											$documents = $item->product->documents;
-											$total = count($item->product->documents);
-											$i = 0;
-											while (!$image && ($i < $total)) {
-												if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
-													$image = 'storage/produit/'.$item->product->ref.'/'.$documents[$i]->filename;
+										if ($item->product) {
+											if ($item->product->documents->isNotEmpty()) {
+												$documents = $item->product->documents;
+												$total = count($item->product->documents);
+												$i = 0;
+												while (!$image && ($i < $total)) {
+													if (!$image && (pathinfo($documents[$i]->filename, PATHINFO_EXTENSION) == 'jpg')) {
+														$image = 'storage/produit/'.$item->product->ref.'/'.$documents[$i]->filename;
+													}
+													$i++;
 												}
-												$i++;
 											}
 										}
 
