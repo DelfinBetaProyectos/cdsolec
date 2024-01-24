@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\{ContactMail, StockMail};
-use App\Models\{Content, Comment, Category, Product, Extrafield, Setting, Propal};
+use App\Models\{Banner, Content, Comment, Category, Product, Extrafield, Setting, Propal};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +36,7 @@ class WelcomeController extends Controller
   public function welcome()
   {
     $tasa_usd = Setting::find(2)->value;
+    $banners = Banner::all();
     $about = Content::find(1);
 
     if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
@@ -69,7 +70,8 @@ class WelcomeController extends Controller
                 ->take(10)
                 ->get();
 
-    return view('welcome')->with('about', $about)
+    return view('welcome')->with('banners', $banners)
+                          ->with('about', $about)
                           ->with('brands', $brands)
                           ->with('products', $products)
                           ->with('tasa_usd', $tasa_usd)

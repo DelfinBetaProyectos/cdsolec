@@ -29,27 +29,25 @@
 
 	<!-- Slider -->
 	<section id="hero" class="relative">
-		<div class="-mb-5 md:-mb-12 lg:-mb-20">
-			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl" style="background-image: url(img/slide1.jpg);"></div>
+		@if ($banners->isNotEmpty())
+			<div class="-mb-5 md:-mb-12 lg:-mb-20">
+				@foreach ($banners as $banner)
+					<div class="mySlider hidden fade overflow-hidden">
+						<div class="slider relative shadow-2xl" style="background-image: url(<?=$banner->url_image?>);"></div>
+					</div>
+				@endforeach
+				<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light"data-nav="previous">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+					</svg>
+				</a>
+				<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+					</svg>
+				</a>
 			</div>
-			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl" style="background-image: url(img/slide2.jpg);"></div>
-			</div>
-			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl " style="background-image: url(img/slide3.jpg);"></div>
-			</div>
-			<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light"data-nav="previous">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-				</svg>
-			</a>
-			<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-				</svg>
-			</a>
-		</div>
+		@endif
 		<div class="gradient">
 			<svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
 				xmlns:xlink="http://www.w3.org/1999/xlink">
