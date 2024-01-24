@@ -1311,13 +1311,13 @@ input:checked ~ .dot .active {
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
 }
-.my-0 {
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
 .mx-3 {
 	margin-left: 0.75rem;
 	margin-right: 0.75rem;
+}
+.my-0 {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 .my-1 {
 	margin-top: 0.25rem;
@@ -1401,6 +1401,9 @@ input:checked ~ .dot .active {
 }
 .mb-3 {
 	margin-bottom: 0.75rem;
+}
+.mb-5 {
+	margin-bottom: 1.25rem;
 }
 .-mt-px {
 	margin-top: -1px;
@@ -1911,13 +1914,13 @@ input:checked ~ .dot .active {
 	--tw-border-opacity: 1;
 	border-color: rgba(160, 174, 192, var(--tw-border-opacity));
 }
-.border-blue-600 {
-	--tw-border-opacity: 1;
-	border-color: rgba(49, 130, 206, var(--tw-border-opacity));
-}
 .border-blue-800 {
 	--tw-border-opacity: 1;
 	border-color: rgba(44, 82, 130, var(--tw-border-opacity));
+}
+.border-blue-600 {
+	--tw-border-opacity: 1;
+	border-color: rgba(49, 130, 206, var(--tw-border-opacity));
 }
 .bg-white {
 	--tw-bg-opacity: 1;
@@ -1991,6 +1994,14 @@ input:checked ~ .dot .active {
 	--tw-bg-opacity: 1;
 	background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
 }
+.bg-red-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(245, 101, 101, var(--tw-bg-opacity));
+}
+.bg-blue-light {
+	--tw-bg-opacity: 1;
+	background-color: rgba(108, 178, 235, var(--tw-bg-opacity));
+}
 .bg-blue-200 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(190, 227, 248, var(--tw-bg-opacity));
@@ -2002,14 +2013,6 @@ input:checked ~ .dot .active {
 .bg-yellow-600 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(214, 158, 46, var(--tw-bg-opacity));
-}
-.bg-red-500 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(245, 101, 101, var(--tw-bg-opacity));
-}
-.bg-blue-light {
-	--tw-bg-opacity: 1;
-	background-color: rgba(108, 178, 235, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
@@ -2111,6 +2114,10 @@ input:checked ~ .dot .active {
 .py-14 {
 	padding-top: 3.5rem;
 	padding-bottom: 3.5rem;
+}
+.py-7 {
+	padding-top: 1.75rem;
+	padding-bottom: 1.75rem;
 }
 .px-8 {
 	padding-left: 2rem;
@@ -2728,13 +2735,13 @@ span.flatpickr-weekday{cursor:default;font-size:90%;background:transparent;color
 	--tw-bg-opacity: 1;
 	background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
 }
-.hover\:bg-yellow-500:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(236, 201, 75, var(--tw-bg-opacity));
-}
 .hover\:bg-red-300:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(254, 178, 178, var(--tw-bg-opacity));
+}
+.hover\:bg-yellow-500:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(236, 201, 75, var(--tw-bg-opacity));
 }
 .hover\:pl-2:hover {
 	padding-left: 0.5rem;
