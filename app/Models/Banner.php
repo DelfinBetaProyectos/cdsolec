@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Support\Facades\Storage;
 
 class Banner extends Model implements Auditable
 {
@@ -30,7 +31,9 @@ class Banner extends Model implements Auditable
 	 */
 	public function getUrlImageAttribute()
 	{
-		return 'img/'.$this->image;
+		$url = Storage::url('banners/'.$this->image);
+		return $url;
+		// return 'img/'.$this->image;
 	}
 
 	/**
