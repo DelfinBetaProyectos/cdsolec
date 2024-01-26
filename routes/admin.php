@@ -5,6 +5,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\CommentController;
 
@@ -28,15 +29,15 @@ Route::resource('settings', SettingController::class);
 
 /*
 |--------------------------------------------------------------------------
-| Admin Routes of Categories
+| Admin Routes of Banners
 |--------------------------------------------------------------------------
 */
-
-/*
-|--------------------------------------------------------------------------
-| Admin Routes of Brands
-|--------------------------------------------------------------------------
-*/
+Route::get('/banners/trash', [BannerController::class, 'trash'])->name('banners.trash');
+Route::get('/banners/{id}/restore', [BannerController::class, 'restore'])->name('banners.restore')
+      ->where('id', '[0-9]+');
+Route::patch('/banners/{id}/delete', [BannerController::class, 'delete'])->name('banners.delete')
+      ->where('id', '[0-9]+');
+Route::resource('banners', BannerController::class);
 
 /*
 |--------------------------------------------------------------------------
