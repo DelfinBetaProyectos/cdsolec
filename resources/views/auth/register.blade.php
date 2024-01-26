@@ -12,22 +12,22 @@
       <div class="grid gap-3 grid-cols-1 md:grid-cols-2">
         <div class="mt-4">
           <x-jet-label for="first_name" value="{{ __('auth.First_Name') }}" />
-          <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
+          <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" placeholder="Nombre" required autofocus autocomplete="first_name" />
         </div>
 
         <div class="mt-4" id="field_lastname">
           <x-jet-label for="last_name" value="{{ __('auth.Last_Name') }}" />
-          <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required />
+          <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" placeholder="Apellido" required />
         </div>
 
         <div class="mt-4">
           <x-jet-label for="company" value="{{ __('auth.Company') }}" />
-          <x-jet-input id="company" class="block mt-1 w-full" type="text" name="company" :value="old('company')" />
+          <x-jet-input id="company" class="block mt-1 w-full" type="text" name="company" :value="old('company')" placeholder="Empresa C.A." />
         </div>
 
         <div class="mt-4">
           <x-jet-label for="identification" value="{{ __('auth.Identification') }}" />
-          <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" required />
+          <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" placeholder="Ej: V12345678 / J504099929" required />
         </div>
 
         {{-- <div class="mt-4" id="field_gender">
@@ -49,14 +49,14 @@
 
         <div class="mt-4">
           <x-jet-label for="email" value="{{ __('auth.Email') }}" />
-          <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+          <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="nombre@email.com" required />
         </div>
 
         <div class="mt-4">
           <label for="phone" class="block font-medium text-sm text-gray-700">
             {{ __('auth.Phone') }} <span style="font-size: 0.7rem">Ejem: (412)-891-5299</span>
           </label>
-          <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
+          <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="Ej: (412)-891-5299" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
         </div>
 
         <div class="mt-4 md:col-span-2">
@@ -73,12 +73,12 @@
 
         <div class="mt-4">
           <x-jet-label for="password" value="{{ __('auth.Password') }}" />
-          <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+          <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" placeholder="********" required autocomplete="new-password" />
         </div>
 
         <div class="mt-4">
           <x-jet-label for="password_confirmation" value="{{ __('auth.Confirm_Password') }}" />
-          <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+          <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" placeholder="********" required autocomplete="new-password" />
         </div>
       </div>
 
