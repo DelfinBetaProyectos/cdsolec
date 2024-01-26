@@ -31,9 +31,9 @@ class Banner extends Model implements Auditable
 	 */
 	public function getUrlImageAttribute()
 	{
-		$url = Storage::url('banners/'.$this->image);
+		// $url = Storage::url('banners/'.$this->image);
+		$url = env('APP_URL').'/storage2/banners/'.$this->image;
 		return $url;
-		// return 'img/'.$this->image;
 	}
 
 	/**
