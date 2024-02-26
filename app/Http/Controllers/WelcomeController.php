@@ -172,6 +172,7 @@ class WelcomeController extends Controller
     }
 
     $productsMatriz = $products;
+    $productsMatriz = $productsMatriz->get();
 
     if ($request->has('search')) {
       $search = $request->input('search');
@@ -194,7 +195,6 @@ class WelcomeController extends Controller
 
     $products->appends(request()->query());
 
-    $productsMatriz = $productsMatriz->get();
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
     $attributes = [];
     $matriz = [];
