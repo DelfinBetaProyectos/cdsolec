@@ -15,7 +15,7 @@
           <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" placeholder="Nombre" required autofocus autocomplete="first_name" />
         </div>
 
-        <div class="mt-4" id="field_lastname">
+        <div class="mt-4">
           <x-jet-label for="last_name" value="{{ __('auth.Last_Name') }}" />
           <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" placeholder="Apellido" required />
         </div>
@@ -30,7 +30,7 @@
           <x-jet-input id="identification" class="block mt-1 w-full" type="text" name="identification" :value="old('identification')" placeholder="Ej: V12345678 / J504099929" required />
         </div>
 
-        {{-- <div class="mt-4" id="field_gender">
+        {{-- <div class="mt-4">
           <div class="block font-medium text-sm text-gray-700 mb-2">{{ __('auth.Gender') }}</div>
           <label for="male" class="inline-flex items-center cursor-pointer mb-2">
             <x-forms.radio id="male" name="gender" value="M" />
@@ -127,14 +127,7 @@
       }
     }
 
-    phone.addEventListener('keyup', formatTlf);
-
-    let switcher = document.getElementById('themeSwitcherOne');
-
-    switcher.addEventListener('click', function() {
-      document.getElementById('field_lastname').classList.toggle("hidden");
-      document.getElementById('field_gender').classList.toggle("hidden");
-    });
+    // phone.addEventListener('keyup', formatTlf);
   })();
   </script>
 </x-guest-layout>
