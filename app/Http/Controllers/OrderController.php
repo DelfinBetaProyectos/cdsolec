@@ -18,6 +18,7 @@ class OrderController extends Controller
   public function index()
   {
     $orders = Commande::query()->where('fk_soc', '=', Auth::user()->society->rowid)
+                               ->orderBy('rowid', 'DESC')
                                ->paginate();
 
     return view('web.orders.index')->with('orders', $orders);

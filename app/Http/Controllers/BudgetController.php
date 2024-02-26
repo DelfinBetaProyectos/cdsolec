@@ -17,7 +17,8 @@ class BudgetController extends Controller
   public function index()
   {
     $budgets = Propal::query()->where('fk_soc', '=', Auth::user()->society->rowid)
-                               ->paginate();
+                              ->orderBy('rowid', 'DESC')
+                              ->paginate();
 
     return view('web.budgets.index')->with('budgets', $budgets);
   }
