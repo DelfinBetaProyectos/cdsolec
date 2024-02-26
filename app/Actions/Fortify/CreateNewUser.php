@@ -28,7 +28,7 @@ class CreateNewUser implements CreatesNewUsers
       'password' => $this->passwordRules(),
       'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
       'identification' => ['required', 'string', 'unique:mysqlerp.llx_societe,siren'],
-      'phone' => ['nullable', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
+      'phone' => ['nullable'],  // , 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'
       'type' => ['required', 'exists:mysqlerp.llx_categorie,rowid']
     ])->validate();
 

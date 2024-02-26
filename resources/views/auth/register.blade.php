@@ -56,7 +56,8 @@
           <label for="phone" class="block font-medium text-sm text-gray-700">
             {{ __('auth.Phone') }} <span style="font-size: 0.7rem">Ejem: (412)-891-5299</span>
           </label>
-          <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="Ej: (412)-891-5299" pattern="^\(\d{3}\)-\d{3}-\d{4}$" />
+          <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="Ej: (412)-891-5299" />
+          <!-- pattern="^\(\d{3}\)-\d{3}-\d{4}$" -->
         </div>
 
         <div class="mt-4 md:col-span-2">
