@@ -347,9 +347,15 @@
 															<input type="number" name="quantity" id="quantity{{ $product->rowid }}" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" value="0" class="w-16 text-right px-3" onchange="validateRange(this)" />
 															<button type="button" class="px-3 py-2 border border-gray-500 font-semibold" data-action="increment">+</button>
 														</div>
-														<button type="submit" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-															Agregar <i class="fas fa-shopping-cart"></i>
-														</button>
+														@if ($stock > 0)
+															<button type="submit" class="px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+																Agregar <i class="fas fa-shopping-cart"></i>
+															</button>
+														@else
+															<button type="button" class="px-4 py-1 font-semibold bg-gray-500 text-white uppercase text-xs">
+																Agregar <i class="fas fa-shopping-cart"></i>
+															</button>
+														@endif
 													</form>
 												@endif
 											</div>

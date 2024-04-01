@@ -422,10 +422,17 @@ class CartController extends Controller
       $cart = [];
 
       foreach ($propal->propal_detail as $item) {
-        $cart[$item->fk_product] = [
-          'product' => $item->fk_product,
-          'quantity' => $item->qty
-        ];
+        $product = Product::findOrFail($item->fk_product);
+        $stock = $product->stock - $product->seuil_stock_alerte;
+
+        if ($stock > 0) {
+          if ($stock > $item->qty) { $qty = $item->qty; } else { $qty = $stock; }
+
+          $cart[$item->fk_product] = [
+            'product' => $item->fk_product,
+            'quantity' => $qty
+          ];
+        }
       }
 
       $request->session()->put('cart', $cart);
@@ -438,10 +445,17 @@ class CartController extends Controller
       $cart = [];
 
       foreach ($commande->commande_detail as $item) {
-        $cart[$item->fk_product] = [
-          'product' => $item->fk_product,
-          'quantity' => $item->qty
-        ];
+        $product = Product::findOrFail($item->fk_product);
+        $stock = $product->stock - $product->seuil_stock_alerte;
+
+        if ($stock > 0) {
+          if ($stock > $item->qty) { $qty = $item->qty; } else { $qty = $stock; }
+
+          $cart[$item->fk_product] = [
+            'product' => $item->fk_product,
+            'quantity' => $qty
+          ];
+        }
       }
 
       $request->session()->put('cart', $cart);

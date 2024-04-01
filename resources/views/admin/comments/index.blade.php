@@ -54,7 +54,7 @@
         </div>
 
         <div class="my-3 flex justify-end">
-            <a href="{{ route('comments.trash') }}" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition">
+            <a href="{{ route('comments.trash') }}" title="Papelera" alt="Papelera" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition">
                 <i class="fas fa-fw fa-trash-restore"></i> Ver Papelera
             </a>
         </div>
@@ -126,9 +126,8 @@
                                     Opciones
                                 </div>
                                 <div class="p-2 text-center">
-                                    <a href="{{ route('comments.edit', $comment) }}"
-                                        class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition"
-                                        title="Responder Comentario">
+                                    <a href="{{ route('comments.edit', $comment) }}" title="Responder Comentario" alt="Responder Comentario" 
+                                        class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
                                         <i class="fas fa-sm fa-comment-dots"></i>
                                     </a>
                                     @livewire('delete-modal', [

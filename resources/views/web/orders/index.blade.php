@@ -130,17 +130,17 @@
                   Opciones
                 </div>
                 <div class="p-2 text-center">
-                  <a href="{{ route('cart.reload', ['type' => 'order', 'id' => $order->rowid]) }}" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-yellow-600 hover:bg-yellow-500 tracking-wider rounded-md transition">
-                    <i class="fas fa-sm fa-shopping-cart"></i>
+                  <a href="{{ route('cart.reload', ['type' => 'order', 'id' => $order->rowid]) }}" title="Recargar Pedido" alt="Recargar Pedido" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-yellow-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-shopping-cart"></i>
                   </a>
-                  <a href="{{ route('orders.pdf', $order) }}" target="_blank" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
-                    <i class="fas fa-sm fa-file-pdf"></i>
+                  <a href="{{ route('orders.pdf', $order) }}" target="_blank" title="Imprimir PDF" alt="Imprimir PDF" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-red-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="far fa-sm fa-fw fa-file-pdf"></i>
                   </a>
-                  <a href="{{ route('orders.payments.create', $order) }}" class="mr-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
-                    <i class="fas fa-dollar-sign"></i>
+                  <a href="{{ route('orders.payments.create', $order) }}" title="Pagos" alt="Pagos" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-green-700 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-dollar-sign"></i>
                   </a>
-                  <a href="{{ route('orders.show', $order) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
-                    <i class="fas fa-sm fa-file"></i>
+                  <a href="{{ route('orders.show', $order) }}" title="Detalles" alt="Detalles" class="p-2 inline-block rounded-md font-semibold uppercase text-xl text-blue-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-file"></i>
                   </a>
                 </div>
               </td>

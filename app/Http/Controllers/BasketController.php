@@ -187,6 +187,10 @@ class BasketController extends Controller
     $percent_iva = Setting::find(1)->value;
     $tasa_usd = Setting::find(2)->value;
 
+    if ($request->checkout_basket == 1) {
+      $basket = $request->session()->get('cart', []);
+    }
+
     if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
     $user = User::find(Auth::user()->rowid);
 

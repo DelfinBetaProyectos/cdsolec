@@ -85,7 +85,7 @@
 										Opciones
 									</div>
 									<div class="p-2 text-center">
-										<a href="{{ route('comments.restore', $comment) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
+										<a href="{{ route('comments.restore', $comment) }}" title="Restaurar" alt="Restaurar" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
 											<i class="fas fa-sm fa-undo"></i>
 										</a>
 										@livewire('delete-modal', [

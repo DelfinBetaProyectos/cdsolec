@@ -1,5 +1,5 @@
 <div class="inline-block">
-  <button type="button" wire:click="confirmDeletion()" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition ml-2">
+  <button type="button" wire:click="confirmDeletion()" title="Eliminar" alt="Eliminar" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition ml-2">
     <i class="fas fa-fw fa-sm fa-trash"></i>
   </button>
 
