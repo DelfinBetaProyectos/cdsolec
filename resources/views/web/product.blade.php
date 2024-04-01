@@ -69,17 +69,28 @@
 					<h3 class="uppercase font-semibold tracking-widest">Ref: {{ $product->ref }}</h3>
 					<h4 class="font-bold">Descripción</h4>
 					{!! $product->description !!}
-					@if ($datasheet)
+					<!-- @if ($datasheet)
 						<p>
 							<a href="{{ $datasheet }}" target="_blank">
 								<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar Datasheet
 							</a>
 						</p>
-					@endif
+					@endif -->
 					@if ($product->url)
 						<p>
 							<a href="{{ $product->url }}" target="_blank" class="text-blue-600">Ver Video</a>
 						</p>
+					@endif
+					@if ($product->documents->isNotEmpty())
+						@foreach ($product->documents as $document)
+							@if (pathinfo($document->filename, PATHINFO_EXTENSION) == 'pdf')
+								<p>
+									<a href="{{ '/storage/produit/'.$product->ref.'/'.$document->filename }}" target="_blank">
+										<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar PDF
+									</a>
+								</p>
+							@endif
+						@endforeach
 					@endif
 				</div>
 				<div>
