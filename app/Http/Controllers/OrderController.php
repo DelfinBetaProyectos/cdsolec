@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Propal;
+use App\Mail\OrderMail;
+use App\Models\Commande;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +17,11 @@ class OrderController extends Controller
    */
   public function index()
   {
-    $orders = Propal::query()->where('fk_soc', '=', Auth::user()->society->rowid)
-                             ->paginate();
+    $orders = Commande::query()->where('fk_soc', '=', Auth::user()->society->rowid)
+                               ->orderBy('rowid', 'DESC')
+                               ->paginate();
 
-    return view('web.orders')->with('orders', $orders);
+    return view('web.orders.index')->with('orders', $orders);
   }
 
   /**
@@ -45,25 +48,47 @@ class OrderController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Propal  $propal
+   * @param  \App\Models\Commande  $commande
    * @return \Illuminate\Http\Response
    */
-  public function show(Propal $propal)
+  public function show(Commande $commande)
   {
-    if (Auth::user()->society->rowid == $propal->fk_soc) {
-      return view('web.order')->with('propal', $propal);
+    if (Auth::user()->society->rowid == $commande->fk_soc) {
+      $facture = $commande->factures()->first();
+
+      return view('web.orders.show')->with('commande', $commande)->with('facture', $facture);
     } else {
       return redirect()->route('orders.index');
     }
   }
 
   /**
-   * Show the form for editing the specified resource.
+   * PDF.
    *
-   * @param  \App\Models\Propal  $propal
+   * @param  \App\Models\Commande  $commande
    * @return \Illuminate\Http\Response
    */
-  public function edit(Propal $propal)
+  public function pdf(Commande $commande)
+  {
+    if (Auth::user()->society->rowid == $commande->fk_soc) {
+      $data = [
+        'commande' => $commande
+      ];
+
+      $pdf = Pdf::loadView('web.orders.pdf', $data);
+      $filename = 'CDSOLEC-'.$commande->ref.'.pdf';
+
+      return $pdf->stream($filename);
+    }
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  \App\Models\Commande  $commande
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(Commande $commande)
   {
     //
   }
@@ -72,22 +97,49 @@ class OrderController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\Propal  $propal
+   * @param  \App\Models\Commande  $commande
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Propal $propal)
+  public function update(Request $request, Commande $commande)
   {
     //
   }
 
   /**
-   * Remove the specified resource from storage.
+   * Update the specified resource in storage.
    *
-   * @param  \App\Models\Propal  $propal
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Commande  $commande
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Propal $propal)
+  public function name(Request $request, Commande $commande)
+  {
+    $data = $request->validate(['name' => 'required|string']);
+
+    $commande->update(['ref_client' => $data['name']]);
+
+    return redirect()->back()->with('success', 'Nombre guardado con éxito.');
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Models\Commande  $commande
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Commande $commande)
   {
     //
+  }
+
+  /**
+   * Display Mail the specified resource.
+   *
+   * @param  \App\Models\Commande  $commande
+   * @return \Illuminate\Http\Response
+   */
+  public function mail(Commande $commande)
+  {
+    return new OrderMail($commande);
   }
 }

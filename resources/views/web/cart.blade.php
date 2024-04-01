@@ -63,8 +63,8 @@
 											<div class="flex-shrink-0 h-10 w-10 mr-4">
 												<img class="h-10 w-10 rounded-full" src="{{ asset($item['image']) }}" alt="{{ $item['label'] }}" title="{{ $item['label'] }}" />
 											</div>
-											<div class="leading-5">
-												<p class="text-sm text-cdsolec-blue-light font-bold">{{ $item['label'] }}</p>
+											<div class="leading-5 font-bold">
+												<p class="text-sm text-cdsolec-blue-light">{{ $item['label'] }}</p>
 												<p>Ref: {{ $item['ref'] }}</p>
 											</div>
 										</div>
@@ -87,7 +87,7 @@
 										</div>
 										<div class="px-3 py-2 lg:py-4 lg:text-right">
 											<p>Bs {{ number_format($item['price'] * $tasa_usd, 2, ',', '.') }}</p>
-											<p>$USD {{ number_format($item['price'], 2, ',', '.') }}</p>
+											<p class="font-bold">$USD {{ number_format($item['price'], 2, ',', '.') }}</p>
 										</div>
 									</td>
 									<td class="flex flex-row lg:table-cell border-2 text-center">
@@ -101,7 +101,7 @@
 													{{ number_format($subtotal['bs'], 2, ',', '.') }}
 												</span>
 											</p>
-											<p>
+											<p class="font-bold">
 												$USD 
 												<span id="subtotal_usd_{{ $item['id'] }}">
 													{{ number_format($subtotal['usd'], 2, ',', '.') }}
@@ -228,18 +228,31 @@
 				</div>
 				
 				<div class="flex justify-between">
-					<a href="{{ route('products') }}" class="bg-cdsolec-green-light text-white rounded-lg px-3 py-2 hover:bg-cdsolec-green-dark">
-						<i class="fas fa-chevron-circle-left"></i> Agregar Productos
-					</a>
-					<a href="{{ route('cart.clear') }}" class="bg-red-500 text-white rounded-lg px-3 py-2 mx-3">
-						<i class="fas fa-times text-white"></i> Cancelar Pedido
-					</a>
-					<form id="form-cart" name="form-cart" method="POST" action="{{ route('cart.checkout') }}">
-						@csrf
-						<button type="submit" class="bg-cdsolec-green-dark text-white rounded-lg px-3 py-2 hover:bg-cdsolec-green-light">
-							Comprar <i class="fas fa-chevron-circle-right"></i>
-						</button>
-					</form>
+					<div>
+						<a href="{{ route('products') }}" class="bg-cdsolec-green-light text-white rounded-lg px-3 py-2 hover:bg-cdsolec-green-dark">
+							<i class="fas fa-chevron-circle-left"></i> Agregar Productos
+						</a>
+					</div>
+					<div>
+						<a href="{{ route('cart.clear') }}" class="bg-red-500 text-white rounded-lg px-3 py-2 mx-3">
+							<i class="fas fa-times text-white"></i> Cancelar Pedido
+						</a>
+					</div>
+					<div class="text-right">
+						<form id="form-cart" name="form-cart" method="POST" action="{{ route('cart.checkout') }}">
+							@csrf
+							<button type="submit" class="bg-cdsolec-green-dark text-white rounded-lg px-3 py-2 hover:bg-cdsolec-green-light">
+								Comprar <i class="fas fa-chevron-circle-right"></i>
+							</button>
+						</form>
+						<form id="form-cart2" name="form-cart2" method="POST" action="{{ route('basket.checkout') }}" class="mt-4">
+							@csrf
+							<input type="hidden" name="checkout_basket" id="checkout_basket" value="1" />
+							<button type="submit" class="bg-cdsolec-green-dark text-white rounded-lg px-3 py-2 hover:bg-cdsolec-green-light">
+								Presupuesto <i class="fas fa-chevron-circle-right"></i>
+							</button>
+						</form>
+					</div>
 				</div>
 			@else
 				<div class="mx-4 mt-5 text-sm text-blue-800 p-2 rounded bg-blue-light border border-blue-800">

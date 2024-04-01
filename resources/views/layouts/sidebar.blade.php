@@ -13,7 +13,12 @@
     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
       <li class="items-center">
         <a href="{{ route('orders.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
-          <i class="fas fa-shopping-cart mr-2 text-sm"></i> Compras
+          <i class="fas fa-shopping-cart mr-2 text-sm"></i> Pedidos
+        </a>
+      </li>
+      <li class="items-center">
+        <a href="{{ route('budgets.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
+          <i class="fas fa-shopping-basket mr-2 text-sm"></i> Presupuestos
         </a>
       </li>
     </ul>
@@ -23,6 +28,11 @@
         Plataforma
       </h6>
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+        <li class="items-center">
+          <a href="{{ route('banners.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
+            <i class="fas fa-image mr-2 text-sm"></i> Banners
+          </a>
+        </li>
         <li class="items-center">
           <a href="{{ route('contents.index') }}" class="w-full py-2 text-sm block no-underline font-semibold hover:bg-gray-300 hover:text-cdsolec-green-dark hover:pl-2">
             <i class="fas fa-file mr-2 text-sm"></i> Contenido

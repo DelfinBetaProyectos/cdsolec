@@ -55,10 +55,13 @@
     <table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
 			<thead>
 				<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
-					<th style="width: 110px" class="px-3 py-3 font-medium text-center">
+					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 						REF
 					</th>
-					<th class="px-3 py-3 font-medium text-right">
+					<th class="px-3 py-3 font-medium text-left">
+						Nombre del Proyecto
+					</th>
+					<th style="width: 200px" class="px-3 py-3 font-medium text-right">
 						Total
 					</th>
 					<th style="width: 200px" class="px-3 py-3 font-medium text-center">
@@ -67,7 +70,7 @@
 					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
 						Fecha
 					</th>
-					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
+					<th style="width: 200px" class="px-3 py-3 font-medium text-center">
 						Opciones
 					</th>
 				</tr>
@@ -91,11 +94,19 @@
               </td>
               <td class="flex flex-row lg:table-cell">
                 <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Nombre
+                </div>
+                <div class="p-2">
+                  {{ $order->ref_client }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
                   Total
                 </div>
                 <div class="p-2 lg:text-right font-bold">
                   <p>Bs {{ number_format($total_bs, 2, ',', '.') }}</p>
-                  <p>$USD {{ number_format($order->total, 2, ',', '.') }}</p>
+                  <p>$USD {{ number_format($order->total_ttc, 2, ',', '.') }}</p>
                 </div>
               </td>
               <td class="flex flex-row lg:table-cell">
@@ -111,7 +122,7 @@
                   Fecha
                 </div>
                 <div class="p-2 text-center">
-                  {{ $order->datec->format('d/m/Y') }}
+                  {{ $order->date_creation->format('d/m/Y') }}
                 </div>
               </td>
               <td class="flex flex-row lg:table-cell">
@@ -119,15 +130,24 @@
                   Opciones
                 </div>
                 <div class="p-2 text-center">
-                  <a href="{{ route('orders.show', $order) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
-                    <i class="fas fa-sm fa-file"></i>
+                  <a href="{{ route('cart.reload', ['type' => 'order', 'id' => $order->rowid]) }}" title="Recargar Pedido" alt="Recargar Pedido" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-yellow-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-shopping-cart"></i>
+                  </a>
+                  <a href="{{ route('orders.pdf', $order) }}" target="_blank" title="Imprimir PDF" alt="Imprimir PDF" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-red-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="far fa-sm fa-fw fa-file-pdf"></i>
+                  </a>
+                  <a href="{{ route('orders.payments.create', $order) }}" title="Pagos" alt="Pagos" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-green-700 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-dollar-sign"></i>
+                  </a>
+                  <a href="{{ route('orders.show', $order) }}" title="Detalles" alt="Detalles" class="p-2 inline-block rounded-md font-semibold uppercase text-xl text-blue-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-file"></i>
                   </a>
                 </div>
               </td>
             </tr>
           @endforeach
         </tbody>
-			@endif
+      @endif
 		</table>
 
 		{{ $orders->links() }}

@@ -53,10 +53,10 @@
 		</div>
 
 		<div class="my-3 flex justify-end">
-			<a href="{{ route('settings.create') }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
+			<a href="{{ route('settings.create') }}" title="Agregar" alt="Agregar" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-green-600 hover:bg-green-500 tracking-wider rounded-md transition">
 				<i class="fas fa-fw fa-plus-square"></i> Agregar Nuevo
 			</a>
-			<a href="{{ route('settings.trash') }}" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition">
+			<a href="{{ route('settings.trash') }}" title="Papelera" alt="Papelera" class="ml-2 px-3 py-2 font-semibold uppercase text-sm text-white bg-red-600 hover:bg-red-500 tracking-wider rounded-md transition">
 				<i class="fas fa-fw fa-trash-restore"></i> Ver Papelera
 			</a>
 		</div>
@@ -115,7 +115,7 @@
                   Opciones
                 </div>
                 <div class="p-2 text-center">
-                  <a href="{{ route('settings.edit', $setting) }}" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
+                  <a href="{{ route('settings.edit', $setting) }}" title="Editar" alt="Editar" class="px-3 py-2 font-semibold uppercase text-sm text-white bg-blue-600 hover:bg-blue-500 tracking-wider rounded-md transition">
                     <i class="fas fa-sm fa-edit"></i>
                   </a>
                   @livewire('delete-modal', [

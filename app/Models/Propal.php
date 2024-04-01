@@ -92,4 +92,22 @@ class Propal extends Model
   {
     return $this->hasMany(PropalDetail::class, 'fk_propal', 'rowid');
   }
+
+  /**
+   * The society that belong to the propal.
+   */
+  public function society()
+  {
+    return $this->belongsTo(Society::class, 'fk_soc', 'rowid');
+  }
+
+  /**
+   * The commandes that belong to the propal.
+   */
+  public function commandes()
+  {
+    return $this->belongsToMany(Commande::class, 'llx_element_element', 'fk_source', 'fk_target')
+                ->where('sourcetype', 'propal')
+                ->where('targettype', 'commande');
+  }
 }

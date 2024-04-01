@@ -45,7 +45,7 @@
               </li>
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
-                <a href="#">Soluciones</a>
+                <a href="{{ route('solutions') }}">Soluciones</a>
               </li>
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
@@ -62,6 +62,14 @@
               <li>
                 <i class="fas fa-angle-right mr-1"></i>
                 <a href="{{ route('cart.index') }}">Compra (0)</a>
+              </li>
+              <li>
+                <i class="fas fa-angle-right mr-1"></i>
+                <a href="{{ route('conditions') }}">Condiciones de Ventas y Garantías</a>
+              </li>
+              <li>
+                <i class="fas fa-angle-right mr-1"></i>
+                <a href="{{ route('policy') }}">Política Comercial, Devoluciones y Delivery</a>
               </li>
               @guest
                 <li>
@@ -84,18 +92,18 @@
         <hr class="my-2">
         <ul class="mt-2 flex flex-row list-none items-center">
           <li>
-            <a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+            <a href="https://wa.me/+584128915299" target="_blank" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
               <i class="fab fa-whatsapp leading-lg"></i>
             </a>
           </li>
           <li>
-            <a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
-              <i class="fab fa-twitter leading-lg"></i>
+            <a href="https://www.instagram.com/cdsolec/" target="_blank" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+              <i class="fab fa-instagram leading-lg"></i>
             </a>
           </li>
           <li>
-            <a href="#" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
-              <i class="fab fa-instagram leading-lg"></i>
+            <a href="https://www.youtube.com/channel/UCixT72Hh42vepJ6hFX-rDLw" target="_blank" class="px-3 py-4 md:py-2 flex items-center text-3xl uppercase font-bold">
+              <i class="fab fa-youtube leading-lg"></i>
             </a>
           </li>
         </ul>
@@ -107,8 +115,14 @@
         <hr class="my-2">
         <div class="grid gad-4 grid-cols-1 sm:grid-cols-2">
           <div class="text-sm">
-            <p><a href="tel:+584128915299"><i class="fas fa-fw fa-phone mr-2"></i> (0412)-891.52.99</a></p>
-            <p><a href="https://wa.me/+584128915299" target="_blank"><i class="fab fa-fw fa-whatsapp mr-2"></i> (0412)-891.52.99</a></p>
+            <p>
+              <a href="tel:+584128915299" class="mr-4"><i class="fas fa-fw fa-phone mr-2"></i> (0412)-891.52.99</a> 
+              <a href="tel:+584243158430">(0424)-315.84.30</a>
+            </p>
+            <p>
+              <a href="https://wa.me/+584128915299" target="_blank" class="mr-4"><i class="fab fa-fw fa-whatsapp mr-2"></i> (0412)-891.52.99</a>
+              <a href="https://wa.me/+584243158430" target="_blank">(0424)-315.84.30</a>
+            </p>
             <p><a href="mailto:ventas@cd-solec.com"><i class="fas fa-fw fa-envelope mr-2"></i> ventas@cd-solec.com</a></p>
           </div>
           <div>
@@ -129,6 +143,9 @@
         </div>
       </div>
     </div>
+    <p class="text-xs text-center">
+      CD INVERSIONES TECNOLOGICAS, C.A. RIF: J504099929
+    </p>
     <p class="text-xs text-center">
       Copyright © <span id="get-current-year">{{ config('app.name', 'Laravel') }} {{ date('Y') }}</span>
       Desarrollado por <a href="https://delfinbeta.tech/" target="_blank" class="italic">DelfinBeta</a>

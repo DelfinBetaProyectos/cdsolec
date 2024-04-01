@@ -33,22 +33,31 @@ class ContentSeeder extends Seeder
 
         $content = Content::factory()->create([
             'name' => 'Contáctanos',
-            'description' => '<div class="w-full flex mb-5">
+            'description' => '<div class="w-full flex items-center mb-5">
                 <i class="mr-3 fas fa-5x fa-fw fa-envelope-open-text"></i>
                 <div>
-                    <p class="py-7"><a href="mailto:ventas@cd-solec.com">ventas@cd-solec.com</a></p>
+                    <p><a href="mailto:ventas@cd-solec.com">ventas@cd-solec.com</a></p>
                 </div>
             </div>
-            <div class="w-full flex mb-5">
+            <div class="w-full flex items-center mb-5">
+                <i class="mr-3 fab fa-5x fa-fw fa-whatsapp"></i>
+                <div>
+                    <p><a href="https://wa.me/+584128915299">(0412)-891.52.99</a></p>
+                    <p><a href="https://wa.me/+584243158430">(0424)-315.84.30</a></p>
+                </div>
+            </div>
+            <div class="w-full flex items-center mb-5">
                 <i class="mr-3 fas fa-5x fa-fw fa-mobile-alt"></i>
                 <div>
-                    <p><a href="tel:+584128915299">(0412)-891.52.99</a></p>
+                    <p><a href="tel:+582446888375">(0244)-688.83.75</a></p>
+                    <p><a href="tel:+582446888377">(0244)-688.83.77</a></p>
+                    <p><a href="tel:+582446888379">(0244)-688.83.79</a></p>
                 </div>
             </div>
-            <div class="w-full flex mb-5">
+            <div class="w-full flex items-center mb-5">
                 <i class="mr-3 fas fa-5x fa-fw fa-map-marked-alt"></i>
                 <div>
-                    <p class="py-7">Edo. Aragua, Venezuela</p>
+                    <p>Edo. Aragua, Venezuela</p>
                 </div>
             </div>'
         ]);

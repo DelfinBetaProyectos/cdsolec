@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactMail;
-use App\Models\{Content, Comment, Category, Product, Extrafield, Setting, Propal};
+use App\Mail\{ContactMail, StockMail};
+use App\Models\{Banner, Content, Comment, Category, Product, Extrafield, Setting, Propal};
 use App\Queries\ProductFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +36,7 @@ class WelcomeController extends Controller
   public function welcome()
   {
     $tasa_usd = Setting::find(2)->value;
+    $banners = Banner::all();
     $about = Content::find(1);
 
     if (Auth::check() && Auth::user()->society) { $price_level = Auth::user()->society->price_level; } else { $price_level = 1; }
@@ -53,12 +54,14 @@ class WelcomeController extends Controller
     $products = Product::query()->with([
                   'prices' => function ($query) use ($price_level) {
                     $query->where('price_level', '=', $price_level)
+                          ->orWhere('price_level', '=', 1)
                           ->orderBy('date_price', 'desc');
                   }
                 ])
                 ->where('tosell', '=', '1')
                 ->whereHas('prices', function ($query) use ($price_level) {
-                  $query->where('price_level', '=', $price_level);
+                  $query->where('price_level', '=', $price_level)
+                        ->orWhere('price_level', '=', 1);
                 })
                 ->whereHas('categories', function ($query) {
                   $query->where('fk_categorie', '=', '807');
@@ -67,10 +70,12 @@ class WelcomeController extends Controller
                 ->take(10)
                 ->get();
 
-    return view('welcome')->with('about', $about)
+    return view('welcome')->with('banners', $banners)
+                          ->with('about', $about)
                           ->with('brands', $brands)
                           ->with('products', $products)
-                          ->with('tasa_usd', $tasa_usd);
+                          ->with('tasa_usd', $tasa_usd)
+                          ->with('price_level', $price_level);
   }
 
   /**
@@ -83,6 +88,44 @@ class WelcomeController extends Controller
     $about = Content::find(2);
 
     return view('web.about')->with('about', $about);
+  }
+
+  /**
+   * Display Solutions.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function solutions()
+  {
+    $solutions = Content::find(4);
+
+    $category = Category::findOrFail(905);
+
+    return view('web.solutions')->with('solutions', $solutions)->with('category', $category);
+  }
+
+  /**
+   * Display Conditions.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function conditions()
+  {
+    $conditions = Content::find(5);
+
+    return view('web.conditions')->with('conditions', $conditions);
+  }
+
+  /**
+   * Display Policy.
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function policy()
+  {
+    $policy = Content::find(6);
+
+    return view('web.policy')->with('policy', $policy);
   }
 
   /**
@@ -104,13 +147,15 @@ class WelcomeController extends Controller
     $products = Product::query()->with([
                           'prices' => function ($query) use ($price_level) {
                             $query->where('price_level', '=', $price_level)
+                                  ->orWhere('price_level', '=', 1)
                                   ->orderBy('date_price', 'desc');
                           },
                           'extrafields'
                         ])
                         ->where('tosell', '=', '1')
                         ->whereHas('prices', function ($query) use ($price_level) {
-                          $query->where('price_level', '=', $price_level);
+                          $query->where('price_level', '=', $price_level)
+                                ->orWhere('price_level', '=', 1);
                         });
 
     if ($category_id != '715') {
@@ -126,7 +171,8 @@ class WelcomeController extends Controller
                             });
     }
 
-    $productsMatriz = $products->get();
+    $productsMatriz = $products;
+    $productsMatriz = $productsMatriz->get();
 
     if ($request->has('search')) {
       $search = $request->input('search');
@@ -145,11 +191,10 @@ class WelcomeController extends Controller
       }
     }
 
-    $products = $products->orderBy('rowid', 'ASC')
-                         ->paginate(20);
+    $products = $products->orderBy('rowid', 'ASC')->paginate(20);
 
     $products->appends(request()->query());
-                         
+
     $extrafields = Extrafield::where('elementtype', '=', 'product')->get();
     $attributes = [];
     $matriz = [];
@@ -172,6 +217,7 @@ class WelcomeController extends Controller
                                ->with('products', $products)
                                ->with('filters', $filters)
                                ->with('tasa_usd', $tasa_usd)
+                               ->with('price_level', $price_level)
                                ->with('extrafields', $extrafields)
                                ->with('attributes', $attributes)
                                ->with('matriz', $matriz);
@@ -192,11 +238,13 @@ class WelcomeController extends Controller
     $product = Product::with([
                         'prices' => function ($query) use ($price_level) {
                           $query->where('price_level', '=', $price_level)
+                                ->orWhere('price_level', '=', 1)
                                 ->orderBy('date_price', 'desc');
                         }
                       ])
                       ->whereHas('prices', function ($query) use ($price_level) {
-                        $query->where('price_level', '=', $price_level);
+                        $query->where('price_level', '=', $price_level)
+                              ->orWhere('price_level', '=', 1);
                       })
                       ->where('ref', '=', $ref)
                       ->first();
@@ -256,9 +304,60 @@ class WelcomeController extends Controller
                               ->with('image', $image)
                               ->with('datasheet', $datasheet)
                               ->with('tasa_usd', $tasa_usd)
+                              ->with('price_level', $price_level)
                               ->with('extrafields', $extrafields)
                               ->with('product_fields', $product_fields)
                               ->with('attributes', $attributes);
+  }
+
+  /**
+   * Form Stock Product.
+   * 
+   * @param  string  $ref
+   * @return \Illuminate\Http\Response
+   */
+  public function stock(string $ref)
+  {
+    $product = Product::where('ref', '=', $ref)->first();
+
+    return view('web.stock')->with('product', $product);
+  }
+
+  /**
+   * Mail Stock Product.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  string  $ref
+   * @return \Illuminate\Http\Response
+   */
+  public function stock_mail(Request $request, string $ref)
+  {
+    $request->validate([
+      'name' => ['required', 'string', 'min:3', 'max:255'],
+      'email' => ['required', 'string', 'email', 'max:255'],
+      'phone' => ['required', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
+      'message' => ['required', 'string', 'min:3', 'max:4294967200'],
+    ], [
+      'name.required' => 'Nombre es requerido',
+      'name.min' => 'El Nombre debe tener al menos 3 caracteres',
+      'name.max' => 'El Nombre debe tener maximo 255 caracteres',
+      'email.required' => 'Email es requerido',
+      'email.email' => 'Email inválido',
+      'email.max' => 'El Email debe tener maximo 255 caracteres',
+      'phone.required' => 'Teléfono es requerido',
+      'phone.regex' => 'Teléfono es inválido. Ejem.:(243)-234-5678',
+      'message.required' => 'Mensaje es requerido',
+      'message.min' => 'El Mensaje debe tener al menos 3 caracteres',
+      'message.max' => 'El Mensaje debe tener maximo 4294967200 caracteres',
+    ]);
+
+    $product = Product::where('ref', '=', $ref)->first();
+
+    $mail = new StockMail($request->name, $request->email, $request->phone, $request->message, $product->label, $product->ref);
+      
+    Mail::to('ventas@cd-solec.com', 'Consulta de Stock CD-SOLEC')->send($mail);
+
+    return redirect()->back()->with("message", "¡Gracias por su solicitud!, pronto será contactado");
   }
 
   /**

@@ -29,27 +29,25 @@
 
 	<!-- Slider -->
 	<section id="hero" class="relative">
-		<div class="-mb-5 md:-mb-12 lg:-mb-20">
-			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl" style="background-image: url(img/slide1.jpg);"></div>
+		@if ($banners->isNotEmpty())
+			<div class="-mb-5 md:-mb-12 lg:-mb-20">
+				@foreach ($banners as $banner)
+					<div class="mySlider hidden fade overflow-hidden">
+						<div class="slider relative shadow-2xl" style="background-image: url(<?=$banner->url_image?>);"></div>
+					</div>
+				@endforeach
+				<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light"data-nav="previous">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+					</svg>
+				</a>
+				<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+					</svg>
+				</a>
 			</div>
-			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl" style="background-image: url(img/slide2.jpg);"></div>
-			</div>
-			<div class="mySlider hidden fade overflow-hidden">
-				<div class="slider relative shadow-2xl " style="background-image: url(img/slide3.jpg);"></div>
-			</div>
-			<a onclick="plusSlides(-1)" class="control_prev absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light"data-nav="previous">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-				</svg>
-			</a>
-			<a onclick="plusSlides(1)" class="control_next absolute lg:block p-4 m-4 z-10 cursor-pointer text-white hover:text-auto-blue-light" data-nav="next">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32px">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-				</svg>
-			</a>
-		</div>
+		@endif
 		<div class="gradient">
 			<svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
 				xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -80,7 +78,7 @@
 						{!! $about->description !!}
 					</div>
 					<div class="md:w-1/5 text-center mx-4 pt-1">
-						<img src="{{ asset('img/logos/CD-SOLEC_Vertical.png') }}" alt="CD-SOLEC" title="CD-SOLEC" />
+						<img src="{{ asset('img/logos/CD-SOLEC_Lema.png') }}" alt="CD-SOLEC" title="CD-SOLEC" />
 					</div>
 				</div>
 			</div>
@@ -148,6 +146,12 @@
 										} else {
 											$image = 'img/favicon/apple-icon.png';
 										}
+
+										$price_original = $product->prices->where('price_level', 1)->first();
+										$price_client = $product->prices->where('price_level', $price_level)->first();
+										if ($price_client == null) {
+											$price_client = $price_original;
+										}
 									@endphp
 									<li class="splide__slide border border-gray-400 rounded-xl grid grid-cols-1 gap-2 content-between">
 										<div class="p-2">
@@ -156,8 +160,9 @@
 										<div class="text-center">
 											<h6 class="text-lg font-semibold">{{ $product->label }}</h6>
 											<div class="text-base font-bold text-cdsolec-green-dark">
-												<p>Bs {{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}</p>
-												<p>$USD {{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}</p>
+												<p class="line-through text-red-600">$USD {{ number_format($price_original->price_discount, 2, ',', '.') }}</p>
+												<p>$USD {{ number_format($price_client->price_discount, 2, ',', '.') }}</p>
+												<p>Bs {{ number_format(($price_client->price_discount * $tasa_usd), 2, ',', '.') }}</p>
 											</div>
 											<span class="bg-gray-500 text-white rounded-full py-0.5 px-2 text-sm w-min">
 												Ref: {{ $product->ref }}
@@ -176,6 +181,8 @@
 				@endif
 			</div>
 		</section>
+
+		<!-- <livewire:welcome-modal /> -->
 	</main>
 
 	<!-- Footer -->
@@ -191,7 +198,7 @@
 				activeTab: 0,
 				tabs: [
 						"Categorías",
-						"Sectores de Interés",
+						// "Sectores de Interés",
 				]
 			};
 		};

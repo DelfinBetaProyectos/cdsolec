@@ -90,6 +90,18 @@ class User extends Authenticatable implements Auditable
   ];
 
   /**
+  * Overrides the method to ignore the remember token.
+  */
+  public function setAttribute($key, $value)
+  {
+    $isRememberTokenAttribute = $key == $this->getRememberTokenName();
+
+    if (!$isRememberTokenAttribute) {
+      parent::setAttribute($key, $value);
+    }
+  }
+
+  /**
    * Get the user's password.
    * 
    * @return string

@@ -28,7 +28,7 @@ class CreateNewUser implements CreatesNewUsers
       'password' => $this->passwordRules(),
       'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
       'identification' => ['required', 'string', 'unique:mysqlerp.llx_societe,siren'],
-      'phone' => ['nullable', 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'],
+      'phone' => ['nullable'],  // , 'regex:/^\(\d{3}\)-\d{3}-\d{4}$/i'
       'type' => ['required', 'exists:mysqlerp.llx_categorie,rowid']
     ])->validate();
 
@@ -57,7 +57,7 @@ class CreateNewUser implements CreatesNewUsers
       'fk_typent' => 0,                     // Tipo de empresa
       'siren' => $input['identification'],  // RIF
       'client' => 2,                        // 2 = Cliente Potencial
-      'price_level' => 1,
+      'price_level' => 2,                   // Nivel de Precio inicial del Cliente (Lista de Precios 2)
       'datec' => date('Y-m-d H:i:s'),
       'fk_user_creat' => $user->rowid,
       'fk_user_modif' => $user->rowid,

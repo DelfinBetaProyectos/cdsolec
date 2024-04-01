@@ -60,45 +60,80 @@
 				</div>
 				<div>
 					<h2 class="text-cdsolec-green-dark font-semibold text-lg py-1">{{ $product->label }}</h2>
+					@if ($extrafields->isNotEmpty())
+						@php
+							$product_fields = $product->extrafields->toArray();
+						@endphp
+						<h3 class="font-semibold">{{ $product_fields['at1'] }}</h3>
+					@endif
 					<h3 class="uppercase font-semibold tracking-widest">Ref: {{ $product->ref }}</h3>
 					<h4 class="font-bold">Descripción</h4>
 					{!! $product->description !!}
-					@if ($datasheet)
+					<!-- @if ($datasheet)
 						<p>
 							<a href="{{ $datasheet }}" target="_blank">
 								<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar Datasheet
 							</a>
 						</p>
+					@endif -->
+					@if ($product->url)
+						<p>
+							<a href="{{ $product->url }}" target="_blank" class="text-blue-600">Ver Video</a>
+						</p>
+					@endif
+					@if ($product->documents->isNotEmpty())
+						@foreach ($product->documents as $document)
+							@if (pathinfo($document->filename, PATHINFO_EXTENSION) == 'pdf')
+								<p>
+									<a href="{{ '/storage/produit/'.$product->ref.'/'.$document->filename }}" target="_blank">
+										<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar PDF
+									</a>
+								</p>
+							@endif
+						@endforeach
 					@endif
 				</div>
 				<div>
 					@php
 						$stock = $product->stock - $product->seuil_stock_alerte;
+
+						$price_original = $product->prices->where('price_level', 1)->first();
+						$price_client = $product->prices->where('price_level', $price_level)->first();
+						if ($price_client == null) {
+							$price_client = $price_original;
+						}
+
 						$cart = session()->get('cart', []);
 					@endphp
-					@if ((count($cart) > 0) && isset($cart[$product->rowid]))
-						<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
-							@csrf
-							@method('DELETE')
-							<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
-								Eliminar <i class="fas fa-cart-arrow-down"></i>
-							</button>
-						</form>
-					@else
-						<form action="{{ route('cart.store') }}" method="POST" class="flex flex-col lg:flex-row justify-between">
-							@csrf
-							<input type="hidden" name="product" value="{{ $product->rowid }}" />
-							<div class="flex p-1">
-								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
-								<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $product->prices[0]->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
-								<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
-							</div>
-							<div class="m-2">
-								<button type="submit" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
-									Agregar al Carrito <i class="fas fa-shopping-cart"></i>
+					@if ($stock > 0)
+						@if ((count($cart) > 0) && isset($cart[$product->rowid]))
+							<form id="form-delete" name="form-delete" method="POST" action="{{ route('cart.destroy', $product->rowid) }}">
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="px-4 py-1 font-semibold bg-red-600 text-white uppercase text-xs">
+									Eliminar <i class="fas fa-cart-arrow-down"></i>
 								</button>
-							</div>
-						</form>
+							</form>
+						@else
+							<form action="{{ route('cart.store') }}" method="POST" class="flex flex-col lg:flex-row justify-between">
+								@csrf
+								<input type="hidden" name="product" value="{{ $product->rowid }}" />
+								<div class="flex p-1">
+									<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="decrement">-</button>
+									<input type="number" name="quantity" id="quantity" min="0" max="{{ $stock }}" step="1" data-stock="{{ $stock }}" data-price="{{ $price_client->price_discount }}" data-tasa="{{ $tasa_usd }}" value="0" class="w-20 my-1 text-right" onchange="validateRange(this)" />
+									<button type="button" class="px-3 py-2 my-1 border border-gray-500 font-semibold" data-action="increment">+</button>
+								</div>
+								<div class="m-2">
+									<button type="submit" class="p-3 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs">
+										Agregar al Carrito <i class="fas fa-shopping-cart"></i>
+									</button>
+								</div>
+							</form>
+						@endif
+					@else
+						<a href="{{ route('stock', $product->ref) }}" class="inline-block my-1 px-4 py-1 font-semibold bg-cdsolec-green-dark text-white uppercase text-xs text-center">
+							Consultar Disponibilidad
+						</a>
 					@endif
 					<p><strong>Precio</strong></p>
 					<table class="w-full pb-3 border-collapse border border-gray-300 text-sm">
@@ -112,23 +147,33 @@
 						</thead>
 						<tbody>
 							<tr class="bg-gray-300 border border-gray-300">
-								<td class="p-2 text-left">Bs</td>
-								<td id="quantity_bs" class="p-2 text-right">{{ $quantity = 1 }}</td>
-								<td class="p-2 text-right">
-									{{ number_format(($product->prices[0]->price_discount * $tasa_usd), 2, ',', '.') }}
+								<td class="line-through text-red-600 p-2 text-left">$USD</td>
+								<td class="line-through text-red-600 p-2 text-right">{{ $quantity = 1 }}</td>
+								<td class="line-through text-red-600 p-2 text-right">
+									{{ number_format($price_original->price_discount, 2, ',', '.') }}
 								</td>
-								<td id="subtotal_bs" class="p-2 text-right text-cdsolec-green-dark font-semibold">
-									{{ number_format(($product->prices[0]->price_discount * $tasa_usd * $quantity), 2, ',', '.') }}
+								<td class="line-through text-red-600 p-2 text-right font-semibold">
+									{{ number_format(($price_original->price_discount * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 							<tr class="border border-gray-300">
 								<td class="p-2 text-left">$USD</td>
 								<td id="quantity_usd" class="p-2 text-right">{{ $quantity = 1 }}</td>
 								<td class="p-2 text-right">
-									{{ number_format($product->prices[0]->price_discount, 2, ',', '.') }}
+									{{ number_format($price_client->price_discount, 2, ',', '.') }}
 								</td>
 								<td id="subtotal_usd" class="p-2 text-right text-cdsolec-green-dark font-semibold">
-									{{ number_format(($product->prices[0]->price_discount * $quantity), 2, ',', '.') }}
+									{{ number_format(($price_client->price_discount * $quantity), 2, ',', '.') }}
+								</td>
+							</tr>
+							<tr class="bg-gray-300 border border-gray-300">
+								<td class="p-2 text-left">Bs</td>
+								<td id="quantity_bs" class="p-2 text-right">{{ $quantity = 1 }}</td>
+								<td class="p-2 text-right">
+									{{ number_format(($price_client->price_discount * $tasa_usd), 2, ',', '.') }}
+								</td>
+								<td id="subtotal_bs" class="p-2 text-right text-cdsolec-green-dark font-semibold">
+									{{ number_format(($price_client->price_discount * $tasa_usd * $quantity), 2, ',', '.') }}
 								</td>
 							</tr>
 						</tbody>
@@ -152,7 +197,7 @@
 								@endphp
 								<tbody>
 									@foreach ($extrafields as $extrafield)
-										@if (($product_fields[$extrafield->name] != 'N/A')  && isset($attributes[$extrafield->name.'f']) && $attributes[$extrafield->name.'f'])
+										@if (isset($product_fields[$extrafield->name]) && ($product_fields[$extrafield->name] != null) && ($product_fields[$extrafield->name] != 'N/A'))
 											<tr class="even:bg-gray-300">
 												<td class="p-2 text-left">
 													{{ (isset($attributes[$extrafield->name])) ? $attributes[$extrafield->name] : $extrafield->name }}
@@ -160,7 +205,7 @@
 												<td class="p-2 text-left">{{ $product_fields[$extrafield->name] }}</td>
 												<td class="p-2 text-center">
 													<label for="field_{{ $extrafield->name }}" class="flex justify-center items-center">
-														<x-jet-checkbox id="field_{{ $extrafield->name }}" name="{{ $extrafield->name }}" value="{{ $product_fields[$extrafield->name] }}" />
+														<input type="checkbox" data-filter="{{ $extrafield->name }}" name="{{ $extrafield->name }}[]" id="{{ $extrafield->name }}_{{ $loop->iteration }}" class="checkfilter border border-cdsolec-green-dark rounded text-cdsolec-green-dark shadow-sm focus:border-cdsolec-green-dark focus:ring focus:ring-cdsolec-green-light focus:ring-opacity-50" value="{{ $product_fields[$extrafield->name] }}" />
 													</label>
 												</td>
 											</tr>
@@ -184,6 +229,20 @@
 
 	@push('scripts')
 		<script>
+			function handleCheck() {
+				let myCheckFilters = document.querySelectorAll(".checkfilter:checked");
+				let querystring = '?';
+				let dataArray = [];
+
+				myCheckFilters.forEach(item => {
+					querystring = querystring + '&' + encodeURIComponent(item.dataset.filter) + '[]=' + encodeURIComponent(item.value);
+				});
+
+				let url = '/products' + querystring;
+
+				location.href = url;
+			}
+
 			function decrement(e) {
 				const btn = e.target.parentNode.parentElement.querySelector(
 					'button[data-action="decrement"]'
