@@ -276,9 +276,9 @@ class CartController extends Controller
       'fk_user_author' => $user->rowid,
       'fk_user_valid' => $user->rowid,
       'fk_statut' => 2,
-      'total_ht' => 0,  // Total sin IVA
-      'tva' => 0,       // IVA
-      'total' => 0,     // Total + IVA
+      'total_ht' => 0,   // Total sin IVA
+      'total_tva' => 0,  // IVA
+      'total_ttc' => 0,  // Total + IVA
       'fk_multicurrency' => 1,
       'multicurrency_code' => 'USD',
       'multicurrency_tx' => $tasa_usd,  // Tasa del USD
@@ -336,8 +336,8 @@ class CartController extends Controller
 
     $propal->update([
       'total_ht' => $subtotal_usd,  // Total sin IVA
-      'tva' => $iva_usd,            // IVA
-      'total' => $total_usd,        // Total + IVA
+      'total_tva' => $iva_usd,      // IVA
+      'total_ttc' => $total_usd,    // Total + IVA
       'multicurrency_total_ht' => $subtotal_usd,
       'multicurrency_total_tva' => $iva_usd,
       'multicurrency_total_ttc' => $total_usd
@@ -361,9 +361,9 @@ class CartController extends Controller
       'fk_user_author' => $user->rowid,
       'fk_user_valid' => $user->rowid,
       'fk_statut' => 1,
-      'total_ht' => $propal->total_ht,  // Total sin IVA
-      'tva' => $propal->tva,            // IVA
-      'total_ttc' => $propal->total,    // Total + IVA
+      'total_ht' => $propal->total_ht,    // Total sin IVA
+      'total_tva' => $propal->total_tva,  // IVA
+      'total_ttc' => $propal->total_ttc,  // Total + IVA
       'fk_multicurrency' => 1,
       'multicurrency_code' => 'USD',
       'multicurrency_tx' => $propal->multicurrency_tx,  // Tasa del USD

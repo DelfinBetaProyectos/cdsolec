@@ -211,9 +211,9 @@ class BasketController extends Controller
       'fk_user_author' => $user->rowid,
       'fk_user_valid' => $user->rowid,
       'fk_statut' => 1,
-      'total_ht' => 0,  // Total sin IVA
-      'tva' => 0,       // IVA
-      'total' => 0,     // Total + IVA
+      'total_ht' => 0,   // Total sin IVA
+      'total_tva' => 0,  // IVA
+      'total_ttc' => 0,  // Total + IVA
       'fk_multicurrency' => 1,
       'multicurrency_code' => 'USD',
       'multicurrency_tx' => $tasa_usd,  // Tasa del USD

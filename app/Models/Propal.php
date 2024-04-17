@@ -43,7 +43,7 @@ class Propal extends Model
     'ref', 'entity', 'ref_ext', 'ref_int', 'ref_client', 'fk_soc', 'fk_projet', 'tms', 'datec',
     'datep', 'fin_validite', 'date_valid', 'date_cloture', 'fk_user_author', 'fk_user_modi',
     'fk_user_valid', 'fk_user_cloture', 'fk_statut', 'price', 'remise_percent',
-    'remise_absolue', 'remise', 'total_ht', 'tva', 'localtax1', 'localtaxt2', 'total',
+    'remise_absolue', 'remise', 'total_ht', 'total_tva', 'localtax1', 'localtaxt2', 'total_ttc',
     'fk_account', 'fk_currency', 'fk_cond_reglement', 'fk_mode_reglement', 'note_private',
     'note_public', 'model_pdf', 'last_main_doc', 'date_livraison', 'fk_shipping_method',
     'fk_availability', 'fk_input_reason', 'fk_incoterms', 'location_incoterms', 'import_key',

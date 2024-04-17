@@ -80,7 +80,7 @@
           @foreach($orders as $order)
             @php
 							$total_bs = $order->total_ht * $order->multicurrency_tx;
-              $iva_bs = $order->tva * $order->multicurrency_tx;
+              $iva_bs = $order->total_tva * $order->multicurrency_tx;
               $total_bs = $total_bs + $iva_bs;
 						@endphp
             <tr class="flex flex-col lg:table-row even:bg-gray-200">

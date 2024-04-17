@@ -52,7 +52,7 @@
 			</form>
 		</div>
 
-        <table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
+    <table class="my-3 w-full rounded-lg overflow-hidden shadow-md">
 			<thead>
 				<tr class="hidden lg:table-row bg-cdsolec-green-dark text-white text-sm leading-4 uppercase tracking-wider">
 					<th style="width: 120px" class="px-3 py-3 font-medium text-center">
@@ -76,75 +76,75 @@
 				</tr>
 			</thead>
 			@if ($budgets->isNotEmpty())
-                <tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
-                    @foreach($budgets as $budget)
-                        @php
-                            $total_bs = $budget->total_ht * $budget->multicurrency_tx;
-                            $iva_bs = $budget->tva * $budget->multicurrency_tx;
-                            $total_bs = $total_bs + $iva_bs;
-                        @endphp
-                        <tr class="flex flex-col lg:table-row even:bg-gray-200">
-                            <td class="flex flex-row lg:table-cell">
-                                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-                                    REF
-                                </div>
-                                <div class="p-2 text-center text-sm font-bold">
-                                    {{ $budget->ref }}
-                                </div>
-                            </td>
-                            <td class="flex flex-row lg:table-cell">
-                                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-                                    Nombre
-                                </div>
-                                <div class="p-2">
-                                    {{ $budget->ref_client }}
-                                </div>
-                            </td>
-                            <td class="flex flex-row lg:table-cell">
-                                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-                                    Total
-                                </div>
-                                <div class="p-2 lg:text-right font-bold">
-                                    <p>Bs {{ number_format($total_bs, 2, ',', '.') }}</p>
-                                    <p>$USD {{ number_format($budget->total, 2, ',', '.') }}</p>
-                                </div>
-                            </td>
-                            <td class="flex flex-row lg:table-cell">
-                                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-                                    Estatus
-                                </div>
-                                <div class="p-2 text-center">
-                                    {{ $budget->status }}
-                                </div>
-                            </td>
-                            <td class="flex flex-row lg:table-cell">
-                                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-                                    Fecha
-                                </div>
-                                <div class="p-2 text-center">
-                                    {{ $budget->datec->format('d/m/Y') }}
-                                </div>
-                            </td>
-                            <td class="flex flex-row lg:table-cell">
-                                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
-                                    Opciones
-                                </div>
-                                <div class="p-2 text-center">
-                                    <a href="{{ route('cart.reload', ['type' => 'budget', 'id' => $budget->rowid]) }}" title="Recargar Presupuesto" alt="Recargar Presupuesto" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-yellow-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
-                                        <i class="fas fa-sm fa-fw fa-shopping-cart"></i>
-                                    </a>
-                                    <a href="{{ route('budgets.pdf', $budget) }}" title="Imprimir PDF" alt="Imprimir PDF" target="_blank" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-red-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
-                                        <i class="far fa-sm fa-fw fa-file-pdf"></i>
-                                    </a>
-                                    <a href="{{ route('budgets.show', $budget) }}" title="Detalles" alt="Detalles" class="p-2 inline-block rounded-md font-semibold uppercase text-xl text-blue-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
-                                        <i class="fas fa-sm fa-fw fa-file"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            @endif
+        <tbody class="w-full flex-1 sm:flex-none bg-white divide-y divide-gray-400 text-sm leading-5">
+          @foreach($budgets as $budget)
+            @php
+              $total_bs = $budget->total_ht * $budget->multicurrency_tx;
+              $iva_bs = $budget->total_tva * $budget->multicurrency_tx;
+              $total_bs = $total_bs + $iva_bs;
+            @endphp
+            <tr class="flex flex-col lg:table-row even:bg-gray-200">
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  REF
+                </div>
+                <div class="p-2 text-center text-sm font-bold">
+                  {{ $budget->ref }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Nombre
+                </div>
+                <div class="p-2">
+                  {{ $budget->ref_client }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Total
+                </div>
+                <div class="p-2 lg:text-right font-bold">
+                  <p>Bs {{ number_format($total_bs, 2, ',', '.') }}</p>
+                  <p>$USD {{ number_format($budget->total_ttc, 2, ',', '.') }}</p>
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Estatus
+                </div>
+                <div class="p-2 text-center">
+                  {{ $budget->status }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Fecha
+                </div>
+                <div class="p-2 text-center">
+                  {{ $budget->datec->format('d/m/Y') }}
+                </div>
+              </td>
+              <td class="flex flex-row lg:table-cell">
+                <div class="p-2 w-32 lg:hidden bg-cdsolec-green-dark font-medium text-white text-sm leading-4 uppercase tracking-wider">
+                  Opciones
+                </div>
+                <div class="p-2 text-center">
+                  <a href="{{ route('cart.reload', ['type' => 'budget', 'id' => $budget->rowid]) }}" title="Recargar Presupuesto" alt="Recargar Presupuesto" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-yellow-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-shopping-cart"></i>
+                  </a>
+                  <a href="{{ route('budgets.pdf', $budget) }}" title="Imprimir PDF" alt="Imprimir PDF" target="_blank" class="mr-1 p-2 inline-block rounded-md font-semibold uppercase text-xl text-red-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="far fa-sm fa-fw fa-file-pdf"></i>
+                  </a>
+                  <a href="{{ route('budgets.show', $budget) }}" title="Detalles" alt="Detalles" class="p-2 inline-block rounded-md font-semibold uppercase text-xl text-blue-600 bg-gray-300 hover:bg-gray-400 tracking-wider transition">
+                    <i class="fas fa-sm fa-fw fa-file"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      @endif
 		</table>
 
 		{{ $budgets->links() }}

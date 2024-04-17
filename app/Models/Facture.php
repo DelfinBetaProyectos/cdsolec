@@ -42,7 +42,7 @@ class Facture extends Model
   protected $fillable = [
     'ref', 'entity', 'ref_ext', 'ref_int', 'ref_client', 'type', 'fk_soc', 'datec', 'datef', 
     'date_pointoftax', 'date_valid', 'tms', 'date_closing', 'paye', 'remise_percent', 'remise_absolue', 
-    'remise', 'close_code', 'close_note', 'tva', 'localtax1', 'localtaxt2', 'revenuestamp', 'total', 
+    'remise', 'close_code', 'close_note', 'total_tva', 'localtax1', 'localtaxt2', 'revenuestamp', 'total_ht', 
     'total_ttc', 'fk_statut', 'fk_user_author', 'fk_user_modif', 'fk_user_valid', 'fk_user_closing', 
     'module_source', 'pop_source', 'fk_fac_rec_source', 'fk_facture_source', 'fk_project', 'increment', 
     'fk_account', 'fk_currency', 'fk_cond_reglement', 'fk_mode_reglement', 'date_lim_reglement', 

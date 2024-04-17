@@ -104,7 +104,7 @@
           </td>
         </tr>
         @php
-          $iva_bs = $propal->tva * $propal->multicurrency_tx;
+          $iva_bs = $propal->total_tva * $propal->multicurrency_tx;
         @endphp
         <tr style="background-color: #D7D4E1;">
           <td colspan="3" style="border: 1px solid #000000; padding: .5em; text-align: right;">
@@ -112,7 +112,7 @@
           </td>
           <td style="border: 1px solid #000000; padding: .5em; text-align: right;">
             <p>Bs {{ number_format($iva_bs, 2, ',', '.') }}</p>
-            <p>$USD {{ number_format($propal->tva, 2, ',', '.') }}</p>
+            <p>$USD {{ number_format($propal->total_tva, 2, ',', '.') }}</p>
           </td>
         </tr>
         @php
@@ -124,7 +124,7 @@
           </td>
           <td style="border: 1px solid #000000; padding: .5em; text-align: right;">
             <p><strong>Bs {{ number_format($total_bs, 2, ',', '.') }}</strong></p>
-            <p><strong>$USD {{ number_format($propal->total, 2, ',', '.') }}</strong></p>
+            <p><strong>$USD {{ number_format($propal->total_ttc, 2, ',', '.') }}</strong></p>
           </td>
         </tr>
       </tbody>
