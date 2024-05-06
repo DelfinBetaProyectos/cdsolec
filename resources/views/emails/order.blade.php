@@ -3,6 +3,11 @@
 
 Hemos recibido su compra con los siguientes datos:
 
+**Cliente:** {{ $commande->society->nom }}<br />
+**RIF:** {{ $commande->society->siren }}<br />
+**Tlf:** {{ $commande->society->phone }}<br />
+**Email:** {{ $commande->society->email }}
+
 @component('mail::table')
 | Producto | Cantidad | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Precio | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subtotal |
 | -------- | --------:| -------------------------:| -------------------------:|
