@@ -86,7 +86,7 @@
 							@if (pathinfo($document->filename, PATHINFO_EXTENSION) == 'pdf')
 								<p>
 									<a href="{{ '/storage/produit/'.$product->ref.'/'.$document->filename }}" target="_blank">
-										<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> Descargar PDF
+										<img class="h-5 w-5 inline" src="{{ asset('img/pdf.png') }}" alt="Datasheet" title="Datasheet" /> {{ $document->filename }}
 									</a>
 								</p>
 							@endif

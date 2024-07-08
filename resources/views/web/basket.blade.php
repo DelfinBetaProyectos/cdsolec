@@ -28,7 +28,7 @@
 				<x-jet-validation-errors class="mb-4" />
 			</div>
 
-			@if (session()->has('basket'))
+			@if (session()->has('basket') && (count($basket) > 0))
 				<div class="w-full py-3 mb-3" id="table">
 					<table class="my-2 w-full rounded-lg overflow-hidden bg-white border-collapse border border-green-800">
 						<thead class="border bg-gray-300">

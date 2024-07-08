@@ -28,7 +28,7 @@
 				<x-jet-validation-errors class="mb-4" />
 			</div>
 
-			@if (session()->has('cart'))
+			@if (session()->has('cart') && (count($cart) > 0))
 				@php
 					$total = ['bs' => 0, 'usd' => 0];
 					$iva = ['bs' => 0, 'usd' => 0];

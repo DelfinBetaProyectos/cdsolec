@@ -169,7 +169,7 @@
 								</td>
 							</tr>
 							@php
-								$iva_bs = $commande->tva * $commande->multicurrency_tx;
+								$iva_bs = $commande->total_tva * $commande->multicurrency_tx;
 							@endphp
 							<tr class="flex flex-col lg:table-row bg-gray-300">
 								<td colspan="3" class="flex flex-row lg:table-cell border-2">
@@ -194,7 +194,7 @@
 										<p>
 											$USD 
 											<span id="iva_usd">
-												{{ number_format($commande->tva, 2, ',', '.') }}
+												{{ number_format($commande->total_tva, 2, ',', '.') }}
 											</span>
 										</p>
 									</div>
